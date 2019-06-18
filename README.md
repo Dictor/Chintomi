@@ -1,5 +1,6 @@
 # Chintomi
 **Chintomi : The Web Comicbook Viewer**
+
 Chintomi(친토미)는 PHP 기반의 웹서버에 설치하여 서버의 만화책 리소스를 웹으로 감상할 수 있는 만화책 뷰어입니다.
 
 ## 기능
