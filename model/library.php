@@ -7,7 +7,7 @@
 			$validbooks = self::ExploreDirectory();
 			$dbbooks = mdl_book::GetAllBooks();
 			foreach(array_diff($validbooks, $dbbooks) as $nowadd) {
-				mdl_book::AddBook(new Comicbook(array_pop(explode('\\', $nowadd)), $nowadd));
+				mdl_book::AddBook(new Comicbook(NULL, $nowadd, array_pop(explode('\\', $nowadd)), ""));
 			}
 			foreach(array_diff($dbbooks, $validbooks) as $nowdel) {
 				mdl_book::DeleteBookByPath($nowdel);
