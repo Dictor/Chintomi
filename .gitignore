@@ -1,0 +1,3 @@
+*.db
+goorm.manifest
+data/
