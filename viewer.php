@@ -18,7 +18,18 @@
 		<div class="container">
 			<?php
 				require_once 'controller/ctr_viewer.php';
-				ctr_viewer::ShowImage($_GET['book_id'], $_GET['page']);
+				
+				if(empty($_GET['book_id']) or !is_numeric($_GET['book_id'])) {
+					echo '400 Not Valid Parameter';
+				} else {
+					if (empty($_GET['page'])) {
+						ctr_viewer::ShowImage($_GET['book_id'], '1');
+					} else if (!is_numeric($_GET['page'])) {
+						echo '400 Not Valid Parameter';
+					} else {
+						ctr_viewer::ShowImage($_GET['book_id'], $_GET['page']);
+					}
+				}
 			?>
 		</div>
 	</body>

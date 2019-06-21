@@ -24,11 +24,7 @@
 				require_once 'model/mdl_book.php';
 				require_once 'model/library.php';
 				
-				$res = mdl_book::InitSqlite();
-				if ($res != 0){
-					echo "DB Error : ".$res;
-					return;
-				}
+				if(!mdl_book::InitSqlite()) return;
 				library::UpdateLibrary();
 				ctr_list::DisplayBooks(mdl_book::GetAllBooks());
 				mdl_book::CloseSqlite();

@@ -5,11 +5,7 @@
 	require_once 'model/mdl_book.php';
 	require_once 'model/library.php';
 
-	$res = mdl_book::InitSqlite();
-	if ($res != 0){
-		echo "DB Error : ".$res;
-		return;
-	}
+	if(!mdl_book::InitSqlite()) return;
 	$res = mdl_book::SearchBook($_GET['book_id']);
 	mdl_book::CloseSqlite();
 	if (count($res) == 0) {

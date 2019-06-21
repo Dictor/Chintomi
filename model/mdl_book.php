@@ -7,7 +7,6 @@
 
 	class mdl_book {
 		private static $currentDB = NULL;
-		private static $isconnected = FALSE;
 		
 		public static function InitSqlite() {
 			if(!is_file(Config::sqlitePath)){
@@ -19,16 +18,15 @@
 			$db = new SQLite3(Config::sqlitePath);
 			self::$currentDB = $db;
 			if($db->lastErrorCode() != 0){
-				self::$isconnected = TRUE;
+				echo "DB Error : ".$db->lastErrorCode();
+				return FALSE;
 			} else {
-				self::$isconnected = FALSE;
+				return TRUE;
 			}
-			return $db->lastErrorCode();
 		}
 		
 		public static function CloseSqlite() {
 			self::$currentDB->close();
-			self::$isconnected = FALSE;
 		}
 		
 		public static function GetAllBooks() {
