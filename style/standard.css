@@ -20,6 +20,21 @@ body {
 	left: 0;
 }
 
+.viewer {
+	background-color: gray;
+}
+
+.book-info {
+	position: absolute;
+    width: 5rem;
+    background-color: black;
+    color: white;
+    height: 2rem;
+    text-align: center;
+    top: 10px;
+    left: 10px;
+}
+
 .login-box {
 	width: 300px;
 	height: 120px;
