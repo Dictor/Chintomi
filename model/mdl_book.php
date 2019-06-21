@@ -1,8 +1,8 @@
-<!--
-<SQLite DB>
-TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT)  
--->
 <?php
+	/*
+	<SQLite DB>
+	TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT)  
+	*/
 	require_once 'config/config.php';
 
 	class mdl_book {

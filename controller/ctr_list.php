@@ -1,6 +1,4 @@
 <?php
-	require_once 'config/config.php';
-	
 	class ctr_list {
 		public static function DisplayDirectory(array $pathlist) {
 			foreach($pathlist as $nowpath) {

@@ -41,7 +41,7 @@
 			return $res;
 		}
 		
-		private static function GetEntry(string $path) {
+		public static function GetEntry(string $path) {
 			$handle = opendir($path);
 			$rtnval = array();
 

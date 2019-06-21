@@ -4,21 +4,27 @@
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
 	require_once 'model/library.php';
-	
-	//header('Content-Type: image/'.$_GET['ext']); 
+
+	$res = mdl_book::InitSqlite();
+	if ($res != 0){
+		echo "DB Error : ".$res;
+		return;
+	}
 	$res = mdl_book::SearchBook($_GET['book_id']);
+	mdl_book::CloseSqlite();
 	if (count($res) == 0) {
 		//검색 결과 없음
 		echo "404";
 	} else {
-		$pages = library::GetEntry($res->book_path);
-		echo GetImageBinary($pages[$_GET['page']]);
+		$pages = library::GetEntry($res[0]->path);
+		SendImageBinary($pages[$_GET['page'] - 1]);
 	}
 	
-	function GetImageBinary($path) {
-		$fp = fopen($file_path, 'r');
-		$arr = fread($fp, filesize($file_path));
+	function SendImageBinary($path) {
+		header('Content-Type: image/'.pathinfo($path)['extension']);
+		header("Content-Length: " . filesize($path));
+		$fp = fopen($path, 'r');
+		fpassthru($fp);
 		fclose($fp);
-		return $arr; 
 	}
 ?>
