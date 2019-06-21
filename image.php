@@ -14,14 +14,14 @@
 	mdl_book::CloseSqlite();
 	if (count($res) == 0) {
 		//검색 결과 없음
-		echo "404";
+		SendImageBinary(config::notFoundimgPath);
 	} else {
 		$pages = library::GetEntry($res[0]->path);
 		sort($pages);
-		if(count($page) >= (int)$_GET['page'] and (int)$_GET['page'] >= 1){
+		if((count($pages) >= (int)$_GET['page']) and ((int)$_GET['page'] >= 1)){
 			SendImageBinary($pages[$_GET['page'] - 1]);
 		} else {
-			echo "404";
+			SendImageBinary(config::notFoundimgPath);
 		}
 	}
 	
