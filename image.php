@@ -18,7 +18,7 @@
 	} else {
 		$pages = library::GetEntry($res[0]->path);
 		sort($pages);
-		if(array_key_exists($_GET['page'] - 1 ,$pages)){
+		if(count($page) >= (int)$_GET['page'] and (int)$_GET['page'] >= 1){
 			SendImageBinary($pages[$_GET['page'] - 1]);
 		} else {
 			echo "404";
