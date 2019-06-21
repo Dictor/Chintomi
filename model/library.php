@@ -45,11 +45,10 @@
 			$handle = opendir($path);
 			$rtnval = array();
 
-			while ($filename = readdir($handle)) {
-				if($filename == '.' || $filename == '..') continue;
-				$filepath = $path."/".$filename;
-				
-				$rtnval[] = $filepath;
+			while ($entryname = readdir($handle)) {
+				if($entryname == '.' || $entryname == '..') continue;
+				$entryname = $path."/".$entryname;
+				if(is_dir($entryname) or self::isAllowedExt($entryname)) $rtnval[] = $entryname;
 			}
 			closedir($handle);
 			return $rtnval;

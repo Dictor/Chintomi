@@ -17,7 +17,12 @@
 		echo "404";
 	} else {
 		$pages = library::GetEntry($res[0]->path);
-		SendImageBinary($pages[$_GET['page'] - 1]);
+		sort($pages);
+		if(array_key_exists($_GET['page'] - 1 ,$pages)){
+			SendImageBinary($pages[$_GET['page'] - 1]);
+		} else {
+			echo "404";
+		}
 	}
 	
 	function SendImageBinary($path) {

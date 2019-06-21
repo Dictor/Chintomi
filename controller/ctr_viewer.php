@@ -4,9 +4,9 @@
 	class ctr_viewer {
 		public static function ShowImage(string $bookid, $pagenum) {
 			if(is_null($pagenum)){
-				echo '<img src=./image.php?book_id='.$bookid.'&page=1>';
+				echo '<img class="filled-image" onclick="./viewer.php?book_id='.$bookid.'&page=2" src="./image.php?book_id='.$bookid.'&page=1">';
 			} else {
-				echo '<img src=./image.php?book_id='.$bookid.'&page='.$pagenum.'>';
+				echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.($pagenum + 1).'" src=./image.php?book_id='.$bookid.'&page='.$pagenum.'>';
 			}
 		}	
 	}
