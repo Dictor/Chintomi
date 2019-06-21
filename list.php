@@ -21,6 +21,7 @@
 				require_once 'controller/ctr_list.php';
 				require_once 'model/mdl_book.php';
 				require_once 'model/library.php';
+				
 				$res = mdl_book::InitSqlite();
 				if ($res != 0){
 					echo "DB Error : ".$res;

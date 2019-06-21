@@ -4,15 +4,17 @@
 
 	class library {
 		public static function UpdateLibrary() {
-			$validbooks = self::ExploreDirectory();
+			$validpaths = self::ExploreDirectory();
 			$dbbooks = mdl_book::GetAllBooks();
-			var_dump($validbooks);
-			var_dump($dbbooks);
-
-			foreach(array_diff($validbooks, $dbbooks) as $nowadd) {
-				mdl_book::AddBook(new Comicbook(NULL, $nowadd, array_pop(explode('\\', $nowadd)), ""));
+			$dbpaths = array();
+			foreach($dbbooks as $nowbook) {
+				$dbpaths[] = $nowbook->path;
 			}
-			foreach(array_diff($dbbooks, $validbooks) as $nowdel) {
+
+			foreach(array_diff($validpaths, $dbpaths) as $nowadd) {
+				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end(explode('/',$nowadd)), ""));
+			}
+			foreach(array_diff($dbpaths, $validpaths) as $nowdel) {
 				mdl_book::DeleteBookByPath($nowdel);
 			}
 		}
@@ -45,15 +47,16 @@
 
 			while ($filename = readdir($handle)) {
 				if($filename == '.' || $filename == '..') continue;
-				$filepath = Config::dataPath.$filename;
-				$rtnval[] = $filename;
+				$filepath = $path."/".$filename;
+				
+				$rtnval[] = $filepath;
 			}
 			closedir($handle);
 			return $rtnval;
 		}
 		
 		private static function isAllowedExt(string $path) {
-			$ext = pathinfo($nowentry)['extension'];
+			$ext = pathinfo($path)['extension'];
 			$res = FALSE;
 			foreach(Config::allowedExt as $nowext) {
 				if ($nowext == $ext) $res = TRUE;
