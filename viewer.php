@@ -24,12 +24,10 @@
 				} else {
 					if (empty($_GET['page'])) {
 						ctr_viewer::ShowImage($_GET['book_id'], '1');
-						ctr_viewer::ShowInfo($_GET['book_id'], '1');
 					} else if (!is_numeric($_GET['page'])) {
 						echo '400 Not Valid Parameter';
 					} else {
 						ctr_viewer::ShowImage($_GET['book_id'], $_GET['page']);
-						ctr_viewer::ShowInfo($_GET['book_id'], $_GET['page']);
 					}
 				}
 			?>
