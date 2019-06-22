@@ -26,13 +26,19 @@ body {
 
 .book-info {
 	position: absolute;
-    width: 5rem;
-    background-color: black;
-    color: white;
-    height: 2rem;
-    text-align: center;
-    top: 10px;
-    left: 10px;
+  width: 5rem;
+  background-color: black;
+  color: white;
+  height: 2rem;
+  text-align: center;
+  top: 10px;
+  left: 10px;
+  transition: opacity ease 1s 0s;
+  opacity: 0.2;
+}
+
+.book-info:hover {
+	opacity: 1;
 }
 
 .login-box {
