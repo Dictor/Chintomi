@@ -1,16 +1,16 @@
 <?php
     interface handler {
-		public function Open($path);
-		public function Close();
-		public function Execute(string $preQuery, array $parameter);
-		public function Query(string $preQuery, array $parameter);
-		public function ResultToComicbook($res);
+		public static function Open($path);
+		public static function Close();
+		public static function Execute(string $preQuery, array $parameter);
+		public static function Query(string $preQuery, array $parameter);
+		public static function ResultToComicbook($res);
 	}
 	
 	class hndSQLite implements handler{
 		private static $currentDB;
 		
-		public function Open($path) {
+		public static function Open($path) {
 			if(!is_file($path)){
 				$db = new SQLite3($path);
 				$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
@@ -22,21 +22,21 @@
 			return $db->lastErrorCode();
 		}
 		
-		public function Close() {
+		public static function Close() {
 			self::$currentDB->close();
 		}
 		
-		public function Execute(string $preQuery, array $parameter) {
+		public static function Execute(string $preQuery, array $parameter) {
 			$state = self::$currentDB->prepare($preQuery);
 			$state->execute($parameter);
 		}
 		
-		public function Query(string $preQuery, array $parameter) {
+		public static function Query(string $preQuery, array $parameter) {
 			$state = self::$currentDB->prepare($preQuery);
 			return $state->query($parameter);
 		}
 		
-		public function ResultToComicbook($res) {
+		public static function ResultToComicbook($res) {
 			$arr = array();
 			while ($nowrow = $res->fetchArray()) {
 				$arr[]=new Comicbook($nowrow['book_id'], $nowrow['book_path'], $nowrow['book_name'], $nowrow['book_author']);
