@@ -22,15 +22,15 @@
 		}
 		
 		public static function AddBook(Comicbook $book) {
-			hndSQLite::Execute('INSERT INTO comicbook (book_path, book_name, book_author) VALUES (?, ?, ?)', array($book->path, $book->name, $book->author));
+			return hndSQLite::Execute('INSERT INTO comicbook (book_path, book_name, book_author) VALUES (?, ?, ?)', array($book->path, $book->name, $book->author));
 		}
 		
 		public static function DeleteBook(Comicbook $book) {
-			hndSQLite::Execute('DELETE FROM comicbook WHERE book_id=?', array($book->$id));
+			return hndSQLite::Execute('DELETE FROM comicbook WHERE book_id=?', array($book->$id));
 		}
 		
 		public static function DeleteBookByPath(string $path) {
-			hndSQLite::Execute('DELETE FROM comicbook WHERE name=?', array($path));
+			return hndSQLite::Execute('DELETE FROM comicbook WHERE name=?', array($path));
 		}
 		
 		public static function SearchBook(string $id) {
