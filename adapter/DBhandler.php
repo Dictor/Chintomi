@@ -9,6 +9,7 @@
 	
 	class hndSQLite implements handler{
 		private static $currentDB;
+		private static $isOpen = FALSE;
 		
 		public static function Open($path) {
 			if(!is_file($path)){
@@ -17,9 +18,12 @@
 				$db->close();
 			}
 			
-			$db = new SQLite3($path);
-			self::$currentDB = $db;
-			return $db->lastErrorCode();
+			if(!self::$isOpen){
+				$db = new SQLite3($path);
+				self::$currentDB = $db;
+				if ($db->lastErrorCode()) self::$isOpen = TRUE;
+				return $db->lastErrorCode();	
+			}
 		}
 		
 		public static function Close() {
