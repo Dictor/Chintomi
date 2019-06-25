@@ -21,8 +21,10 @@
 			if(!self::$isOpen){
 				$db = new SQLite3($path);
 				self::$currentDB = $db;
-				if ($db->lastErrorCode()) self::$isOpen = TRUE;
+				if ($db->lastErrorCode() == 0) self::$isOpen = TRUE;
 				return $db->lastErrorCode();	
+			} else {
+				return 0;
 			}
 		}
 		
@@ -32,7 +34,7 @@
 		
 		public static function Execute(string $preQuery, array $parameter) {
 			$state = self::$currentDB->prepare($preQuery);
-			$state->execute($parameter);
+			return $state->execute($parameter);
 		}
 		
 		public static function Query(string $preQuery, array $parameter) {
