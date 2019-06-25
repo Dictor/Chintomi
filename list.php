@@ -21,13 +21,7 @@
 		<div class="list-group">
 			<?php
 				require_once 'controller/ctr_list.php';
-				require_once 'model/mdl_book.php';
-				require_once 'model/library.php';
-				
-				if(!mdl_book::InitSqlite()) return;
-				library::UpdateLibrary();
-				ctr_list::DisplayBooks(mdl_book::GetAllBooks());
-				mdl_book::CloseSqlite();
+				if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res);
 			?>
 		</div>
 	</body>
