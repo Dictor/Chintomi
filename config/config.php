@@ -1,22 +1,22 @@
 <?php
 	class Config {
 		/*
-		[Path Setting]
-		dataPath :	Path of Comicbook directory
-		sqlitePath :	Path of sqlite DB file
-		allowedExt :	Extension of allowed image file
+		[FILE SETTING]
+		PATH_COMICBOOK		: Path of Comicbook directory
+		PATH_SQLITE 		: Path of sqlite DB file
+		ALLOWED_EXTENSION	: Extension of allowed image file
 		*/
-		const dataPath = "/home/ubuntu/environment/Chintomi/data";
-		const sqlitePath = "/home/ubuntu/environment/Chintomi/model/chintomi.db";
-		const allowedExt = array("jpg", "jpeg", "png", "bmp", "gif");
+		const PATH_COMICBOOK = "/home/ubuntu/environment/Chintomi/data";
+		const PATH_SQLITE = "/home/ubuntu/environment/Chintomi/model/chintomi.db";
+		const ALLOWED_EXTENSION = array("jpg", "jpeg", "png", "bmp", "gif");
 		
 		/*
-		[Image Resize Setting]
-		resizeImage :	TRUE = Enable resizing when image's longer length is over resizeImageSize
-						FALSE = Disable resizing
-		resizeImageSize :	Set threshold size of resizing 
+		[IMAGE RESIZE SETTING]
+		RESIZEIMG_ENABLE	: TRUE = Enable resizing when image's longer length is over resizeImageSize
+							  FALSE = Disable resizing
+		RESIZEIMG_THRESHOLD : Set threshold size of resizing 
 		*/
-		const resizeImage = TRUE;
-		const resizeImageSize = 1200;
+		const RESIZEIMG_ENABLE= TRUE;
+		const RESIZEIMG_THRESHOLD = 1200;
 	}
 ?>

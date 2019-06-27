@@ -23,7 +23,7 @@
 			$res = array();
 			$q = new \Ds\Queue();
 			
-			$q->push(Config::dataPath);
+			$q->push(Config::PATH_COMICBOOK);
 			while (!$q->isEmpty()) {
 				$dircnt = $imgcnt = 0;
 				foreach(self::GetEntry($nowpath = $q->pop()) as $nowentry) {
@@ -57,7 +57,7 @@
 		private static function isAllowedExt(string $path) {
 			$ext = pathinfo($path)['extension'];
 			$res = FALSE;
-			foreach(Config::allowedExt as $nowext) {
+			foreach(Config::ALLOWED_EXTENSION as $nowext) {
 				if ($nowext == $ext) $res = TRUE;
 			}
 			return $res;

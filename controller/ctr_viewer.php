@@ -48,9 +48,9 @@
 		}
 		
 		private static function MakeBase64Image($path){
-			if (config::resizeImage and (getimagesize($path)[0] > config::resizeImageSize or getimagesize($path)[1] > config::resizeImageSize)){
+			if (config::RESIZEIMG_ENABLE and (getimagesize($path)[0] > config::RESIZEIMG_THRESHOLD or getimagesize($path)[1] > config::RESIZEIMG_THRESHOLD)){
 				$image = new ImageResize($path);
-				$image->resizeToLongSide(config::resizeImageSize);
+				$image->resizeToLongSide(config::RESIZEIMG_THRESHOLD);
 				self::$lastResized = TRUE;
 				return 'data:image/'.pathinfo($path)['extension'].';base64,'.base64_encode($image->getImageAsString());
 			} else {

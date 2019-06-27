@@ -3,7 +3,6 @@
 	<SQLite DB>
 	TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT)  
 	*/
-	require_once 'config/config.php';
 	require_once 'adapter/DBhandler.php';
 
 	class Comicbook {
