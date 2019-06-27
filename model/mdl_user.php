@@ -1,9 +1,4 @@
 <?php
-    /*
-        CHAR(20) user_name PRIMARY KEY NOT NULL
-        TEXT user_pass NOT NULL
-        INTEGER user_permission NOT NULL
-    */
     require_once 'adapter/DBhandler.php';
     require_once 'adapter/library.php';
     
