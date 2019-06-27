@@ -15,6 +15,7 @@
 			if(!is_file($path)){
 				$db = new SQLite3($path);
 				$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
+				$db->exec('CREATE TABLE user(user_name TEXT PRIMARY KEY NOT NULL, user_pass TEXT NOT NULL, user_permission INTEGER NOT NULL);');
 				$db->close();
 			}
 			
@@ -39,7 +40,10 @@
 		
 		public static function Query(string $preQuery, array $parameter) {
 			$state = self::$currentDB->prepare($preQuery);
-			return $state->query($parameter);
+			foreach($parameter as $nowkey => $nowval) {
+				$state->bindValue($nowkey, $nowval);
+			}
+			return $state->execute();
 		}
 		
 		public static function ResultToComicbook($res) {
