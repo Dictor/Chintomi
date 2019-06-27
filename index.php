@@ -16,20 +16,25 @@
 	</head>
 	
 	<body>
-		<div class="login-box">
-			<span colspan=2 class="login-box-title">Chintomi</span>
-			<table class="login-box-input">
-				<tr>
-					<td><input class="form-control form-control-sm" type="text" placeholder="아이디"></td>
-					<td rowspan=2><button type="button" class="btn btn-primary">로그인</button></td>
-				</tr>
-				<tr>
-					<td><input class="form-control form-control-sm" type="password" placeholder="비밀번호"><td>
-				</tr>
-			</table>
-		</div>
 		<?php
-			//phpinfo();
+			require_once 'controller/ctr_index.php';
+			session_start();
+		
+			ctr_index::CheckUser((array_key_exists('uname', $_SESSION) ? $_SESSION['uname'] : NULL), (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL), (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL));
 		?>
+		<form action="/" method="post">
+			<div class="login-box">
+				<span colspan=2 class="login-box-title">Chintomi</span>
+				<table class="login-box-input">
+					<tr>
+						<td><input name="uname" class="form-control form-control-sm" type="text" placeholder="아이디"></td>
+						<td rowspan=2><button type="submit" class="btn btn-primary">로그인</button></td>
+					</tr>
+					<tr>
+						<td><input name="upass" class="form-control form-control-sm" type="password" placeholder="비밀번호"><td>
+					</tr>
+				</table>
+			</div>
+		</form>
 	</body>
 </html>
