@@ -4,6 +4,7 @@
 		public static function Close();
 		public static function Execute(string $preQuery, array $parameter);
 		public static function Query(string $preQuery, array $parameter);
+		public static function ResultToArray($res);
 		public static function ResultToComicbook($res);
 	}
 	
@@ -34,16 +35,24 @@
 		}
 		
 		public static function Execute(string $preQuery, array $parameter) {
-			$state = self::$currentDB->prepare($preQuery);
-			return $state->execute($parameter);
+			return self::Query($preQuery, $parameter);
 		}
 		
 		public static function Query(string $preQuery, array $parameter) {
 			$state = self::$currentDB->prepare($preQuery);
+			if($state == FALSE) return FALSE;
 			foreach($parameter as $nowkey => $nowval) {
 				$state->bindValue($nowkey, $nowval);
 			}
 			return $state->execute();
+		}
+		
+		public static function ResultToArray($res) {
+			$arr = array();
+			while ($nowrow = $res->fetchArray(SQLITE3_ASSOC)){
+				if($nowrow != FALSE) $arr[] = $nowrow;
+			}
+			return $arr;
 		}
 		
 		public static function ResultToComicbook($res) {
