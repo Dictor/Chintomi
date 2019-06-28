@@ -10,7 +10,6 @@
 			foreach($dbbooks as $nowbook) {
 				$dbpaths[] = $nowbook->path;
 			}
-
 			foreach(array_diff($validpaths, $dbpaths) as $nowadd) {
 				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end(explode('/',$nowadd)), ""));
 			}

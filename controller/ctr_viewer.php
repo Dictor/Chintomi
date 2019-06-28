@@ -1,7 +1,7 @@
 <?php
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
-	require_once 'model/library.php';
+	require_once 'adapter/library.php';
 	require_once 'library/ImageResize.php';
 	use \Gumlet\ImageResize;
 
@@ -12,9 +12,8 @@
 			if(empty($pagenum) or is_int($pagenum)){
 				echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page=2" src=./image.php?book_id='.$bookid.'&page=1>';
 			} else {
-				if(!mdl_book::InitSqlite()) return;
+				if(mdl_book::UseDB() != 0) return;
 				$res = mdl_book::SearchBook($bookid);
-				mdl_book::CloseSqlite();
 				if (count($res) == 0) {
 					echo '404 Not Found';
 				} else {

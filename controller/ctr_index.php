@@ -10,7 +10,7 @@
 					//최초 접속 (아무것도 처리하지 않음)
 				} else {
 					if (mdl_user::CheckPassword($user_name, $user_pass)) {
-					    $SESSION['uname'] = $user_name;
+					    $sess_uname = $user_name;
 					    echo '<script>location.href="./list.php";</script>';
 					} else {
 					    echo '<script>alert("일치하는 자격증명이 없습니다!");</script>';

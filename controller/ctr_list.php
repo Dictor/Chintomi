@@ -5,7 +5,7 @@
 
 	class ctr_list {
 		public static function GetBooks() {
-			if(hndSQLite::Open(Config::PATH_SQLITE) == 0){
+			if(mdl_book::UseDB() == 0){
 				library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
 				return mdl_book::GetAllBooks();
 			} else {
