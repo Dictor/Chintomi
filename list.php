@@ -21,7 +21,12 @@
 		<div class="list-group">
 			<?php
 				require_once 'controller/ctr_list.php';
-				if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res);
+				session_start();
+				if(!array_key_exists('uname', $_SESSION)){
+					echo('403 Forbidden');
+				} else {
+					if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res);
+				}
 			?>
 		</div>
 	</body>

@@ -19,7 +19,7 @@
 		<?php
 			require_once 'controller/ctr_index.php';
 			session_start();
-			ctr_index::CheckUser((array_key_exists('uname', $_SESSION) ? $_SESSION['uname'] : NULL), (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL), (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL));
+			ctr_index::CheckUser((array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL), (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL));
 		?>
 		<form action="/" method="post">
 			<div class="login-box">

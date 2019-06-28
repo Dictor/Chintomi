@@ -35,5 +35,14 @@
         public static function MakeAdmin($uname, $upass) {
             return hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => 999));
         }
+        
+        public static function GetPermission($uname) {
+            $res = hndSQLite::ResultToArray(hndSQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $uname)));
+            if(is_null($res) or count($res) == 0){
+                return FALSE;
+            } else {
+                return (int)$res[0]['user_permission'];
+            }
+        }
     }
 ?>
