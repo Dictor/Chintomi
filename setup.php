@@ -16,22 +16,23 @@
 	</head>
 	<body>
 	    <?php
-            require_once 'adapter/DBhandler.php';
-            require_once 'config/config.php';
+            require_once 'model/mdl_user.php';
         
-            if (hndSQLite::Open(config::PATH_SQLITE) != 0) {
-                echo 'DB Error! (Open)';
+            if (mdl_user::UseDB() != 0) {
+                echo 'DB Error!';
             } else {
-                $res = hndSQLite::Query('SELECT * FROM user WHERE user_permission=:uper', array('uper' => 999));
-                if(is_null($res)) {
-                    echo 'DB Error! (Search)';
-                } else if(count(hndSQLite::ResultToArray($res)) == 0) {
+                if(is_null($has_admin = mdl_user::CheckAdminExist())) {
+                    echo 'DB Error!';
+                } else if(!$has_admin) {
                     if (!is_null($uname = (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL)) and !is_null($upass = (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL))) {
-                        if(hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => 999)) != FALSE) {
-                            echo '<script>alert("설정 완료!");</script>';
+                        if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
+                            echo '<script>alert("설정 완료!"); location.href="./";</script>';
+                        } else {
+                            echo 'DB Error!';
                         }
                     } else {
-                        print <<<SETUPHTML
+                        print 
+<<<SETUPHTML
                         <form action="./setup.php" method="post">
             			<div class="login-box">
             				<span colspan=2 class="login-box-title">Chintomi</span>
