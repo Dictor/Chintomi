@@ -48,11 +48,11 @@
             				<span colspan=2 class="login-box-title">Chintomi 관리자 설정</span>
             				<table class="login-box-input">
             					<tr>
-            						<td><input name="uname" class="form-control form-control-sm" type="text" placeholder="관리자 ID"></td>
-            						<td rowspan=2><button type="submit" class="btn btn-primary">등록</button></td>
+            						<td><input name="uname" class="form-control form-control-sm" type="text" placeholder="관리자 ID" tabindex="1"></td>
+            						<td rowspan=2><button type="submit" class="btn btn-primary" tabindex="3">등록</button></td>
             					</tr>
             					<tr>
-            						<td><input name="upass" class="form-control form-control-sm" type="password" placeholder="관리자 PW"><td>
+            						<td><input name="upass" class="form-control form-control-sm" type="password" placeholder="관리자 PW" tabindex="2"><td>
             					</tr>
             				</table>
             			</div>
