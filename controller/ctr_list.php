@@ -38,7 +38,7 @@
 		}
 		
 		public static function DisplayBooks(array $books) {
-			echo "총 ".count($books)."개의 결과";
+			echo '<p class="list-summary">총 '.count($books).'개의 결과</p>';
 			foreach($books as $nowbook) {
 				print '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">'.$nowbook->name.'</a>';
 			}
