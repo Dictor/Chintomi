@@ -33,7 +33,7 @@
         }
         
         public static function MakeAdmin($uname, $upass) {
-            return hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => 999));
+            if (!self::CheckAdminExist()) return hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => 999));
         }
         
         public static function GetPermission($uname) {
