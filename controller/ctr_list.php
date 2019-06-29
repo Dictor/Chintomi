@@ -1,7 +1,7 @@
 <?php
 	require_once 'model/mdl_book.php';
 	require_once 'model/mdl_user.php';
-	require_once 'adapter/library.php';
+	require_once 'util/library.php';
 
 	class ctr_list {
 		public static function CheckPermission() {

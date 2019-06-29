@@ -1,6 +1,6 @@
 <?php
 	require_once 'config/config.php';
-	require_once 'adapter/DBhandler.php';
+	require_once 'util/DBhandler.php';
 
 	class Comicbook {
 		public $name, $path, $id, $author;

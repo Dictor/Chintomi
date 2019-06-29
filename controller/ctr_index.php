@@ -22,5 +22,10 @@
 				}
 			}
         }
+        
+        public function ShowError(int $errcode, $errdesc){
+        	http_response_code($errcode);
+        
+        }
     }
 ?>

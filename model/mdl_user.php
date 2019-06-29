@@ -1,6 +1,6 @@
 <?php
-    require_once 'adapter/DBhandler.php';
-    require_once 'adapter/library.php';
+    require_once 'util/DBhandler.php';
+    require_once 'util/library.php';
     require_once 'config/config.php';
     
     class mdl_user {
