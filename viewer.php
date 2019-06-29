@@ -19,7 +19,7 @@
 			<?php
 				require_once 'controller/ctr_viewer.php';
 				session_start();
-				if(!array_key_exists('uname', $_SESSION)){
+				if(!ctr_viewer::CheckPermission()){
 					echo('403 Forbidden');
 				} else {
 					if(empty($_GET['book_id']) or !is_numeric($_GET['book_id'])) {

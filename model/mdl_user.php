@@ -1,6 +1,7 @@
 <?php
     require_once 'adapter/DBhandler.php';
     require_once 'adapter/library.php';
+    require_once 'config/config.php';
     
     class mdl_user {
         public static function UseDB() {
@@ -8,7 +9,6 @@
 		}
         
         public static function CheckPassword($userName, $userPass) {
-            hndSQLite::Open(config::PATH_SQLITE);
             $res = hndSQLite::ResultToArray(hndSQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $userName)));
             if (!is_null($res) and count($res) != 0) {
                 if(password_verify($userPass, $res[0]['user_pass'])) {
@@ -22,7 +22,7 @@
         }
         
         public static function CheckAdminExist() {
-            $res = hndSQLite::Query('SELECT * FROM user WHERE user_permission=:uper', array('uper' => 999));
+            $res = hndSQLite::Query('SELECT * FROM user WHERE user_permission=:uper', array('uper' => Config::PERMISSION_LEVEL_ADMIN));
             if(is_null($res)){
                 return NULL;
             } else if (count(hndSQLite::ResultToArray($res)) == 0) {
@@ -33,7 +33,7 @@
         }
         
         public static function MakeAdmin($uname, $upass) {
-            if (!self::CheckAdminExist()) return hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => 999));
+            if (!self::CheckAdminExist()) return hndSQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => Config::PERMISSION_LEVEL_ADMIN));
         }
         
         public static function GetPermission($uname) {

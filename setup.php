@@ -35,7 +35,7 @@
 <<<SETUPHTML
                         <form action="./setup.php" method="post">
             			<div class="login-box">
-            				<span colspan=2 class="login-box-title">Chintomi</span>
+            				<span colspan=2 class="login-box-title">Chintomi 관리자 설정</span>
             				<table class="login-box-input">
             					<tr>
             						<td><input name="uname" class="form-control form-control-sm" type="text" placeholder="관리자 ID"></td>

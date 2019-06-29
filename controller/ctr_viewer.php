@@ -3,10 +3,27 @@
 	require_once 'model/mdl_book.php';
 	require_once 'adapter/library.php';
 	require_once 'library/ImageResize.php';
+	require_once 'model/mdl_user.php';
 	use \Gumlet\ImageResize;
 
 	class ctr_viewer {
 		private static $lastResized = FALSE;
+		
+		public static function CheckPermission() {
+			if (mdl_user::UseDB() != 0) {
+				echo "DB Error!";
+			} else {
+				if (array_key_exists('uname', $_SESSION)) {
+					if (mdl_user::GetPermission($_SESSION['uname']) >= Config::PERMISSION_LEVEL_VIEWER){
+						return TRUE;
+					} else {
+						return FALSE;
+					}
+				} else {
+					return FALSE;
+				}
+			}
+		}
 		
 		public static function ShowImage($bookid, $pagenum) {
 			if(empty($pagenum) or is_int($pagenum)){
