@@ -18,17 +18,18 @@
 		<div class="container">
 			<?php
 				require_once 'controller/ctr_viewer.php';
+				require_once 'util/util.php';
 				session_start();
 				if(!ctr_viewer::CheckPermission()){
-					echo('403 Forbidden');
+					Util::ShowError(403, "No access authority");
 				} else {
 					if(empty($_GET['book_id']) or !is_numeric($_GET['book_id'])) {
-						echo '400 Not Valid Parameter';
+						Util::ShowError(400, "Invalid Parameter");
 					} else {
 						if (empty($_GET['page'])) {
 							ctr_viewer::ShowImage($_GET['book_id'], '1');
 						} else if (!is_numeric($_GET['page'])) {
-							echo '400 Not Valid Parameter';
+							Util::ShowError(400, "Invalid Parameter");
 						} else {
 							ctr_viewer::ShowImage($_GET['book_id'], $_GET['page']);
 						}

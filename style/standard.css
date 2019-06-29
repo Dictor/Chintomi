@@ -78,3 +78,28 @@ body {
 	height: 100%;
 	margin-left: 5px;
 }
+
+.error-box {
+	width: 300px;
+	height: 120px;
+	padding: 5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -60px;
+	background-color: darkred;
+	border-radius: 10px
+}
+
+.error-title {
+		color: lightpink;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.error-desc {
+		text-align: center;
+    color: white;
+}

@@ -1,5 +1,6 @@
 <?php
     require_once 'model/mdl_user.php';
+    require_once 'util/util.php';
 
     class ctr_index {
         public function CheckUser($user_name, $user_pass){
@@ -10,7 +11,7 @@
 					//최초 접속 (아무것도 처리하지 않음)
 				} else {
 					if (mdl_user::UseDB() != 0) {
-						echo "DB Error!";
+						Util::ShowError(500, "DB Error");
 					} else {
 						if (mdl_user::CheckPassword($user_name, $user_pass)) {
 						    $_SESSION['uname'] = $user_name;
@@ -21,11 +22,6 @@
 					}
 				}
 			}
-        }
-        
-        public function ShowError(int $errcode, $errdesc){
-        	http_response_code($errcode);
-        
         }
     }
 ?>

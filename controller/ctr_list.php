@@ -2,11 +2,12 @@
 	require_once 'model/mdl_book.php';
 	require_once 'model/mdl_user.php';
 	require_once 'util/library.php';
+	require_once 'util/util.php';
 
 	class ctr_list {
 		public static function CheckPermission() {
 			if (mdl_user::UseDB() != 0) {
-				echo "DB Error!";
+				Util::ShowError(500, "DB Error");
 			} else {
 				if (array_key_exists('uname', $_SESSION)) {
 					if (mdl_user::GetPermission($_SESSION['uname']) >= Config::PERMISSION_LEVEL_LIST){
@@ -25,7 +26,7 @@
 				library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
 				return mdl_book::GetAllBooks();
 			} else {
-				echo "DB Error!";
+				Util::ShowError(500, "DB Error");
 				return NULL;
 			}
 		}

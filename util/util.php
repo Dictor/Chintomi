@@ -1,11 +1,19 @@
 <?php
     class Util {
-        public static function HTTPCodeToString(){
+        public function ShowError(int $errcode, $errdesc){
+        	http_response_code($errcode);
+        	echo self::GetErrorDivContent((string)$errcode." ".self::HTTPCodeToString($errcode), $errdesc);
+        }
+        
+        public static function GetErrorDivContent(string $title, string $desc) {
+            return '<div class="error-box"><p class="error-title">'.$title.'</p><p class="error-desc">'.$desc.'</p><div>';
+        }
+        
+        public static function HTTPCodeToString($code){
             switch( $code ) {
     			// 1xx Informational
     			case 100: $string = 'Continue'; break;
     			case 101: $string = 'Switching Protocols'; break;
-    			case 102: $string = 'Processing'; break; // WebDAV
     			case 122: $string = 'Request-URI too long'; break; // Microsoft
     	
     			// 2xx Success
@@ -16,7 +24,6 @@
     			case 204: $string = 'No Content'; break;
     			case 205: $string = 'Reset Content'; break;
     			case 206: $string = 'Partial Content'; break;
-    			case 207: $string = 'Multi-Status'; break; // WebDAV
     	
     			// 3xx Redirection
     			case 300: $string = 'Multiple Choices'; break;
@@ -47,10 +54,6 @@
     			case 415: $string = 'Unsupported Media Type'; break;
     			case 416: $string = 'Requested Range Not Satisfiable'; break;
     			case 417: $string = 'Expectation Failed'; break;
-    			case 422: $string = 'Unprocessable Entity'; break; // WebDAV
-    			case 423: $string = 'Locked'; break; // WebDAV
-    			case 424: $string = 'Failed Dependency'; break; // WebDAV
-    			case 425: $string = 'Unordered Collection'; break; // WebDAV
     			case 426: $string = 'Upgrade Required'; break;
     			case 449: $string = 'Retry With'; break; // Microsoft
     			case 450: $string = 'Blocked'; break; // Microsoft
@@ -63,7 +66,6 @@
     			case 504: $string = 'Gateway Timeout'; break;
     			case 505: $string = 'HTTP Version Not Supported'; break;
     			case 506: $string = 'Variant Also Negotiates'; break;
-    			case 507: $string = 'Insufficient Storage'; break; // WebDAV
     			case 509: $string = 'Bandwidth Limit Exceeded'; break; // Apache
     			case 510: $string = 'Not Extended'; break;
     	
