@@ -5,6 +5,11 @@
         	echo self::GetErrorDivContent((string)$errcode." ".self::HTTPCodeToString($errcode), $errdesc);
         }
         
+        public function CloseDocument() {
+            echo '</body></html>';
+            exit();
+        }
+        
         public static function GetErrorDivContent(string $title, string $desc) {
             return '<div class="error-box"><p class="error-title">'.$title.'</p><p class="error-desc">'.$desc.'</p><div>';
         }

@@ -12,12 +12,12 @@
 					//최초 접속 (아무것도 처리하지 않음)
 				} else {
 					if (!preg_match(Config::INPUT_VALIDATION_USERNAME, $user_name) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $user_pass)){
-						Util::ShowError(400, "Invalid Parameter");
-						exit();
+						Util::ShowError(400, "Invalid user name or password");
+						Util::CloseDocument();
 					} else {
 						if (mdl_user::UseDB() != 0) {
 							Util::ShowError(500, "DB Error");
-							exit();
+							Util::CloseDocument();
 						} else {
 							if (mdl_user::CheckPassword($user_name, $user_pass)) {
 							    $_SESSION['uname'] = $user_name;

@@ -17,19 +17,29 @@
 	<body>
 	    <?php
             require_once 'model/mdl_user.php';
+            require_once 'util/util.php';
         
             if (mdl_user::UseDB() != 0) {
-                echo 'DB Error!';
+                Util::ShowError(500, "DB Error");
+                Util::CloseDocument();
             } else {
                 if(is_null($has_admin = mdl_user::CheckAdminExist())) {
-                    echo 'DB Error!';
+                    Util::ShowError(500, "DB Error");
+                    Util::CloseDocument();
                 } else if(!$has_admin) {
                     if (!is_null($uname = (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL)) and !is_null($upass = (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL))) {
-                        if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
-                            echo '<script>alert("설정 완료!"); location.href="./";</script>';
+                        if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $uname) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $upass)){
+                            Util::ShowError(400, "Invalid user name or password");
+                            Util::CloseDocument();
                         } else {
-                            echo 'DB Error!';
+                            if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
+                                echo '<script>alert("설정 완료! 이제 setup.php를 삭제해주세요."); location.href="./";</script>';
+                            } else {
+                                Util::ShowError(500, "DB Error");
+                                Util::CloseDocument();
+                            }
                         }
+                        
                     } else {
                         print 
 <<<SETUPHTML
@@ -51,7 +61,8 @@ SETUPHTML;
                     }
                     
                 } else {
-                    echo '이미 관리자 계정 설정이 완료되었습니다. setup.php를 삭제해주세요!';
+                    Util::ShowError(410, 'Admin account already set. <br> PLEASE DELETE "setup.php"');
+					Util::CloseDocument();
                 }
             }
     ?>
