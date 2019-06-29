@@ -22,7 +22,7 @@
 		
 		/*
 		[PERMISSION SETTING]
-		* User who has more than each level input can access each function.
+		- User who has more than each level input can access each function.
 		PERMISSION_LEVEL_ADMIN	: Permission of super admin who can access admin page. 
 		PERMISSION_LEVEL_VIEWER	: Permission of user who can access viewer page.
 		PERMISSION_LEVER_LIST	: Permission of user who can access list page. 
@@ -30,5 +30,14 @@
 		const PERMISSION_LEVEL_ADMIN = 999;
 		const PERMISSION_LEVEL_VIEWER = 2;
 		const PERMISSION_LEVEL_LIST = 2;
+		
+		/*
+		[INPUT VALIDATION SETTING]
+		INPUT_VALIDATION_USERNAME	: Regular expression used for user name string validation
+		INPUT_VALIDATION_PASSWORD	: Regular expression used for password string validation
+		*/
+		const INPUT_VALIDATION_USERNAME = '/^[A-Za-z0-9]{4,12}$/';
+		const INPUT_VALIDATION_PASSWORD = '/^.*(?=^.{4,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/';
+
 	}
 ?>

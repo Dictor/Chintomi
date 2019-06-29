@@ -23,7 +23,7 @@
 				require_once 'controller/ctr_list.php';
 				session_start();
 				if(!ctr_list::CheckPermission()){
-					echo('403 Forbidden');
+					Util::ShowError(403, "No access authority");
 				} else {
 					if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res);
 				}

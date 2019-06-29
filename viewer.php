@@ -23,12 +23,12 @@
 				if(!ctr_viewer::CheckPermission()){
 					Util::ShowError(403, "No access authority");
 				} else {
-					if(empty($_GET['book_id']) or !is_numeric($_GET['book_id'])) {
+					if(empty($_GET['book_id']) or !ctype_digit($_GET['book_id'])) {
 						Util::ShowError(400, "Invalid Parameter");
 					} else {
 						if (empty($_GET['page'])) {
 							ctr_viewer::ShowImage($_GET['book_id'], '1');
-						} else if (!is_numeric($_GET['page'])) {
+						} else if (!ctype_digit($_GET['page'])) {
 							Util::ShowError(400, "Invalid Parameter");
 						} else {
 							ctr_viewer::ShowImage($_GET['book_id'], $_GET['page']);

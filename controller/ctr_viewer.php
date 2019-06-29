@@ -26,7 +26,7 @@
 			}
 		}
 		
-		public static function ShowImage($bookid, $pagenum) {
+		public static function ShowImage(string $bookid, string $pagenum) {
 			if(empty($pagenum) or is_int($pagenum)){
 				echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page=2" src=./image.php?book_id='.$bookid.'&page=1>';
 			} else {
@@ -42,7 +42,7 @@
 						echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 						self::ShowInfo($pages, (int)$pagenum);
 					} else {
-						echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.($pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+						echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 						self::ShowInfo($pages, (int)$pagenum);
 					}
 				}
