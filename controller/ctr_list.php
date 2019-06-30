@@ -52,11 +52,42 @@
 				for($i = $startnum; $i <= $endnum; $i++){
 					print '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">'.$books[$i]->name.'</a>';
 				}
+				self::ShowPage(1, floor(count($books) / Config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
 					print '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">'.$nowbook->name.'</a>';
 				}	
 			}
+		}
+		
+		public static function ShowPage($pfirst, $plast, $pnow){
+			echo
+<<<STARTPAGENATION
+				<nav aria-label="Page navigation" class="list-pagination">
+					<ul class="pagination justify-content-center">
+			    		<li class="page-item">
+			    			<a class="page-link" href="#" aria-label="Previous">
+			        			<span aria-hidden="true">&laquo;</span>
+			    			</a>
+			    		</li>
+STARTPAGENATION;
+			for($i = $pfirst; $i <= $plast; $i++){
+				if($i = $pnow){
+					echo '<li class="page-item active" aria-current="page"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.' <span class="sr-only">(current)</span></a></li>';
+				} else {
+					echo '<li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.'</a></li>';
+				}
+			}
+			echo
+<<<ENDPAGENATION
+						<li class="page-item">
+					    	<a class="page-link" href="#" aria-label="Next">
+					        	<span aria-hidden="true">&raquo;</span>
+					    	</a>
+					    </li>
+					</ul>
+				</nav>
+ENDPAGENATION;
 		}
 	}
 	
