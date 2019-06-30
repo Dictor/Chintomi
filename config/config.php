@@ -38,6 +38,13 @@
 		*/
 		const INPUT_VALIDATION_USERNAME = '/^[A-Za-z0-9]{4,12}$/';
 		const INPUT_VALIDATION_PASSWORD = '/^.*(?=^.{4,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/';
-
+		
+		/*
+		[LIST PAGINATION SETTING]
+		LIST_PAGIGATION_ENABLE		: When this is true, pagination function in 'list.php' is enabled.
+		LIST_PAGIGATION_THRESHOLD	: When book amount exceeds this value, book list is paginated per this value.
+		*/
+		const LIST_PAGIGATION_ENABLE = TRUE;
+		const LIST_PAGIGATION_THRESHOLD = 15;
 	}
 ?>
