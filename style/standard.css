@@ -107,3 +107,7 @@ body {
 .list-summary {
 	text-align: center;
 }
+
+.list-pagination {
+	margin-top: 1rem;
+}
