@@ -11,7 +11,8 @@
 				$dbpaths[] = $nowbook->path;
 			}
 			foreach(array_diff($validpaths, $dbpaths) as $nowadd) {
-				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end(explode('/',$nowadd)), ""));
+				$name = explode('/',$nowadd);
+				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end($name), ""));
 			}
 			foreach(array_diff($dbpaths, $validpaths) as $nowdel) {
 				mdl_book::DeleteBookByPath($nowdel);
