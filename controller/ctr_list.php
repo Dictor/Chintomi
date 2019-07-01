@@ -61,16 +61,7 @@
 		}
 		
 		public static function ShowPage($pfirst, $plast, $pnow){
-			echo
-<<<STARTPAGENATION
-				<nav aria-label="Page navigation" class="list-pagination">
-					<ul class="pagination justify-content-center">
-			    		<li class="page-item">
-			    			<a class="page-link" href="#" aria-label="Previous">
-			        			<span aria-hidden="true">&laquo;</span>
-			    			</a>
-			    		</li>
-STARTPAGENATION;
+			echo '<nav aria-label="Page navigation" class="list-pagination"><ul class="pagination justify-content-center"><li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$pfirst.')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 			for($i = $pfirst; $i <= $plast; $i++){
 				if($i == $pnow){
 					echo '<li class="page-item active" aria-current="page"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.' <span class="sr-only">(current)</span></a></li>';
@@ -78,16 +69,7 @@ STARTPAGENATION;
 					echo '<li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.'</a></li>';
 				}
 			}
-			echo
-<<<ENDPAGENATION
-						<li class="page-item">
-					    	<a class="page-link" href="#" aria-label="Next">
-					        	<span aria-hidden="true">&raquo;</span>
-					    	</a>
-					    </li>
-					</ul>
-				</nav>
-ENDPAGENATION;
+			echo '<li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$plast.')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
 		}
 	}
 	
