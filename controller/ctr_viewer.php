@@ -4,7 +4,7 @@
 	require_once 'model/mdl_user.php';
 	require_once 'util/library.php';
 	require_once 'util/util.php';
-	require_once 'library/ImageResize.php';
+	require_once 'vendor/autoload.php';
 	use \Gumlet\ImageResize;
 
 	class ctr_viewer {

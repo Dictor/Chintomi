@@ -1,0 +1,16 @@
+{
+    "name": "dictor/chintomi",
+    "description": "The Web Comicbook Viewer",
+    "type": "project",
+    "require": {
+        "php-ds/php-ds": "1.2.*",
+        "gumlet/php-image-resize": "1.9.*"
+    },
+    "license": "LGPLv3",
+    "authors": [
+        {
+            "name": "Dictor",
+            "email": "kimdictor@gmail.com"
+        }
+    ]
+}

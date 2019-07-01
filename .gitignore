@@ -1,3 +1,5 @@
 *.db
 goorm.manifest
 data/
+vendor/
+composer.lock

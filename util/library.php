@@ -1,6 +1,8 @@
 <?php
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
+	require_once 'vendor/autoload.php';
+	use \Ds\Queue;
 
 	class library {
 		public static function UpdateLibrary() {
@@ -21,7 +23,7 @@
 		
 		private static function ExploreDirectory() {
 			$res = array();
-			$q = new \Ds\Queue();
+			$q = new Queue();
 			
 			$q->push(Config::PATH_COMICBOOK);
 			while (!$q->isEmpty()) {
