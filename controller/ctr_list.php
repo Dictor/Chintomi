@@ -72,7 +72,7 @@
 			    		</li>
 STARTPAGENATION;
 			for($i = $pfirst; $i <= $plast; $i++){
-				if($i = $pnow){
+				if($i == $pnow){
 					echo '<li class="page-item active" aria-current="page"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.' <span class="sr-only">(current)</span></a></li>';
 				} else {
 					echo '<li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.'</a></li>';
