@@ -50,10 +50,11 @@
 		}
 		
 		public static function ShowInfo(array $pages, int $pagenum, int $bookid) {
-			//$txt = $pagenum.'/'.(string)count($pages);
-			$txt = self::ShowPageDropdown($bookid, 1, $pagenum, count($pages)).'/'.(string)count($pages);
-			if (self::$lastResized) $txt = $txt.'<br><p>리사이즈 됨</p>';
-			echo '<div class="book-info">'.$txt.'</div>';
+			echo '<div class="book-info">';
+			self::ShowPageDropdown($bookid, 1, $pagenum, count($pages));
+			echo '/'.(string)count($pages);
+			if (self::$lastResized) echo '<br><p>리사이즈 됨</p>';
+			echo '</div>';
 		}
 		
 		public static function ShowPageDropdown($bookid, $pfirst, $pnow, $plast) {
