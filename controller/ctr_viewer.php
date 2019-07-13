@@ -55,6 +55,20 @@
 			echo '<div class="book-info">'.$txt.'</div>';
 		}
 		
+		public static function ShowPageDropdown($bookid, $pfirst, $pnow, $plast) {
+			echo '<div class="btn-group"><button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+			echo (string)$pnow;
+			echo '</button><div class="dropdown-menu">';
+			for ($i = $pfirst; $i <= $plast; $i++){
+				if ($i == $pnow) {
+					echo '<a class="dropdown-item active" href="./viewer.php?book_id='.$bookid.'&page='.(string)$i.'">'.$i.'</a>';
+				} else {
+					echo '<a class="dropdown-item" href="./viewer.php?book_id='.$bookid.'&page='.(string)$i.'">'.$i.'</a>';
+				}
+			}
+			echo '</div></div>';
+		}
+		
 		public static function GetImagePath(array $pages, int $pagenum) {
 			sort($pages);
 			if((count($pages) >= $pagenum) and ($pagenum >= 1)){
