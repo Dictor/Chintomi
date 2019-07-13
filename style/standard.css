@@ -34,6 +34,7 @@ body {
   left: 10px;
   transition: opacity ease 1s 0s;
   opacity: 0.2;
+  padding: 4px 0px;
 }
 
 .book-info:hover {
