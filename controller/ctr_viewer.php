@@ -40,17 +40,18 @@
 						Util::ShowError(404, "Requested image not founded");
 					} else if(count($pages) == (int)$pagenum){
 						echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
-						self::ShowInfo($pages, (int)$pagenum);
+						self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 					} else {
 						echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
-						self::ShowInfo($pages, (int)$pagenum);
+						self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 					}
 				}
 			}
 		}
 		
-		public static function ShowInfo(array $pages, int $pagenum) {
-			$txt = $pagenum.'/'.(string)count($pages);
+		public static function ShowInfo(array $pages, int $pagenum, int $bookid) {
+			//$txt = $pagenum.'/'.(string)count($pages);
+			$txt = self::ShowPageDropdown($bookid, 1, $pagenum, count($pages)).'/'.(string)count($pages);
 			if (self::$lastResized) $txt = $txt.'<br><p>리사이즈 됨</p>';
 			echo '<div class="book-info">'.$txt.'</div>';
 		}
