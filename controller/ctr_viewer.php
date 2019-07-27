@@ -80,7 +80,7 @@
 			}
 		}
 		
-		private static function MakeBase64Image($path){
+		public static function MakeBase64Image($path){
 			if (config::RESIZEIMG_ENABLE and (getimagesize($path)[0] > config::RESIZEIMG_THRESHOLD or getimagesize($path)[1] > config::RESIZEIMG_THRESHOLD)){
 				$image = new ImageResize($path);
 				$image->resizeToLongSide(config::RESIZEIMG_THRESHOLD);

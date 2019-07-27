@@ -7,6 +7,8 @@
 	use \Gumlet\ImageResize;
 
 	class library {
+		public static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
+		
 		public static function UpdateLibrary() {
 			$validpaths = self::ExploreDirectory();
 			$dbbooks = mdl_book::GetAllBooks();
@@ -24,16 +26,15 @@
 		}
 		
 		public static function UpdateThumbnail() {
-			static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
-			if (!is_dir($thumbdir)) mkdir($thumbdir);
+			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
 			$dbbooks = mdl_book::GetAllBooks();
 			foreach($dbbooks as $nowbook) {
 				$thumbsrc = ctr_viewer::GetImagePath(library::GetEntry($nowbook->path), 1);
-				if(!is_file($thumbdir.'/'.(string)$nowbook->id.pathinfo($thumbsrc)['extension'])) {
+				if(!is_file(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg')) {
 					$image = new ImageResize($thumbsrc);
 					$image->quality_jpg = Config::THUMBNAIL_QUALITY;
 					$image->resizeToLongSide(Config::THUMBNAIL_LONGSIDE_LENGTH);
-					$image->save($thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
+					$image->save(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
 				}
 			}
 		}
