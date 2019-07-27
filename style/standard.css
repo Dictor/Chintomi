@@ -20,6 +20,12 @@ body {
 	left: 0;
 }
 
+.thumbnail {
+	margin-right: 10px;
+	max-width: 150px;
+	max-height: 150px;
+}
+
 .viewer {
 	background-color: dimgray;
 }
@@ -45,7 +51,6 @@ body {
 	font-size: 0.5rem;
   margin: 0;
 }
-
 
 .login-box {
 	width: 300px;

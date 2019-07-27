@@ -1,6 +1,7 @@
 <?php
 	require_once 'model/mdl_book.php';
 	require_once 'model/mdl_user.php';
+	require_once 'controller/ctr_viewer.php';
 	require_once 'util/library.php';
 	require_once 'util/util.php';
 	require_once 'config/config.php';
@@ -25,6 +26,7 @@
 		public static function GetBooks() {
 			if(mdl_book::UseDB() == 0){
 				library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
+				library::UpdateThumbnail();
 				return mdl_book::GetAllBooks();
 			} else {
 				Util::ShowError(500, "DB Error");
@@ -50,12 +52,16 @@
 				}
 				if($endnum >= count($books)) $endnum = count($books) - 1;
 				for($i = $startnum; $i <= $endnum; $i++){
-					print '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">'.$books[$i]->name.'</a>';
+					echo '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">';
+					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
+					echo $books[$i]->name.'</a>';
 				}
 				self::ShowPage(1, floor(count($books) / Config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
-					print '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">'.$nowbook->name.'</a>';
+					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">';
+					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
+					echo $nowbook->id.'</a>';
 				}	
 			}
 		}
@@ -71,6 +77,15 @@
 			}
 			echo '<li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$plast.')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
 		}
+		
+		public static function ShowThumbnail(string $bookid) {
+			if(mdl_book::UseDB() != 0) return;
+			$thumbpath = library::$thumbdir.'/'.$bookid.'.jpg';
+			if (!is_file($thumbpath)) {
+				Util::ShowError(404, "Requested thumbnail not founded");
+			} else {
+				return '<img class="thumbnail" src="'.ctr_viewer::MakeBase64Image($thumbpath).'">';
+			}
+		}
 	}
-	
 ?>

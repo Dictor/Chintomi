@@ -1,10 +1,14 @@
 <?php
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
+	require_once 'controller/ctr_viewer.php';
 	require_once 'vendor/autoload.php';
 	use \Ds\Queue;
+	use \Gumlet\ImageResize;
 
 	class library {
+		public static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
+		
 		public static function UpdateLibrary() {
 			$validpaths = self::ExploreDirectory();
 			$dbbooks = mdl_book::GetAllBooks();
@@ -18,6 +22,20 @@
 			}
 			foreach(array_diff($dbpaths, $validpaths) as $nowdel) {
 				mdl_book::DeleteBookByPath($nowdel);
+			}
+		}
+		
+		public static function UpdateThumbnail() {
+			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
+			$dbbooks = mdl_book::GetAllBooks();
+			foreach($dbbooks as $nowbook) {
+				$thumbsrc = ctr_viewer::GetImagePath(library::GetEntry($nowbook->path), 1);
+				if(!is_file(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg')) {
+					$image = new ImageResize($thumbsrc);
+					$image->quality_jpg = Config::THUMBNAIL_QUALITY;
+					$image->resizeToLongSide(Config::THUMBNAIL_LONGSIDE_LENGTH);
+					$image->save(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
+				}
 			}
 		}
 		
@@ -48,8 +66,8 @@
 			$rtnval = array();
 
 			while ($entryname = readdir($handle)) {
-				if($entryname == '.' || $entryname == '..') continue;
-				$entryname = $path."/".$entryname;
+				if(mb_substr($entryname, 0, 1) == '.') continue;
+				$entryname = $path.'/'.$entryname;
 				if(is_dir($entryname) or self::isAllowedExt($entryname)) $rtnval[] = $entryname;
 			}
 			closedir($handle);
