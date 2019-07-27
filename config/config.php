@@ -46,5 +46,15 @@
 		*/
 		const LIST_PAGIGATION_ENABLE = TRUE;
 		const LIST_PAGIGATION_THRESHOLD = 15;
+		
+		/*
+		[THUMBNAIL SETTING]
+		THUMBNAIL_DISPLAY_ENABLE	: When this is true, thumbnail will display on list page
+		THUMBNAIL_LONGSIDE_LENGTH	: Pixel length of thumbnail's longside
+		THUMBNAIL_QUALITY			: Quality percentage of thumbnail
+		*/
+		const THUMBNAIL_DISPLAY_ENABLE = TRUE;
+		const THUMBNAIL_LONGSIDE_LENGTH = 200;
+		const THUMBNAIL_QUALITY = 85;
 	}
 ?>

@@ -31,8 +31,8 @@
 				$thumbsrc = ctr_viewer::GetImagePath(library::GetEntry($nowbook->path), 1);
 				if(!is_file($thumbdir.'/'.(string)$nowbook->id.pathinfo($thumbsrc)['extension'])) {
 					$image = new ImageResize($thumbsrc);
-					$image->quality_jpg = 80;
-					$image->resizeToLongSide(200);
+					$image->quality_jpg = Config::THUMBNAIL_QUALITY;
+					$image->resizeToLongSide(Config::THUMBNAIL_LONGSIDE_LENGTH);
 					$image->save($thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
 				}
 			}
