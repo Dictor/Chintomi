@@ -27,24 +27,20 @@
 		}
 		
 		public static function ShowImage(string $bookid, string $pagenum) {
-			if(empty($pagenum) or is_int($pagenum)){
-				echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page=2" src=./image.php?book_id='.$bookid.'&page=1>';
+			if(mdl_book::UseDB() != 0) return;
+			$res = mdl_book::SearchBook($bookid);
+			if (count($res) == 0) {
+				Util::ShowError(404, "Requested image not founded");
 			} else {
-				if(mdl_book::UseDB() != 0) return;
-				$res = mdl_book::SearchBook($bookid);
-				if (count($res) == 0) {
+				$pages = library::GetEntry($res[0]->path);
+				if (count($pages) < (int)$pagenum or (int)$pagenum < 0) {
 					Util::ShowError(404, "Requested image not founded");
+				} else if(count($pages) == (int)$pagenum){
+					echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				} else {
-					$pages = library::GetEntry($res[0]->path);
-					if (count($pages) < (int)$pagenum or (int)$pagenum < 0) {
-						Util::ShowError(404, "Requested image not founded");
-					} else if(count($pages) == (int)$pagenum){
-						echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
-						self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
-					} else {
-						echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
-						self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
-					}
+					echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				}
 			}
 		}
