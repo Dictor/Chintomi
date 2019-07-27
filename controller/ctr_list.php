@@ -25,6 +25,7 @@
 		public static function GetBooks() {
 			if(mdl_book::UseDB() == 0){
 				library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
+				library::UpdateThumbnail();
 				return mdl_book::GetAllBooks();
 			} else {
 				Util::ShowError(500, "DB Error");

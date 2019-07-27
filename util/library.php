@@ -1,8 +1,10 @@
 <?php
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
+	require_once 'controller/ctr_viewer.php';
 	require_once 'vendor/autoload.php';
 	use \Ds\Queue;
+	use \Gumlet\ImageResize;
 
 	class library {
 		public static function UpdateLibrary() {
@@ -18,6 +20,21 @@
 			}
 			foreach(array_diff($dbpaths, $validpaths) as $nowdel) {
 				mdl_book::DeleteBookByPath($nowdel);
+			}
+		}
+		
+		public static function UpdateThumbnail() {
+			static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
+			if (!is_dir($thumbdir)) mkdir($thumbdir);
+			$dbbooks = mdl_book::GetAllBooks();
+			foreach($dbbooks as $nowbook) {
+				$thumbsrc = ctr_viewer::GetImagePath(library::GetEntry($nowbook->path), 1);
+				if(!is_file($thumbdir.'/'.(string)$nowbook->id.pathinfo($thumbsrc)['extension'])) {
+					$image = new ImageResize($thumbsrc);
+					$image->quality_jpg = 80;
+					$image->resizeToLongSide(200);
+					$image->save($thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
+				}
 			}
 		}
 		
