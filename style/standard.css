@@ -20,6 +20,10 @@ body {
 	left: 0;
 }
 
+.thumbnail {
+	margin-right: 10px;
+}
+
 .viewer {
 	background-color: dimgray;
 }
@@ -45,7 +49,6 @@ body {
 	font-size: 0.5rem;
   margin: 0;
 }
-
 
 .login-box {
 	width: 300px;
