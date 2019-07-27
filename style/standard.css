@@ -22,6 +22,8 @@ body {
 
 .thumbnail {
 	margin-right: 10px;
+	max-width: 150px;
+	max-height: 150px;
 }
 
 .viewer {

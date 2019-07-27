@@ -54,7 +54,7 @@
 		THUMBNAIL_QUALITY			: Quality percentage of thumbnail
 		*/
 		const THUMBNAIL_DISPLAY_ENABLE = TRUE;
-		const THUMBNAIL_LONGSIDE_LENGTH = 200;
+		const THUMBNAIL_LONGSIDE_LENGTH = 150;
 		const THUMBNAIL_QUALITY = 85;
 	}
 ?>
