@@ -52,12 +52,16 @@
 				}
 				if($endnum >= count($books)) $endnum = count($books) - 1;
 				for($i = $startnum; $i <= $endnum; $i++){
-					echo '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">'.self::ShowThumbnail($books[$i]->id).$books[$i]->name.'</a>';
+					echo '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">';
+					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
+					echo $books[$i]->name.'</a>';
 				}
 				self::ShowPage(1, floor(count($books) / Config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
-					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">'.self::ShowThumbnail($nowbook->id).$nowbook->name.'</a>';
+					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">';
+					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
+					echo $nowbook->id.'</a>';
 				}	
 			}
 		}
