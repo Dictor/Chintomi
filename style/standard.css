@@ -65,6 +65,19 @@ body {
 	border-radius: 10px
 }
 
+.setup-box {
+	width: 300px;
+	height: 152px;
+	padding: 5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -72px;
+	background-color: #d7d4cf;
+	border-radius: 10px
+}
+
 .login-box-title {
 	display: inline-block;
 	width: 100%;
