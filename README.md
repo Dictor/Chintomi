@@ -10,4 +10,7 @@ This also have below features.
 * Can handle comicbooks with PDO based database.
 * Support convenience features like thumbnail & etc..
 
-For more information and installation instructions, refer to the [wiki](https://wiki.chinchister.com/chintomi).
+For more information and installation instructions, refer to the **[wiki](https://wiki.chinchister.com/chintomi)**.
+
+## Screenshot
+![Demo Screenshot](https://github.com/Dictor/Chintomi/blob/master/demo_screenshot.png?raw=true)
