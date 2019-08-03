@@ -36,8 +36,8 @@
 			}
 		}
 		
-		public static function DisplayBooks(array $books, int $pagenum) {
-			echo '<p class="list-summary">총 '.count($books).'개의 결과</p>';
+		public static function DisplayBooks(array $books, int $pagenum, string $username) {
+			self::ShowToolbar(count($books), $username);
 			if (config::LIST_PAGIGATION_ENABLE){
 				$startnum = ($pagenum - 1) * config::LIST_PAGIGATION_THRESHOLD;
 				$endnum = $pagenum * config::LIST_PAGIGATION_THRESHOLD - 1;
@@ -59,6 +59,21 @@
 					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
 					echo $nowbook->id.'</a>';
 				}	
+			}
+		}
+		
+		public static function ShowToolbar(int $bookcnt, string $username) {
+			echo '<div class="toolbar">';
+			echo '<div class="btn-group btn-logout"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
+			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">관리</a><a class="dropdown-item" href="./list.php?action=logout">로그아웃</a></div></div>';
+			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
+			echo '</div>';
+		}
+		
+		public static function ProcessAction(string $name) {
+			if ($name == 'logout') {
+				unset($_SESSION['uname']);
+				echo '<script>location.href = "./";</script>';
 			}
 		}
 		
