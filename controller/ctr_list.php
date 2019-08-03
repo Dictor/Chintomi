@@ -68,7 +68,8 @@
 		
 		public static function ShowToolbar(int $bookcnt, string $username) {
 			echo '<div class="toolbar">';
-			echo '<button type="button" class="btn btn-light btn-user"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
+			echo '<div class="btn-group btn-user"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
+			echo '<div class="dropdown-menu"><a class="dropdown-item" href="#">비밀번호 변경</a></div></div>';
 			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
 			echo '<button type="button" class="btn btn-dark btn-logout" onclick="location.href=\'./list.php?action=logout\'">로그아웃</button>';
 			echo '</div>';

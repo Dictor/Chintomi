@@ -138,10 +138,12 @@ body {
 
 .btn-logout{
 	float: right;
+	height: 100%;
 }
 
 .btn-user {
 	float: left;
+	height: 100%
 }
 
 .list-summary {
