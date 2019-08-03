@@ -16,6 +16,8 @@
 	</head>
 	<body>
 	    <?php
+	        namespace Dictor\Chintomi;
+	        
             require_once 'model/mdl_user.php';
             require_once 'util/util.php';
         

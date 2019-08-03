@@ -1,4 +1,6 @@
 <?php
+	namespace Dictor\Chintomi;
+	
 	require_once 'config/config.php';
 	require_once 'model/mdl_book.php';
 	require_once 'model/mdl_user.php';

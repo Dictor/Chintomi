@@ -1,4 +1,6 @@
 <?php
+	namespace Dictor\Chintomi;
+
 	class Config {
 		/*
 		[FILE SETTING]

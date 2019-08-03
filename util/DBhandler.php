@@ -1,4 +1,6 @@
 <?php
+	namespace Dictor\Chintomi;
+	
     interface handler {
 		public static function Open($path);
 		public static function Close();

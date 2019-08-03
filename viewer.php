@@ -17,6 +17,7 @@
 	<body class="viewer">
 		<div class="container">
 			<?php
+				namespace Dictor\Chintomi;
 				require_once 'controller/ctr_viewer.php';
 				require_once 'util/util.php';
 				session_start();

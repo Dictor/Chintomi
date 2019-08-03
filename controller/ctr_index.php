@@ -1,8 +1,10 @@
 <?php
+	namespace Dictor\Chintomi;
+
     require_once 'model/mdl_user.php';
     require_once 'util/util.php';
     require_once 'config/config.php';
-
+    
     class ctr_index {
         public function CheckUser($user_name, $user_pass){
             if (!empty((array_key_exists('uname', $_SESSION) ? $_SESSION['uname'] : NULL))) {

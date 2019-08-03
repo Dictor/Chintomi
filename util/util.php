@@ -1,4 +1,6 @@
 <?php
+    namespace Dictor\Chintomi;
+
     class Util {
         public function ShowError(int $errcode, $errdesc){
         	http_response_code($errcode);

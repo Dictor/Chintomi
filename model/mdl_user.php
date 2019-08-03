@@ -1,4 +1,6 @@
 <?php
+    namespace Dictor\Chintomi;
+
     require_once 'util/DBhandler.php';
     require_once 'util/library.php';
     require_once 'config/config.php';
