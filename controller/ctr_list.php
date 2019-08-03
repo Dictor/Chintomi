@@ -40,8 +40,8 @@
 			}
 		}
 		
-		public static function DisplayBooks(array $books, int $pagenum) {
-			echo '<p class="list-summary">총 '.count($books).'개의 결과</p>';
+		public static function DisplayBooks(array $books, int $pagenum, string $username) {
+			self::ShowToolbar(count($books), $username);
 			if (Config::LIST_PAGIGATION_ENABLE){
 				$startnum = ($pagenum - 1) * Config::LIST_PAGIGATION_THRESHOLD;
 				$endnum = $pagenum * Config::LIST_PAGIGATION_THRESHOLD - 1;
@@ -64,6 +64,14 @@
 					echo $nowbook->id.'</a>';
 				}	
 			}
+		}
+		
+		public static function ShowToolbar(int $bookcnt, string $username) {
+			echo '<div class="toolbar">';
+			echo '<button type="button" class="btn btn-light btn-user"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
+			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
+			echo '<button type="button" class="btn btn-dark btn-logout">로그아웃</button>';
+			echo '</div>';
 		}
 		
 		public static function ShowPage($pfirst, $plast, $pnow){
