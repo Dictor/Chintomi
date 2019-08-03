@@ -1,15 +1,12 @@
 <?php
 	namespace Dictor\Chintomi;
-	
-	require_once 'config/config.php';
-	require_once 'model/mdl_book.php';
-	require_once 'controller/ctr_viewer.php';
+	require_once 'autoload.php';
 	require_once 'vendor/autoload.php';
 	use \Ds\Queue;
 	use \Gumlet\ImageResize;
 
 	class mdl_library {
-		public static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
+		public static $thumbdir = config::PATH_COMICBOOK.'/.thumbnail';
 		
 		public static function UpdateLibrary() {
 			$validpaths = self::ExploreDirectory();
@@ -31,11 +28,11 @@
 			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
 			$dbbooks = mdl_book::GetAllBooks();
 			foreach($dbbooks as $nowbook) {
-				$thumbsrc = ctr_viewer::GetImagePath(library::GetEntry($nowbook->path), 1);
+				$thumbsrc = ctr_viewer::GetImagePath(mdl_library::GetEntry($nowbook->path), 1);
 				if(!is_file(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg')) {
 					$image = new ImageResize($thumbsrc);
-					$image->quality_jpg = Config::THUMBNAIL_QUALITY;
-					$image->resizeToLongSide(Config::THUMBNAIL_LONGSIDE_LENGTH);
+					$image->quality_jpg = config::THUMBNAIL_QUALITY;
+					$image->resizeToLongSide(config::THUMBNAIL_LONGSIDE_LENGTH);
 					$image->save(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
 				}
 			}
@@ -45,7 +42,7 @@
 			$res = array();
 			$q = new Queue();
 			
-			$q->push(Config::PATH_COMICBOOK);
+			$q->push(config::PATH_COMICBOOK);
 			while (!$q->isEmpty()) {
 				$dircnt = $imgcnt = 0;
 				foreach(self::GetEntry($nowpath = $q->pop()) as $nowentry) {
@@ -79,7 +76,7 @@
 		private static function isAllowedExt(string $path) {
 			$ext = pathinfo($path)['extension'];
 			$res = FALSE;
-			foreach(Config::ALLOWED_EXTENSION as $nowext) {
+			foreach(config::ALLOWED_EXTENSION as $nowext) {
 				if ($nowext == $ext) $res = TRUE;
 			}
 			return $res;

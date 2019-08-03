@@ -1,20 +1,14 @@
 <?php
 	namespace Dictor\Chintomi;
+	require_once 'autoload.php';
 	
-	require_once 'model/mdl_book.php';
-	require_once 'model/mdl_user.php';
-	require_once 'controller/ctr_viewer.php';
-	require_once 'util/library.php';
-	require_once 'util/util.php';
-	require_once 'config/config.php';
-
 	class ctr_list {
 		public static function CheckPermission() {
 			if (mdl_user::UseDB() != 0) {
-				Util::ShowError(500, "DB Error");
+				utl_htmldoc::ShowError(500, "DB Error");
 			} else {
 				if (array_key_exists('uname', $_SESSION)) {
-					if (mdl_user::GetPermission($_SESSION['uname']) >= Config::PERMISSION_LEVEL_LIST){
+					if (mdl_user::GetPermission($_SESSION['uname']) >= config::PERMISSION_LEVEL_LIST){
 						return TRUE;
 					} else {
 						return FALSE;
@@ -27,11 +21,11 @@
 		
 		public static function GetBooks() {
 			if(mdl_book::UseDB() == 0){
-				library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
-				library::UpdateThumbnail();
+				mdl_library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
+				mdl_library::UpdateThumbnail();
 				return mdl_book::GetAllBooks();
 			} else {
-				Util::ShowError(500, "DB Error");
+				utl_htmldoc::ShowError(500, "DB Error");
 				return NULL;
 			}
 		}
@@ -44,12 +38,12 @@
 		
 		public static function DisplayBooks(array $books, int $pagenum) {
 			echo '<p class="list-summary">총 '.count($books).'개의 결과</p>';
-			if (Config::LIST_PAGIGATION_ENABLE){
-				$startnum = ($pagenum - 1) * Config::LIST_PAGIGATION_THRESHOLD;
-				$endnum = $pagenum * Config::LIST_PAGIGATION_THRESHOLD - 1;
+			if (config::LIST_PAGIGATION_ENABLE){
+				$startnum = ($pagenum - 1) * config::LIST_PAGIGATION_THRESHOLD;
+				$endnum = $pagenum * config::LIST_PAGIGATION_THRESHOLD - 1;
 				if($startnum >= count($books)){
-					Util::ShowError(404, "Page Not Found");
-					Util::CloseDocument();
+					utl_htmldoc::ShowError(404, "Page Not Found");
+					utl_htmldoc::CloseDocument();
 					return;
 				}
 				if($endnum >= count($books)) $endnum = count($books) - 1;
@@ -58,11 +52,11 @@
 					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
 					echo $books[$i]->name.'</a>';
 				}
-				self::ShowPage(1, floor(count($books) / Config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
+				self::ShowPage(1, floor(count($books) / config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
 					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">';
-					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
+					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
 					echo $nowbook->id.'</a>';
 				}	
 			}
@@ -82,7 +76,7 @@
 		
 		public static function ShowThumbnail(string $bookid) {
 			if(mdl_book::UseDB() != 0) return;
-			$thumbpath = library::$thumbdir.'/'.$bookid.'.jpg';
+			$thumbpath = mdl_library::$thumbdir.'/'.$bookid.'.jpg';
 			if (!is_file($thumbpath)) {
 				Util::ShowError(404, "Requested thumbnail not founded");
 			} else {

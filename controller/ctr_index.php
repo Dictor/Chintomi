@@ -1,9 +1,6 @@
 <?php
 	namespace Dictor\Chintomi;
-
-    require_once 'model/mdl_user.php';
-    require_once 'util/util.php';
-    require_once 'config/config.php';
+    require_once 'autoload.php';
     
     class ctr_index {
         public function CheckUser($user_name, $user_pass){
@@ -13,13 +10,13 @@
 				if (empty($user_name) or empty($user_pass)) {
 					//최초 접속 (아무것도 처리하지 않음)
 				} else {
-					if (!preg_match(Config::INPUT_VALIDATION_USERNAME, $user_name) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $user_pass)){
-						Util::ShowError(400, "Invalid user name or password");
-						Util::CloseDocument();
+					if (!preg_match(config::INPUT_VALIDATION_USERNAME, $user_name) or !preg_match(config::INPUT_VALIDATION_PASSWORD, $user_pass)){
+						utl_htmldoc::ShowError(400, "Invalid user name or password");
+						utl_htmldocUtil::CloseDocument();
 					} else {
 						if (mdl_user::UseDB() != 0) {
-							Util::ShowError(500, "DB Error");
-							Util::CloseDocument();
+							utl_htmldoc::ShowError(500, "DB Error");
+							utl_htmldoc::CloseDocument();
 						} else {
 							if (mdl_user::CheckPassword($user_name, $user_pass)) {
 							    $_SESSION['uname'] = $user_name;

@@ -1,4 +1,7 @@
-<?php namespace Dictor\Chintomi; ?>
+<?php 
+	namespace Dictor\Chintomi; 
+	require_once 'autoload.php';
+?>
 <!doctype html>
 <html>
 	<head>
@@ -17,28 +20,25 @@
 	</head>
 	<body>
 	    <?php
-            require_once 'model/mdl_user.php';
-            require_once 'util/util.php';
-        
             if (mdl_user::UseDB() != 0) {
-                Util::ShowError(500, "DB Error");
-                Util::CloseDocument();
+                utl_htmldoc::ShowError(500, "DB Error");
+                utl_htmldoc::CloseDocument();
             } else {
                 if(is_null($has_admin = mdl_user::CheckAdminExist())) {
-                    Util::ShowError(500, "DB Error");
-                    Util::CloseDocument();
+                    utl_htmldoc::ShowError(500, "DB Error");
+                    utl_htmldoc::CloseDocument();
                 } else if(!$has_admin) {
                     if (!is_null($uname = (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL)) and !is_null($upass = (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL))) {
                         if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $uname) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $upass)){
-                            Util::ShowError(400, "Invalid user name or password");
-                            Util::CloseDocument();
+                            utl_htmldoc::ShowError(400, "Invalid user name or password");
+                            utl_htmldoc::CloseDocument();
                         } else {
                             if((array_key_exists('upasschk', $_POST) ? $_POST['upasschk'] : NULL) === $upass){
                                 if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
                                     echo '<script>alert("설정 완료! 이제 setup.php를 삭제해주세요."); location.href="./";</script>';
                                 } else {
-                                    Util::ShowError(500, "DB Error");
-                                    Util::CloseDocument();
+                                    utl_htmldoc::ShowError(500, "DB Error");
+                                    utl_htmldoc::CloseDocument();
                                 }
                             } else {
                                  echo '<script>alert("비밀번호와 비밀번호 확인이 일치하지 않습니다."); location.href="./setup.php";</script>';
@@ -68,8 +68,8 @@ SETUPHTML;
                     }
                     
                 } else {
-                    Util::ShowError(410, 'Admin account already set. <br> PLEASE DELETE "setup.php"');
-					Util::CloseDocument();
+                    utl_htmldoc::ShowError(410, 'Admin account already set. <br> PLEASE DELETE "setup.php"');
+					utl_htmldoc::CloseDocument();
                 }
             }
     ?>

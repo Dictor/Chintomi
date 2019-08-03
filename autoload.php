@@ -1,24 +1,25 @@
-<?php>
+<?php
 function chintomi_autoloader($className){
   $path = '';
-  switch (substr($className), 0, 3) {
+  $rawclassname = str_replace('Dictor\\Chintomi\\', '', $className);
+  switch (substr($rawclassname, 0, 3)) {
         case 'ctr':
-            path = 'controller/'.$className.'.php';
+            $path = 'controller/'.$rawclassname.'.php';
             break;
         case 'mdl':
-            path = 'model/'.$className.'.php';
+            $path = 'model/'.$rawclassname.'.php';
             break;
         case 'utl':
-            path = 'util/'.$className.'.php';
+            $path = 'util/'.$rawclassname.'.php';
             break;
         case 'hnd':
-            path = 'util/DBhandler.php';
+            $path = 'util/DBhandler.php';
             break;
         case 'con':
-            path = 'config/config.php';
+            $path = 'config/config.php';
             break;
   }
-  require path;
+  require $path;
 }
 spl_autoload_register('chintomi_autoloader');
-<?>
+?>

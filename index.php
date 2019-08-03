@@ -1,4 +1,7 @@
-<?php namespace Dictor\Chintomi; ?>
+<?php 
+	namespace Dictor\Chintomi; 
+	require_once 'autoload.php';
+?>
 <!doctype html>
 <html>
 	<head>
@@ -18,7 +21,6 @@
 	
 	<body>
 		<?php
-			require_once 'controller/ctr_index.php';
 			session_start();
 			ctr_index::CheckUser((array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL), (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL));
 		?>

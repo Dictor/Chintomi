@@ -1,4 +1,7 @@
-<?php namespace Dictor\Chintomi; ?>
+<?php 
+	namespace Dictor\Chintomi; 
+	require_once 'autoload.php';
+?>
 <!doctype html>
 <html>
 	<head>
@@ -24,22 +27,21 @@
 	<body>
 		<div class="list-group">
 			<?php
-				require_once 'controller/ctr_list.php';
 				session_start();
 				if(!ctr_list::CheckPermission()){
-					Util::ShowError(403, "No access authority");
+					utl_htmldoc::ShowError(403, "No access authority");
 				} else {
 					if (!array_key_exists('page', $_GET)) {
 						$pagenum = 1;
 					} else {
 						if(!ctype_digit($_GET['page'])) {
-							Util::ShowError(400, "Invalid Parameter");
+							utl_htmldoc::ShowError(400, "Invalid Parameter");
 							return;
 						} else {
 							if ((int)$_GET['page'] >= 1) {
 								$pagenum = (int)$_GET['page'];
 							} else {
-								Util::ShowError(400, "Invalid Parameter");
+								utl_htmldoc::ShowError(400, "Invalid Parameter");
 								return;
 							}
 						}

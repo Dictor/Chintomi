@@ -1,11 +1,6 @@
 <?php
 	namespace Dictor\Chintomi;
-	
-	require_once 'config/config.php';
-	require_once 'model/mdl_book.php';
-	require_once 'model/mdl_user.php';
-	require_once 'util/library.php';
-	require_once 'util/util.php';
+	require_once 'autoload.php';
 	require_once 'vendor/autoload.php';
 	use \Gumlet\ImageResize;
 
@@ -14,10 +9,10 @@
 		
 		public static function CheckPermission() {
 			if (mdl_user::UseDB() != 0) {
-				Util::ShowError(500, "DB Error");
+				utl_htmldoc::ShowError(500, "DB Error");
 			} else {
 				if (array_key_exists('uname', $_SESSION)) {
-					if (mdl_user::GetPermission($_SESSION['uname']) >= Config::PERMISSION_LEVEL_VIEWER){
+					if (mdl_user::GetPermission($_SESSION['uname']) >= config::PERMISSION_LEVEL_VIEWER){
 						return TRUE;
 					} else {
 						return FALSE;
@@ -32,11 +27,11 @@
 			if(mdl_book::UseDB() != 0) return;
 			$res = mdl_book::SearchBook($bookid);
 			if (count($res) == 0) {
-				Util::ShowError(404, "Requested image not founded");
+				utl_htmldoc::ShowError(404, "Requested image not founded");
 			} else {
-				$pages = library::GetEntry($res[0]->path);
+				$pages = mdl_library::GetEntry($res[0]->path);
 				if (count($pages) < (int)$pagenum or (int)$pagenum < 0) {
-					Util::ShowError(404, "Requested image not founded");
+					utl_htmldoc::ShowError(404, "Requested image not founded");
 				} else if(count($pages) == (int)$pagenum){
 					echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
