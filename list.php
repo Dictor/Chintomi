@@ -45,7 +45,13 @@
 							}
 						}
 					}
-					if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
+					if (!is_null($res = ctr_list::GetBooks())) {
+						if (array_key_exists('action', $_GET)) {
+							ctr_list::ProcessAction($_GET['action']);
+							return;
+						}
+						ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
+					}
 				}
 			?>
 		</div>

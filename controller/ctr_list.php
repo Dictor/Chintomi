@@ -70,8 +70,15 @@
 			echo '<div class="toolbar">';
 			echo '<button type="button" class="btn btn-light btn-user"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
 			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
-			echo '<button type="button" class="btn btn-dark btn-logout">로그아웃</button>';
+			echo '<button type="button" class="btn btn-dark btn-logout" onclick="location.href=\'./list.php?action=logout\'">로그아웃</button>';
 			echo '</div>';
+		}
+		
+		public static function ProcessAction(string $name) {
+			if ($name == 'logout') {
+				unset($_SESSION['uname']);
+				echo '<script>location.href = "./";</script>';
+			}
 		}
 		
 		public static function ShowPage($pfirst, $plast, $pnow){
