@@ -8,7 +8,7 @@
 	use \Ds\Queue;
 	use \Gumlet\ImageResize;
 
-	class library {
+	class mdl_library {
 		public static $thumbdir = Config::PATH_COMICBOOK.'/.thumbnail';
 		
 		public static function UpdateLibrary() {

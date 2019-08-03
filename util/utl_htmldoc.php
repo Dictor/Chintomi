@@ -1,7 +1,7 @@
 <?php
     namespace Dictor\Chintomi;
 
-    class Util {
+    class utl_htmldoc {
         public function ShowError(int $errcode, $errdesc){
         	http_response_code($errcode);
         	echo self::GetErrorDivContent((string)$errcode." ".self::HTTPCodeToString($errcode), $errdesc);

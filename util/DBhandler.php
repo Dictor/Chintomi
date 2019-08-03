@@ -10,7 +10,7 @@
 		public static function ResultToComicbook($res);
 	}
 	
-	class hndSQLite implements handler{
+	class hnd_SQLite implements handler{
 		private static $currentDB;
 		private static $isOpen = FALSE;
 		

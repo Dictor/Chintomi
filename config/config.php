@@ -1,7 +1,7 @@
 <?php
 	namespace Dictor\Chintomi;
 
-	class Config {
+	class config {
 		/*
 		[FILE SETTING]
 		PATH_COMICBOOK		: Path of Comicbook directory
