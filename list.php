@@ -1,3 +1,4 @@
+<?php namespace Dictor\Chintomi; ?>
 <!doctype html>
 <html>
 	<head>
@@ -23,7 +24,6 @@
 	<body>
 		<div class="list-group">
 			<?php
-				namespace Dictor\Chintomi;
 				require_once 'controller/ctr_list.php';
 				session_start();
 				if(!ctr_list::CheckPermission()){
