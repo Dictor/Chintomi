@@ -43,5 +43,22 @@
                 return (int)$res[0]['user_permission'];
             }
         }
+        
+        public static function CheckPermission($minlv) {
+			if (mdl_user::UseDB() != 0) {
+				utl_htmldoc::ShowError(500, "DB Error");
+				return NULL;
+			} else {
+				if (array_key_exists('uname', $_SESSION)) {
+					if (mdl_user::GetPermission($_SESSION['uname']) >= $minlv){
+						return TRUE;
+					} else {
+						return FALSE;
+					}
+				} else {
+					return FALSE;
+				}
+			}
+		}
     }
 ?>

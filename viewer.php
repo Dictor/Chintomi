@@ -22,7 +22,7 @@
 		<div class="container">
 			<?php
 				session_start();
-				if(!ctr_viewer::CheckPermission()){
+				if(!mdl_user::CheckPermission(config::PERMISSION_LEVEL_VIEWER)){
 					utl_htmldoc::ShowError(403, "No access authority");
 				} else {
 					if(empty($_GET['book_id']) or !ctype_digit($_GET['book_id'])) {
