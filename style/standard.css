@@ -136,11 +136,6 @@ body {
 	right: calc(50% - 5rem);
 }
 
-.btn-logout{
-	float: right;
-	height: 100%;
-}
-
 .btn-user {
 	float: right;
 	height: 100%

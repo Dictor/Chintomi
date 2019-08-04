@@ -30,12 +30,6 @@
 			}
 		}
 		
-		public static function DisplayDirectory(array $pathlist) {
-			foreach($pathlist as $nowpath) {
-				print '<a href="#" class="list-group-item list-group-item-action">'.$nowpath.'</a>';
-			}
-		}
-		
 		public static function DisplayBooks(array $books, int $pagenum, string $username) {
 			self::ShowToolbar(count($books), $username);
 			if (config::LIST_PAGIGATION_ENABLE){
