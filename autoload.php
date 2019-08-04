@@ -1,4 +1,5 @@
 <?php
+namespace Dictor\Chintomi; 
 function chintomi_autoloader($className){
   $path = '';
   $rawclassname = str_replace('Dictor\\Chintomi\\', '', $className);
@@ -21,5 +22,5 @@ function chintomi_autoloader($className){
   }
   require $path;
 }
-spl_autoload_register('chintomi_autoloader');
+spl_autoload_register('Dictor\\Chintomi\\chintomi_autoloader');
 ?>
