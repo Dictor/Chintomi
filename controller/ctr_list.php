@@ -43,15 +43,15 @@
 				if($endnum >= count($books)) $endnum = count($books) - 1;
 				for($i = $startnum; $i <= $endnum; $i++){
 					echo '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">';
-					if (Config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
-					echo $books[$i]->name.'</a>';
+					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
+					echo '<div class="list-title">'.$books[$i]->name.'</div></a>';
 				}
 				self::ShowPage(1, floor(count($books) / config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
 					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">';
 					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
-					echo $nowbook->id.'</a>';
+					echo '<div class="list-title">'.$nowbook->id.'</div></a>';
 				}	
 			}
 		}

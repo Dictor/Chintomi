@@ -24,6 +24,7 @@ body {
 	margin-right: 10px;
 	max-width: 150px;
 	max-height: 150px;
+	display: inline-block;
 }
 
 .viewer {
@@ -147,4 +148,10 @@ body {
 
 .list-pagination {
 	margin-top: 1rem;
+}
+
+.list-title {
+	display: inline-block;
+	width: calc(100% - 160px);
+	vertical-align: middle;
 }
