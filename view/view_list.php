@@ -21,8 +21,8 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
 		
 		<script>
-			function go_viewer(id){window.open("./viewer.php?book_id=" + id);}
-			function go_list(page){location.href = "./list.php?page=" + page;}
+			function go_viewer(id){window.open("./app.php?dest=viewer&book_id=" + id);}
+			function go_list(page){location.href = "./app.php?dest=list&page=" + page;}
 		</script>
 	</head>
 	

@@ -36,7 +36,7 @@
 					echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				} else {
-					echo '<img class="filled-image" onclick=location.href="./viewer.php?book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+					echo '<img class="filled-image" onclick=location.href="./app.php?dest=viewer&book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				}
 			}
