@@ -30,7 +30,7 @@
 		}
 		
 		public static function DeleteBookByPath(string $path) {
-			return hnd_SQLite::Execute('DELETE FROM comicbook WHERE book_path=:bpath', array('path' => $path));
+			return hnd_SQLite::Execute('DELETE FROM comicbook WHERE book_path=:bpath', array('bpath' => $path));
 		}
 		
 		public static function SearchBook(string $id) {
