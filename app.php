@@ -31,8 +31,9 @@
             break;
         case 'setup':
             require 'view/view_setup.php';
+            break;
         default:
-            utl_htmldoc::ShowError(404, "Page not found");
-            utl_htmldoc::CloseDocument();
+            require 'view/view_index.php';
+            break;
     }
 ?>
