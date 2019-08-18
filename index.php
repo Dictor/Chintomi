@@ -35,6 +35,9 @@
         case 'setup':
             require 'view/view_setup.php';
             break;
+        case 'setting':
+            require 'view/view_setting.php';
+            break;
         default:
             require 'view/view_index.php';
             break;
