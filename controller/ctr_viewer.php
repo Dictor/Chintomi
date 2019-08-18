@@ -7,22 +7,6 @@
 	class ctr_viewer {
 		private static $lastResized = FALSE;
 		
-		public static function CheckPermission() {
-			if (mdl_user::UseDB() != 0) {
-				utl_htmldoc::ShowError(500, "DB Error");
-			} else {
-				if (array_key_exists('uname', $_SESSION)) {
-					if (mdl_user::GetPermission($_SESSION['uname']) >= config::PERMISSION_LEVEL_VIEWER){
-						return TRUE;
-					} else {
-						return FALSE;
-					}
-				} else {
-					return FALSE;
-				}
-			}
-		}
-		
 		public static function ShowImage(string $bookid, string $pagenum) {
 			if(mdl_book::UseDB() != 0) return;
 			$res = mdl_book::SearchBook($bookid);

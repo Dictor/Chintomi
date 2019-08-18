@@ -10,7 +10,7 @@
 		<div class="list-group">
 			<?php
 				session_start();
-				if(!ctr_list::CheckPermission()){
+				if(!mdl_user::CheckPermission(config::PERMISSION_LEVEL_LIST)){
 					utl_htmldoc::ShowError(403, "No access authority");
 				} else {
 					if (!array_key_exists(1, $urlargs)) {
