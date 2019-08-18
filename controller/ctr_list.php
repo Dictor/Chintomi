@@ -59,7 +59,7 @@
 		public static function ShowToolbar(int $bookcnt, string $username) {
 			echo '<div class="toolbar">';
 			echo '<div class="btn-group btn-logout"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
-			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">관리</a><a class="dropdown-item" href="./app.php?dest=list&action=logout">로그아웃</a></div></div>';
+			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">관리</a><a class="dropdown-item" href="/list/action/logout">로그아웃</a></div></div>';
 			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
 			echo '</div>';
 		}
@@ -67,7 +67,7 @@
 		public static function ProcessAction(string $name) {
 			if ($name == 'logout') {
 				unset($_SESSION['uname']);
-				echo '<script>location.href = "./";</script>';
+				echo '<script>location.href = "/";</script>';
 			}
 		}
 		

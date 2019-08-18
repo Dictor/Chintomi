@@ -16,23 +16,24 @@
 					if (!array_key_exists(1, $urlargs)) {
 						$pagenum = 1;
 					} else {
-						if(!ctype_digit($urlargs[1])) {
-							utl_htmldoc::ShowError(400, "Invalid Parameter");
+						if ($urlargs[1] === 'action') {
+							ctr_list::ProcessAction($urlargs[2]);
 							return;
 						} else {
-							if ((int)$urlargs[1] >= 1) {
-								$pagenum = (int)$urlargs[1];
-							} else {
+							if(!ctype_digit($urlargs[1])) {
 								utl_htmldoc::ShowError(400, "Invalid Parameter");
 								return;
+							} else {
+								if ((int)$urlargs[1] >= 1) {
+									$pagenum = (int)$urlargs[1];
+								} else {
+									utl_htmldoc::ShowError(400, "Invalid Parameter");
+									return;
+								}
 							}
 						}
 					}
 					if (!is_null($res = ctr_list::GetBooks())) {
-						if ($urlargs[1] === 'action') {
-							ctr_list::ProcessAction($urlargs[2]);
-							return;
-						}
 						ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
 					}
 				}
