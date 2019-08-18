@@ -36,7 +36,7 @@
 					echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				} else {
-					echo '<img class="filled-image" onclick=location.href="./app.php?dest=viewer&book_id='.$bookid.'&page='.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+					echo '<img class="filled-image" onclick=location.href="/viewer/'.$bookid.'/'.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				}
 			}
@@ -56,9 +56,9 @@
 			echo '</button><div class="dropdown-menu">';
 			for ($i = $pfirst; $i <= $plast; $i++){
 				if ($i == $pnow) {
-					echo '<a class="dropdown-item active" href="./viewer.php?book_id='.$bookid.'&page='.(string)$i.'">'.$i.'</a>';
+					echo '<a class="dropdown-item active" href="/viewer/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
 				} else {
-					echo '<a class="dropdown-item" href="./viewer.php?book_id='.$bookid.'&page='.(string)$i.'">'.$i.'</a>';
+					echo '<a class="dropdown-item" href="/viewer/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
 				}
 			}
 			echo '</div></div>';
@@ -75,10 +75,14 @@
 		
 		public static function MakeBase64Image($path){
 			if (config::RESIZEIMG_ENABLE and (getimagesize($path)[0] > config::RESIZEIMG_THRESHOLD or getimagesize($path)[1] > config::RESIZEIMG_THRESHOLD)){
-				$image = new ImageResize($path);
-				$image->resizeToLongSide(config::RESIZEIMG_THRESHOLD);
-				self::$lastResized = TRUE;
-				return 'data:image/'.pathinfo($path)['extension'].';base64,'.base64_encode($image->getImageAsString());
+				try{
+					$image = new ImageResize($path);
+					$image->resizeToLongSide(config::RESIZEIMG_THRESHOLD);
+					self::$lastResized = TRUE;
+					return 'data:image/'.pathinfo($path)['extension'].';base64,'.base64_encode($image->getImageAsString());
+				} catch (ImageResizeException $e) {
+					utl_htmldoc::ShowError(500, $e->getMessage());
+				}
 			} else {
 				self::$lastResized = FALSE;
 				return 'data:image/'.pathinfo($path)['extension'].';base64,'.base64_encode(file_get_contents($path));

@@ -67,7 +67,7 @@
 		public static function ProcessAction(string $name) {
 			if ($name == 'logout') {
 				unset($_SESSION['uname']);
-				echo '<script>location.href = "./app.php";</script>';
+				echo '<script>location.href = "./";</script>';
 			}
 		}
 		
