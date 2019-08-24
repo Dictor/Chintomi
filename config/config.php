@@ -58,5 +58,12 @@
 		const THUMBNAIL_DISPLAY_ENABLE = TRUE;
 		const THUMBNAIL_LONGSIDE_LENGTH = 150;
 		const THUMBNAIL_QUALITY = 85;
+		
+		/*
+		[URL REWRITE SETTING]
+		URLREWRITE_ENABLE	: TRUE = (Only for URL Rewrite enabled WAS) URL is formatted shortly and require URL rewrite through rule in .htaccess
+							  FALSE	= (for URL Rewrite disabled WAS) URL isn't formatted shortly
+		*/
+		const URLREWRITE_ENABLE = FALSE;
 	}
 ?>

@@ -20,7 +20,7 @@
 					echo '<img class="filled-image" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				} else {
-					echo '<img class="filled-image" onclick=location.href="/viewer/'.$bookid.'/'.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
+					echo '<img class="filled-image" onclick=location.href="'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/'.$bookid.'/'.((int)$pagenum + 1).'" src="'.self::MakeBase64Image(self::GetImagePath($pages, (int)$pagenum)).'">';
 					self::ShowInfo($pages, (int)$pagenum, (int)$bookid);
 				}
 			}
@@ -40,9 +40,9 @@
 			echo '</button><div class="dropdown-menu">';
 			for ($i = $pfirst; $i <= $plast; $i++){
 				if ($i == $pnow) {
-					echo '<a class="dropdown-item active" href="/viewer/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
+					echo '<a class="dropdown-item active" href="'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
 				} else {
-					echo '<a class="dropdown-item" href="/viewer/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
+					echo '<a class="dropdown-item" href="'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/'.$bookid.'/'.(string)$i.'">'.$i.'</a>';
 				}
 			}
 			echo '</div></div>';

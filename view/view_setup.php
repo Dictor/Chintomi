@@ -25,13 +25,13 @@
                                     utl_htmldoc::CloseDocument();
                                 }
                             } else {
-                                 echo '<script>alert("비밀번호와 비밀번호 확인이 일치하지 않습니다."); location.href="/setup";</script>';
+                                 echo '<script>alert("비밀번호와 비밀번호 확인이 일치하지 않습니다."); location.href="'.utl_htmldoc::GetHrefPath('PAGE_SETUP').'";</script>';
                             }
                         }
                     } else {
-                        print 
+                        print '<form action="'.utl_htmldoc::GetHrefPath('PAGE_SETUP').'" method="post">';
+                        print
 <<<SETUPHTML
-                        <form action="/setup" method="post">
             			<div class="setup-box">
             				<span colspan=2 class="login-box-title">Chintomi 관리자 설정</span>
             				<table class="login-box-input">
