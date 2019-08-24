@@ -1,4 +1,4 @@
-**Translation of README** : [en](https://github.com/Dictor/Chintomi/README.md)
+**Translation of README** : [en](https://github.com/Dictor/Chintomi/blob/master/README.md)
 
 # Chintomi
 **Chintomi : The Web Comicbook Viewer**
