@@ -61,8 +61,8 @@
 		
 		/*
 		[URL REWRITE SETTING]
-		URLREWRITE_ENABLE	: TRUE = (Only for URL Rewrite enabled WAS) URL is formatted shortly and require URL rewrite through rule in .htaccess
-							  FALSE	= (for URL Rewrite disabled WAS) URL isn't formatted shortly
+		URLREWRITE_ENABLE	: TRUE = (Only for URL Rewrite enabled WAS) URL is formatted shortly and beautiful (It require URL rewrite through rule defined in .htaccess)
+							  FALSE	= (for URL Rewrite disabled or not supported WAS) URL isn't formatted shortly
 		*/
 		const URLREWRITE_ENABLE = FALSE;
 	}
