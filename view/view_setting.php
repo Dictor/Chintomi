@@ -15,10 +15,20 @@
             				if(!mdl_user::CheckPermission(0)){
             					utl_htmldoc::ShowError(403, "No access authority");
             				} else {
+            				    ctr_setting::InitMenu();
             					ctr_setting::DisplayNavbarItem($_SESSION['uname']);
             				}
             			?>
                 </ul>
             </div>
         </nav>
+        <?php
+                if(!mdl_user::CheckPermission(0)){
+            		utl_htmldoc::ShowError(403, "No access authority");
+            	} else {
+                    foreach (ctr_setting::$SettingMenu as $nowsetting) {
+            			if ($urlargs[1] == $nowsetting->handler) require 'view/view_setting_sub/'.$urlargs[1].'.php';   
+            		}
+            	}
+        ?>
 	</body>
