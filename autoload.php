@@ -19,6 +19,7 @@ function chintomi_autoloader($className){
         case 'con':
             $path = 'config/config.php';
             break;
+        default: throw new \Exception('autoload module catch undefined reference and it cant be handled : '.$className);
   }
   require $path;
 }
