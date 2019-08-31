@@ -49,9 +49,11 @@
 		}
 		
 		public static function ProcessAction(string $name) {
-			if ($name == 'logout') {
-				unset($_SESSION['uname']);
-				echo '<script>location.href = "/";</script>';
+			switch ($name) {
+				case 'logout':
+					unset($_SESSION['uname']);
+					echo '<script>location.href = "/";</script>';
+					break;
 			}
 		}
 		
