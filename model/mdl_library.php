@@ -41,6 +41,7 @@
 					$image->resizeToLongSide(config::THUMBNAIL_LONGSIDE_LENGTH);
 					$image->save(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
 					$res++;
+					unset($image);
 				}
 			}
 			return $res;

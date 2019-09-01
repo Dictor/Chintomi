@@ -1,7 +1,7 @@
 <?php 
 	namespace Dictor\Chintomi; 
 	require_once 'autoload.php';
-    
+
     session_start();
 	$urlarg = filter_var($_GET['path'], FILTER_SANITIZE_STRING);
 	$urlarg = trim($urlarg, '/');

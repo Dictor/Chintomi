@@ -11,7 +11,6 @@
 		?>
 		<div class="list-group">
 			<?php
-				session_start();
 				if(!mdl_user::CheckPermission(config::PERMISSION_LEVEL_LIST)){
 					utl_htmldoc::ShowError(403, "No access authority");
 				} else {
