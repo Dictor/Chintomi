@@ -25,9 +25,14 @@
                 if(!mdl_user::CheckPermission(0)){
             		utl_htmldoc::ShowError(403, "No access authority");
             	} else {
+            	    $hasdir = FALSE;
                     foreach (ctr_setting::$SettingMenu as $nowsetting) {
-            			if ($urlargs[1] == $nowsetting->handler) require 'view/view_setting_sub/'.$urlargs[1].'.php';   
+            			if ($urlargs[1] == $nowsetting->handler) {
+            			    require 'view/view_setting_sub/'.$urlargs[1].'.php'; 
+            			    $hasdir = TRUE;
+            			}
             		}
+            		if (!$hasdir) require 'view/view_setting_sub/sub_setting_info.php'; 
             	}
         ?>
 	</body>
