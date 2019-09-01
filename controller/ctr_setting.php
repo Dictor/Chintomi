@@ -16,9 +16,11 @@
 		
 		public static function InitMenu() {
 			self::$SettingMenu = array(	
-									'changepw' => new SettingMenu("비밀번호 변경", "sub_setting_changepw", 0), 
-									'viewconfig' => new SettingMenu("환경 설정", "sub_setting_viewconfig", 0), 
-									'library' => new SettingMenu("라이브러리 관리", "sub_setting_library", 999)
+									'change_pw' => new SettingMenu("비밀번호 변경", "sub_setting_changepw", 0), 
+									'view_config' => new SettingMenu("환경 설정", "sub_setting_viewconfig", 999), 
+									'update_library' => new SettingMenu("라이브러리 갱신", "sub_setting_updatelibrary", 999),
+									'view_library' => new SettingMenu("라이브러리 관리", "sub_setting_viewlibrary", 999),
+									'update_user' => new SettingMenu("사용자 관리", "sub_setting_updateuser", 999)
 								);	
 		}
 		
