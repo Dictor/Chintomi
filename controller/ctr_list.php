@@ -5,8 +5,6 @@
 	class ctr_list {
 		public static function GetBooks() {
 			if(mdl_book::UseDB() == 0){
-				mdl_library::UpdateLibrary(); //나중에 무조건이 아니라 시간간격으로 업데이트 하게 수정!
-				mdl_library::UpdateThumbnail();
 				return mdl_book::GetAllBooks();
 			} else {
 				utl_htmldoc::ShowError(500, "DB Error");
@@ -73,7 +71,7 @@
 			if(mdl_book::UseDB() != 0) return;
 			$thumbpath = mdl_library::$thumbdir.'/'.$bookid.'.jpg';
 			if (!is_file($thumbpath)) {
-				Util::ShowError(404, "Requested thumbnail not founded");
+				return '<div class="thumbnail list-therr"><span class="service-icon"><i class="icon-exclamation"></i></span></div>';
 			} else {
 				return '<img class="thumbnail" src="'.ctr_viewer::MakeBase64Image($thumbpath).'">';
 			}

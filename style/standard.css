@@ -156,6 +156,14 @@ body {
 	vertical-align: middle;
 }
 
+.list-therr {
+	width: 150px;
+    color: red;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
 .padding-div {
 	padding: 5px;
 }
