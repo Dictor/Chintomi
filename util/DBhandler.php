@@ -24,7 +24,7 @@
 				}
 				
 				if(!self::$isOpen){
-					if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE)
+					if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE);
 					$db = new \SQLite3($path);
 					self::$currentDB = $db;
 					if ($db->lastErrorCode() == 0) self::$isOpen = TRUE;
