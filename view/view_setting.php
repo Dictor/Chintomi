@@ -11,7 +11,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                         <?php
-            				session_start();
             				if(!mdl_user::CheckPermission(0)){
             					utl_htmldoc::ShowError(403, "No access authority");
             				} else {

@@ -5,7 +5,6 @@
 	<body class="viewer">
 		<div class="container">
 			<?php
-				session_start();
 				if(!mdl_user::CheckPermission(config::PERMISSION_LEVEL_VIEWER)){
 					utl_htmldoc::ShowError(403, "No access authority");
 				} else {

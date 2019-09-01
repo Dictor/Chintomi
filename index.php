@@ -1,6 +1,7 @@
 <?php 
 	namespace Dictor\Chintomi; 
 	require_once 'autoload.php';
+	session_start();
 ?>
 <html>
 	<head>
