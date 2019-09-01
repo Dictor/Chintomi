@@ -39,5 +39,11 @@
 	    		echo '<tr><th scope="row">'.$k.'</th><td>'.var_export($v, TRUE).'</td></tr>';
 	    	}
 	    }
+	    
+	    public static function spDisplayLibrary() {
+	    	foreach(mdl_book::GetAllBooks() as $nowbook) {
+	    		echo '<tr><th scope="row">'.$nowbook->id.'</th><td>'.$nowbook->name.'</td><td>'.$nowbook->path.'</td><td>'.$nowbook->author.'</td></tr>';
+			}
+	    }
 	}
 ?>
