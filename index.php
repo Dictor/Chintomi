@@ -8,6 +8,7 @@
 	$urlargs = explode('/', $urlarg);
 	if ($urlargs[0] === 'api') {
 	    ctr_api::Process($urlargs);
+	    exit();
 	} else {
 	    echo 
 <<<HTMLSTART
