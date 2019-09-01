@@ -6,7 +6,7 @@
 	$urlarg = filter_var($_GET['path'], FILTER_SANITIZE_STRING);
 	$urlarg = trim($urlarg, '/');
 	$urlargs = explode('/', $urlarg);
-	if ($urlargs[0] === 'action') {
+	if ($urlargs[0] === 'api') {
 	    ctr_api::Process($urlargs);
 	} else {
 	    echo 
