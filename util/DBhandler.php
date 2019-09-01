@@ -15,20 +15,25 @@
 		private static $isOpen = FALSE;
 		
 		public static function Open($path) {
-			if(!is_file($path)){
-				$db = new \SQLite3($path);
-				$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
-				$db->exec('CREATE TABLE user(user_name TEXT PRIMARY KEY NOT NULL, user_pass TEXT NOT NULL, user_permission INTEGER NOT NULL);');
-				$db->close();
-			}
-			
-			if(!self::$isOpen){
-				$db = new \SQLite3($path);
-				self::$currentDB = $db;
-				if ($db->lastErrorCode() == 0) self::$isOpen = TRUE;
-				return $db->lastErrorCode();	
-			} else {
-				return 0;
+			try{
+				if(!is_file($path)){
+					$db = new \SQLite3($path);
+					$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
+					$db->exec('CREATE TABLE user(user_name TEXT PRIMARY KEY NOT NULL, user_pass TEXT NOT NULL, user_permission INTEGER NOT NULL);');
+					$db->close();
+				}
+				
+				if(!self::$isOpen){
+					if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE)
+					$db = new \SQLite3($path);
+					self::$currentDB = $db;
+					if ($db->lastErrorCode() == 0) self::$isOpen = TRUE;
+					return $db->lastErrorCode();	
+				} else {
+					return 0;
+				}
+			} catch(Exception $e) {
+				return -1;
 			}
 		}
 		
