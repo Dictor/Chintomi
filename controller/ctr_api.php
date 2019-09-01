@@ -23,7 +23,7 @@
                     }
                     break;
                 default:
-                    echo json_encode(array('res' => 'error', 'msg' => 'illegal api'));
+                    echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
         }
     }
