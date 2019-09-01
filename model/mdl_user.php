@@ -20,6 +20,15 @@
             }
         }
         
+        public static function GetAllUser() {
+            $res = hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user', array()));
+            $rtn = array();
+            foreach ($res as $nowuser) {
+                $rtn[$nowuser['user_name']] = $nowuser['user_permission'];
+            }
+            return $rtn;
+        }
+        
         public static function CheckAdminExist() {
             $res = hnd_SQLite::Query('SELECT * FROM user WHERE user_permission=:uper', array('uper' => config::PERMISSION_LEVEL_ADMIN));
             if(is_null($res)){

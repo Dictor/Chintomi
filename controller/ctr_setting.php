@@ -45,5 +45,21 @@
 	    		echo '<tr><th scope="row">'.$nowbook->id.'</th><td>'.$nowbook->name.'</td><td>'.$nowbook->path.'</td><td>'.$nowbook->author.'</td></tr>';
 			}
 	    }
+	    
+	    public static function spDisplayUser() {
+	    	if (mdl_user::UseDB() != 0) {
+                utl_htmldoc::ShowError(500, "DB Error");
+                utl_htmldoc::CloseDocument();
+	    	} else {
+	    		foreach (mdl_user::GetAllUser() as $usrid => $usrper) {
+	    			echo '<tr><th scope="row">'.$usrid.'</th>';
+	    			echo '<td><button type="button" class="btn btn-warning" onclick="">변경</button></td>';
+	    			echo '<td>'.$usrper.'</td>';
+	    			echo '<td><button type="button" class="btn btn-danger" onclick="">계정 삭제</button>';
+	    			echo ' <button type="button" class="btn btn-warning" onclick="">권한 수정</button></td></tr>';
+	    		}
+	    	}
+			
+	    }
 	}
 ?>
