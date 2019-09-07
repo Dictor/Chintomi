@@ -65,6 +65,8 @@
 							  FALSE	= (for URL Rewrite disabled or not supported WAS) URL isn't formatted shortly
 		*/
 		const URLREWRITE_ENABLE = FALSE;
+		
+		const MEMORY_UNLIMIT_UPDATE_THUMBNAIL = TRUE;
 
 		public static function GetMember() {
 			$refl = new \ReflectionClass(get_called_class());

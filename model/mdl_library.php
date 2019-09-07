@@ -30,6 +30,7 @@
 		}
 		
 		public static function UpdateThumbnail() {
+			if (config::MEMORY_UNLIMIT_UPDATE_THUMBNAIL) ini_set('memory_limit' '-1');
 			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
 			$dbbooks = mdl_book::GetAllBooks();
 			$res = 0;
