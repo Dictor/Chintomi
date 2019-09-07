@@ -16,6 +16,7 @@
 		
 		public static function Open($path) {
 			try{
+				if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE);
 				if(!is_file($path)){
 					$db = new \SQLite3($path);
 					$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
@@ -24,7 +25,6 @@
 				}
 				
 				if(!self::$isOpen){
-					if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE);
 					$db = new \SQLite3($path);
 					self::$currentDB = $db;
 					if ($db->lastErrorCode() == 0) self::$isOpen = TRUE;
