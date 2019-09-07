@@ -6,7 +6,6 @@
             switch ($key) {
                 case 'PAGE_LIST': return config::URLREWRITE_ENABLE ? '/list' : '/index.php?path=list';
                 case 'PAGE_SETTING': return config::URLREWRITE_ENABLE ? '/setting' : '/index.php?path=setting';
-                case 'PAGE_LIST_LOGOUT': return config::URLREWRITE_ENABLE ? '/list/action/logout' : '/index.php?path=list/action/logout';
                 case 'PAGE_VIEWER': return config::URLREWRITE_ENABLE ? '/viewer' : '/index.php?path=viewer';
                 case 'PAGE_INDEX': return config::URLREWRITE_ENABLE ? '/index' : '/index.php';
                 case 'PAGE_SETUP': return config::URLREWRITE_ENABLE ? '/setup' : '/index.php?path=setup';

@@ -41,20 +41,11 @@
 		public static function ShowToolbar(int $bookcnt, string $username) {
 			echo '<div class="toolbar">';
 			echo '<div class="btn-group btn-logout"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-user"></i></span> '.$username.'</button>';
-			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="'.utl_htmldoc::GetHrefPath('PAGE_SETTING').'">관리</a><a class="dropdown-item" href="'.utl_htmldoc::GetHrefPath('PAGE_LIST_LOGOUT').'">로그아웃</a></div></div>';
+			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="'.utl_htmldoc::GetHrefPath('PAGE_SETTING').'">관리</a><a class="dropdown-item" href="javascript:logout()">로그아웃</a></div></div>';
 			echo '<span class="list-summary">총 '.(string)$bookcnt.'개의 결과</span>';
 			echo '</div>';
 		}
-		
-		public static function ProcessAction(string $name) {
-			switch ($name) {
-				case 'logout':
-					unset($_SESSION['uname']);
-					echo '<script>location.href = "/";</script>';
-					break;
-			}
-		}
-		
+
 		public static function ShowPage($pfirst, $plast, $pnow){
 			echo '<nav aria-label="Page navigation" class="list-pagination"><ul class="pagination justify-content-center"><li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$pfirst.')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 			for($i = $pfirst; $i <= $plast; $i++){

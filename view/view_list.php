@@ -7,6 +7,7 @@
 			echo '<script>';
 			echo 'function go_viewer(id){window.open("'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/" + id);}';
 			echo 'function go_list(page){location.href = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'/" + page;}';
+			echo 'function logout(){var req = new XMLHttpRequest(); req.open("GET", "'.utl_htmldoc::GetHrefPath('PAGE_API').'" + "/logout", true); req.onload = function() {location.href = "'.utl_htmldoc::GetHrefPath('PAGE_INDEX').'";}; req.send();}; ';
 			echo '</script>';
 		?>
 		<div class="list-group">
@@ -21,20 +22,15 @@
 						if (!array_key_exists(1, $urlargs)) {
 							$pagenum = 1;
 						} else {
-							if ($urlargs[1] === 'action') {
-								ctr_list::ProcessAction($urlargs[2]);
+							if(!ctype_digit($urlargs[1])) {
+								utl_htmldoc::ShowError(400, "Invalid Parameter");
 								return;
 							} else {
-								if(!ctype_digit($urlargs[1])) {
+								if ((int)$urlargs[1] >= 1) {
+									$pagenum = (int)$urlargs[1];
+								} else {
 									utl_htmldoc::ShowError(400, "Invalid Parameter");
 									return;
-								} else {
-									if ((int)$urlargs[1] >= 1) {
-										$pagenum = (int)$urlargs[1];
-									} else {
-										utl_htmldoc::ShowError(400, "Invalid Parameter");
-										return;
-									}
 								}
 							}
 						}
