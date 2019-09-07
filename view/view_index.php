@@ -4,7 +4,6 @@
 ?>
 	<body>
 		<?php
-			session_start();
 			ctr_index::CheckUser((array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL), (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL));
 		?>
 		<form action="<?php echo utl_htmldoc::GetHrefPath('PAGE_INDEX') ?>" method="post">
