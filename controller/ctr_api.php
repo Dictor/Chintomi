@@ -21,7 +21,7 @@
                             $thres = mdl_library::UpdateThumbnail();
                             $endt = microtime(TRUE);
                             echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!', 'lib_added' => $libres['added'], 'lib_deleted' => $libres['deleted'], 'th_added' => $thres));
-                        } catch (Throwable $t) {
+                        } catch (\Throwable $t) {
                             echo json_encode(array('res' => 'error', 'msg' => 'error occured during process : '.$t->getMessage()));
                         }
                     } else {
@@ -35,7 +35,7 @@
                             $libres = mdl_library::UpdateLibrary();
                             $endt = microtime(TRUE);
                             echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!', 'lib_added' => $libres['added'], 'lib_deleted' => $libres['deleted']));
-                        } catch (Throwable $t) {
+                        } catch (\Throwable $t) {
                             echo json_encode(array('res' => 'error', 'msg' => 'error occured during process : '.$t->getMessage()));
                         }
                     } else {
@@ -49,7 +49,7 @@
                             $thres = mdl_library::UpdateThumbnail();
                             $endt = microtime(TRUE);
                             echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!', 'th_added' => $thres));
-                        } catch (Throwable $t) {
+                        } catch (\Throwable $t) {
                             echo json_encode(array('res' => 'error', 'msg' => 'error occured during process : '.$t->getMessage()));
                         }
                     } else {
