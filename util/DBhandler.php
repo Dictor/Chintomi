@@ -32,7 +32,7 @@
 				} else {
 					return 0;
 				}
-			} catch(Exception $e) {
+			} catch(\Throwable $t) {
 				return -1;
 			}
 		}

@@ -14,7 +14,7 @@
 
 	class mdl_book {
 		public static function UseDB() {
-			return hnd_SQLite::Open(config::PATH_SQLITE);
+            return hnd_SQLite::Open(config::PATH_SQLITE);
 		}
 		
 		public static function GetAllBooks() {

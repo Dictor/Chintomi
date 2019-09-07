@@ -4,7 +4,7 @@
     
     class mdl_user {
         public static function UseDB() {
-			return hnd_SQLite::Open(config::PATH_SQLITE);
+            return hnd_SQLite::Open(config::PATH_SQLITE);
 		}
         
         public static function CheckPassword($userName, $userPass) {
