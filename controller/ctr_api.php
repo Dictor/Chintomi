@@ -56,6 +56,20 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'update_th_next':
+                    if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
+                         try {
+                            $startt = microtime(TRUE);
+                            $thres = mdl_library::UpdateThumbnailNext();
+                            $endt = microtime(TRUE);
+                            echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!', 'th_added' => 'id → '.$thres));
+                        } catch (\Throwable $t) {
+                            echo json_encode(array('res' => 'error', 'msg' => 'error occured during process : '.$t->getMessage()));
+                        }
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }

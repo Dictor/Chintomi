@@ -48,6 +48,27 @@
 			return $res;
 		}
 		
+		public static function UpdateThumbnailNext() {
+			if (config::MEMORY_UNLIMIT_UPDATE_THUMBNAIL) ini_set('memory_limit', '-1');
+			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
+			$dbbooks = mdl_book::GetAllBooks();
+			$res = -1;
+			foreach($dbbooks as $nowbook) {
+				$thumbsrc = ctr_viewer::GetImagePath(mdl_library::GetEntry($nowbook->path), 1);
+				if(!is_file(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg')) {
+					$image = new ImageResize($thumbsrc);
+					$image->quality_jpg = config::THUMBNAIL_QUALITY;
+					$image->resizeToLongSide(config::THUMBNAIL_LONGSIDE_LENGTH);
+					$image->save(self::$thumbdir.'/'.(string)$nowbook->id.'.jpg', IMAGETYPE_JPEG);
+					$res++;
+					unset($image);
+					$res = (string)$nowbook->id;
+					break;
+				}
+			}
+			return $res;
+		}
+		
 		private static function ExploreDirectory() {
 			$res = array();
 			$q = new Queue();
