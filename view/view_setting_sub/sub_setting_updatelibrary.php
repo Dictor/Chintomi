@@ -67,7 +67,7 @@
     }
     
     function printres(txt) {
-        $("#result").html($("#result").html() + "<br>[" + new Date() + "]  " + txt);
+        $("#result").html($("#result").html() + "<br>→ " + txt);
         $("#result").scrollTop($("#result")[0].scrollHeight);
     }
 </script>
