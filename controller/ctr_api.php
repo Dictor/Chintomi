@@ -70,6 +70,21 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'change_pw':
+                    if (mdl_user::CheckPermission(0)) {
+                        if (array_key_exists($_POST, 'nowpass') && array_key_exists($_POST, 'newpass')) {
+                            if (mdl_user::CheckPassword($_SESSION['uname'], $_POST['nowpass'])) {
+                                mdl_user::ChangePassword($_SESSION['uname'], $_POST['newpass']);
+                            } else {
+                                echo json_encode(array('res' => 'error', 'msg' => 'now pw invalid'));  
+                            }
+                        } else {
+                            echo json_encode(array('res' => 'error', 'msg' => 'invalid params'));
+                        }
+                        
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
