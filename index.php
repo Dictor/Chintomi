@@ -9,6 +9,9 @@
 	if ($urlargs[0] === 'api') {
 	    ctr_api::Process($urlargs);
 	    exit();
+	} else if ($urlargs[0] === 'js') {
+	    require 'script/script.php';
+	    exit();
 	} else {
 	    echo 
 <<<HTMLSTART
