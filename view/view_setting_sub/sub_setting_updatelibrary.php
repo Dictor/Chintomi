@@ -1,7 +1,7 @@
 <?php 
 	namespace Dictor\Chintomi; 
 	require_once 'autoload.php';
-	echo '<script>var api_host = "'.utl_htmldoc::GetHrefPath('PAGE_API').'"; var server_mem = "'.ini_get('memory_limit').'";</script>';
+	echo '<script>var api_host = "'.utl_htmldoc::GetHrefPath('PAGE_API').'";</script>';
 ?>
 <script>
     function library_update(kind) {
@@ -9,7 +9,6 @@
         switch(kind) {
             case 0:
                 printres("전체 라이브러리 업데이트 작업을 시작합니다.");
-                printres("서버 메모리 설정 : " + server_mem);
                 api_path = "update_all";
                 break;
             case 1:
@@ -18,12 +17,10 @@
                 break;
             case 2:
                 printres("썸네일 일괄 라이브러리 업데이트 작업을 시작합니다.");
-                printres("서버 메모리 설정 : " + server_mem);
                 api_path = "update_th";
                 break;
             case 3:
                 printres("썸네일 순차 라이브러리 업데이트 작업을 시작합니다.");
-                printres("서버 메모리 설정 : " + server_mem);
                 thnext_task();
                 return;
         }
