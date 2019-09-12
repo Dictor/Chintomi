@@ -19,6 +19,9 @@
                 return FALSE;
             }
         }
+        public static function ChangePassword($userName, $newPass) {
+            return hnd_SQLite::Execute('UPDATE INTO user SET user_pass = :newpass WHERE user_name = :uname', array('uname' => $userName, 'newpass' => password_hash($newPass, PASSWORD_DEFAULT)));    
+        }
         
         public static function GetAllUser() {
             $res = hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user', array()));
