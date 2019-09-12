@@ -10,6 +10,7 @@
                 case 'PAGE_INDEX': return config::URLREWRITE_ENABLE ? '/index' : '/index.php';
                 case 'PAGE_SETUP': return config::URLREWRITE_ENABLE ? '/setup' : '/index.php?path=setup';
                 case 'PAGE_API': return config::URLREWRITE_ENABLE ? '/api' : '/index.php?path=api';
+                case 'PAGE_JS': return config::URLREWRITE_ENABLE ? '/api' : '/index.php?path=js';
             }
         }
         
