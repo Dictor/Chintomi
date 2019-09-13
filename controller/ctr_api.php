@@ -85,6 +85,7 @@
                     } else {
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
