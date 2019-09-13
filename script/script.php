@@ -13,11 +13,7 @@ function GETApiReq(verb, okcb, errorcb) {
     req.open("GET", api_host + "/" + verb, true);
     req.onload = function() {
         if (req.status == 200) {
-<<<<<<< HEAD
             okcb(req.response);
-=======
-            okcb();
->>>>>>> 334f2c9ab44e7c17d2209e69917f3be78a93f98c
         } else {
             errorcb();
         }
@@ -32,11 +28,7 @@ function POSTApiReq(verb, param, okcb, errorcb) {
     req.setRequestHeader('Content-Type', 'application/json');
     req.onload = function() {
         if (req.status == 200) {
-<<<<<<< HEAD
             okcb(req.response);
-=======
-            okcb();
->>>>>>> 334f2c9ab44e7c17d2209e69917f3be78a93f98c
         } else {
             errorcb();
         }
