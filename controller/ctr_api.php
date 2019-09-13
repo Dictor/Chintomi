@@ -72,16 +72,20 @@
                     break;
                 case 'change_pw':
                     if (mdl_user::CheckPermission(0)) {
-                        if (array_key_exists($_POST, 'nowpass') && array_key_exists($_POST, 'newpass')) {
-                            if (mdl_user::CheckPassword($_SESSION['uname'], $_POST['nowpass'])) {
-                                mdl_user::ChangePassword($_SESSION['uname'], $_POST['newpass']);
+                        if (array_key_exists('nowpass', $_POST) && array_key_exists('newpass', $_POST)) {
+                            if(!preg_match(Config::INPUT_VALIDATION_PASSWORD, $_POST['nowpass']) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $_POST['newpass'])){
+                                echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
                             } else {
-                                echo json_encode(array('res' => 'error', 'msg' => 'now pw invalid'));  
+                                if (mdl_user::CheckPassword($_SESSION['uname'], $_POST['nowpass'])) {
+                                    mdl_user::ChangePassword($_SESSION['uname'], $_POST['newpass']);
+                                    echo json_encode(array('res' => 'success'));  
+                                } else {
+                                    echo json_encode(array('res' => 'error', 'msg' => 'now pw incorrect'));  
+                                } 
                             }
                         } else {
                             echo json_encode(array('res' => 'error', 'msg' => 'invalid params'));
                         }
-                        
                     } else {
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
