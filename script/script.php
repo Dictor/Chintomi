@@ -18,14 +18,13 @@ function GETApiReq(verb, okcb, errorcb) {
             errorcb();
         }
     };
-    req.onerror = errorcb();
     req.send();
 }
 
 function POSTApiReq(verb, param, okcb, errorcb) {
     var req = new XMLHttpRequest();
     req.open("POST", api_host + "/" + verb, true);
-    req.setRequestHeader('Content-Type', 'application/json');
+    //req.setRequestHeader('Content-Type', 'application/json');
     req.onload = function() {
         if (req.status == 200) {
             okcb(req.response);
@@ -33,6 +32,5 @@ function POSTApiReq(verb, param, okcb, errorcb) {
             errorcb();
         }
     };
-    req.onerror = errorcb();
     req.send(param);
 }
