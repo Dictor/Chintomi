@@ -90,6 +90,22 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'delete_user':
+                    if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
+                        if (array_key_exists('uname', $_POST)) {
+                            if(mdl_user::GetPermission($_POST['uname']) == FALSE) {
+                                echo json_encode(array('res' => 'error', 'msg' => 'invalid user name'));
+                            } else if (mdl_user::GetPermission($_POST) == config::PERMISSION_LEVEL_ADMIN) {
+                                echo json_encode(array('res' => 'error', 'msg' => 'cant delete admin account'));
+                            } else {
+                                mdl_user::DeleteUser($_POST['uname']);
+                                echo json_encode(array('res' => 'success'));
+                            }
+                        }
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
