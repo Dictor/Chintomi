@@ -19,8 +19,17 @@
                 return FALSE;
             }
         }
+        
         public static function ChangePassword($userName, $newPass) {
             return hnd_SQLite::Execute('UPDATE user SET user_pass = :newpass WHERE user_name = :uname', array('uname' => $userName, 'newpass' => password_hash($newPass, PASSWORD_DEFAULT)));    
+        }
+        
+        public static function DeleteUser($userName) {
+            return hnd_SQLite::Execute('DELETE FROM user WHERE user_name = :uname', array('uname' => $userName)); 
+        }
+        
+        public static function MakeUser($uname, $upass, $uper) {
+            return hnd_SQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => $uper));
         }
         
         public static function GetAllUser() {
@@ -44,7 +53,7 @@
         }
         
         public static function MakeAdmin($uname, $upass) {
-            if (!self::CheckAdminExist()) return hnd_SQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => Config::PERMISSION_LEVEL_ADMIN));
+            if (!self::CheckAdminExist()) return MakeUser($uname, $upass, Config::PERMISSION_LEVEL_ADMIN);
         }
         
         public static function GetPermission($uname) {
