@@ -108,6 +108,26 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'make_user':
+                    if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
+                        if (array_key_exists('uname', $_POST) && array_key_exists('upass', $_POST) && array_key_exists('uper', $_POST)) {
+                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $_POST['upass']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
+                                echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
+                            } else {
+                                if(mdl_user::GetPermission($_POST['uname']) == FALSE) {
+                                    mdl_user::MakeUser($_POST['uname'], $_POST['upass'], $_POST['uper']);
+                                    echo json_encode(array('res' => 'success'));
+                                } else {
+                                    echo json_encode(array('res' => 'error', 'msg' => 'already exist user'));
+                                }
+                            }
+                        } else {
+                            echo json_encode(array('res' => 'error', 'msg' => 'invalid params'));
+                        }
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
