@@ -128,6 +128,26 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'change_uper':
+                    if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
+                        if (array_key_exists('uname', $_POST) && array_key_exists('uper', $_POST)) {
+                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
+                                echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
+                            } else {
+                                if(mdl_user::GetPermission($_POST['uname'])) {
+                                    mdl_user::ChangePermission($_POST['uname'], (int)$_POST['uper']);
+                                    echo json_encode(array('res' => 'success'));
+                                } else {
+                                    echo json_encode(array('res' => 'error', 'msg' => 'invalid user name'));
+                                }
+                            }
+                        } else {
+                            echo json_encode(array('res' => 'error', 'msg' => 'invalid params'));
+                        }
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
