@@ -95,7 +95,7 @@
                         if (array_key_exists('uname', $_POST)) {
                             if(mdl_user::GetPermission($_POST['uname']) == FALSE) {
                                 echo json_encode(array('res' => 'error', 'msg' => 'invalid user name'));
-                            } else if (mdl_user::GetPermission($_POST) >= config::PERMISSION_LEVEL_ADMIN) {
+                            } else if (mdl_user::GetPermission($_POST['uname']) >= config::PERMISSION_LEVEL_ADMIN) {
                                 echo json_encode(array('res' => 'error', 'msg' => 'cant delete admin account'));
                             } else {
                                 mdl_user::DeleteUser($_POST['uname']);
