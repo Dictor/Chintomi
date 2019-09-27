@@ -53,7 +53,7 @@
         }
         
         public static function MakeAdmin($uname, $upass) {
-            if (!self::CheckAdminExist()) return MakeUser($uname, $upass, Config::PERMISSION_LEVEL_ADMIN);
+            if (!self::CheckAdminExist()) return self::MakeUser($uname, $upass, Config::PERMISSION_LEVEL_ADMIN);
         }
         
         public static function GetPermission($uname) {
