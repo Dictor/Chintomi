@@ -24,6 +24,10 @@
             return hnd_SQLite::Execute('UPDATE user SET user_pass = :newpass WHERE user_name = :uname', array('uname' => $userName, 'newpass' => password_hash($newPass, PASSWORD_DEFAULT)));    
         }
         
+        public static function ChangePermission($uname, $newper) {
+            return hnd_SQLite::Execute('UPDATE user SET user_permission = :uper WHERE user_name = :uname', array('uname' => $uname, 'newpass' => $newper));    
+        }
+        
         public static function DeleteUser($userName) {
             return hnd_SQLite::Execute('DELETE FROM user WHERE user_name = :uname', array('uname' => $userName)); 
         }
