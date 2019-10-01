@@ -3,14 +3,16 @@
 
     class utl_htmldoc {
         public function GetHrefPath(string $key) {
+            $rootFile = $_SERVER['PHP_SELF'];
+            $rootPath = dirname($_SERVER['PHP_SELF']);
             switch ($key) {
-                case 'PAGE_LIST': return config::URLREWRITE_ENABLE ? '/list' : '/index.php?path=list';
-                case 'PAGE_SETTING': return config::URLREWRITE_ENABLE ? '/setting' : '/index.php?path=setting';
-                case 'PAGE_VIEWER': return config::URLREWRITE_ENABLE ? '/viewer' : '/index.php?path=viewer';
-                case 'PAGE_INDEX': return config::URLREWRITE_ENABLE ? '/index' : '/index.php';
-                case 'PAGE_SETUP': return config::URLREWRITE_ENABLE ? '/setup' : '/index.php?path=setup';
-                case 'PAGE_API': return config::URLREWRITE_ENABLE ? '/api' : '/index.php?path=api';
-                case 'PAGE_JS': return config::URLREWRITE_ENABLE ? '/api' : '/index.php?path=js';
+                case 'PAGE_LIST': return config::URLREWRITE_ENABLE ? $rootPath.'/list' : $rootFile.'?path=list';
+                case 'PAGE_SETTING': return config::URLREWRITE_ENABLE ? $rootPath.'/setting' : $rootFile.'?path=setting';
+                case 'PAGE_VIEWER': return config::URLREWRITE_ENABLE ? $rootPath.'/viewer' : $rootFile.'?path=viewer';
+                case 'PAGE_INDEX': return config::URLREWRITE_ENABLE ? $rootPath.'/' : $rootFile;
+                case 'PAGE_SETUP': return config::URLREWRITE_ENABLE ? $rootPath.'/setup' : $rootFile.'?path=setup';
+                case 'PAGE_API': return config::URLREWRITE_ENABLE ? $rootPath.'/api' : $rootFile.'?path=api';
+                case 'PAGE_JS': return config::URLREWRITE_ENABLE ? $rootPath.'/api' : $rootFile.'?path=js';
             }
         }
         
