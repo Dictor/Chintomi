@@ -111,7 +111,7 @@
                 case 'make_user':
                     if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
                         if (array_key_exists('uname', $_POST) && array_key_exists('upass', $_POST) && array_key_exists('uper', $_POST)) {
-                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $_POST['upass']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
+                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or !preg_match(Config::INPUT_VALIDATION_PASSWORD, $_POST['upass']) or !is_numeric($_POST['uper']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
                                 echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
                             } else {
                                 if(mdl_user::GetPermission($_POST['uname']) == FALSE) {
@@ -131,10 +131,13 @@
                 case 'change_uper':
                     if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
                         if (array_key_exists('uname', $_POST) && array_key_exists('uper', $_POST)) {
-                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
+                            if(!preg_match(Config::INPUT_VALIDATION_USERNAME, $_POST['uname']) or !is_numeric($_POST['uper']) or (int)$_POST['uper'] < 0 or (int)$_POST['uper'] > 999){
                                 echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
                             } else {
-                                if(mdl_user::GetPermission($_POST['uname'])) {
+                                $nowper = mdl_user::GetPermission($_POST['uname']);
+                                if ($nowper === 999) {
+                                    echo json_encode(array('res' => 'error', 'msg' => 'cant change admin account'));
+                                } else if ($nowper == TRUE) {
                                     mdl_user::ChangePermission($_POST['uname'], (int)$_POST['uper']);
                                     echo json_encode(array('res' => 'success'));
                                 } else {

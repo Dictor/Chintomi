@@ -25,7 +25,7 @@
         }
         
         public static function ChangePermission($uname, $newper) {
-            return hnd_SQLite::Execute('UPDATE user SET user_permission = :uper WHERE user_name = :uname', array('uname' => $uname, 'newpass' => $newper));    
+            return hnd_SQLite::Execute('UPDATE user SET user_permission = :uper WHERE user_name = :uname', array('uname' => $uname, 'uper' => $newper));    
         }
         
         public static function DeleteUser($userName) {

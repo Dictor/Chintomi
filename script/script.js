@@ -153,5 +153,29 @@ var spSetting = {
                         }
                 }, function() {}); 
             }
+    },
+    apiChangePermission: function (uname) {
+            var passform = new FormData();
+            passform.append("uname", uname);
+            passform.append("uper", prompt("새로운 권한 레벨을 입력해주세요 (0~999) : "));
+            POSTApiReq("change_uper", passform, function(resp) {
+                var res = JSON.parse(resp);
+                if (res["res"] == "success") {
+                    alert("권한을 성공적으로 변경했습니다!");
+                    location.reload();
+                } else {
+                    switch(res["msg"]) {
+                        case "invalid user name": alert("유효하지 않은 사용자 이름입니다!"); break;
+                        case "input invalid": alert("조건에 맞지 않는 유효하지 않은 입력입니다!"); break;
+                        case "cant change admin account": alert("관리자 계정은 변경할 수 없습니다!"); break;
+                        case "invalid params": alert("매개변수 오류"); break;
+                        case "no authority": alert("권한 없음"); break;
+                        default: alert("알 수 없는 오류"); break;
+                    }
+                }
+            }, function() {
+                alert("작업도중 오류가 발생했습니다!");
+            });
+        
     }
 };
