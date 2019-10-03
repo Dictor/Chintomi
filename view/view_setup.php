@@ -19,7 +19,7 @@
                         } else {
                             if((array_key_exists('upasschk', $_POST) ? $_POST['upasschk'] : NULL) === $upass){
                                 if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
-                                    echo '<script>alert("설정 완료! 이제 setup.php를 삭제해주세요."); location.href="/";</script>';
+                                    echo '<script>alert("설정 완료! 이제 setup.php를 삭제해주세요."); location.href="'.utl_htmldoc::GetHrefPath('PAGE_INDEX').'";</script>';
                                 } else {
                                     utl_htmldoc::ShowError(500, "DB Error");
                                     utl_htmldoc::CloseDocument();
