@@ -15,6 +15,7 @@
                 var res = JSON.parse(resp);
                 if (res["res"] == "success") {
                     alert("비밀번호를 성공적으로 변경했습니다!");
+                    location.reload();
                 } else {
                     switch(res["msg"]) {
                         case "now pw incorrect": alert("현재 비밀번호가 올바르지 않습니다!"); break;
