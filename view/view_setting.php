@@ -11,9 +11,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                         <?php
-            				if(!mdl_user::CheckPermission(0)){
-            					utl_htmldoc::ShowError(403, "No access authority");
-            				} else {
+            				if(mdl_user::CheckPermission(0)){
             				    ctr_setting::InitMenu();
             					ctr_setting::DisplayNavbarItem($_SESSION['uname']);
             				}
