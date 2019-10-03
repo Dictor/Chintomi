@@ -10,9 +10,11 @@
 	    ctr_api::Process($urlargs);
 	    exit();
 	} else if ($urlargs[0] === 'js') {
+		header('Content-type: application/javascript');
 	    require 'script/script.php';
 	    exit();
 	} else if ($urlargs[0] === 'css') {
+		header('Content-type: text/css');
 		require 'style/standard.css';
 		exit();
 	} else {
@@ -22,7 +24,7 @@
 					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 					<title>Chintomi</title>
 					
-					<link href="'.utl_htmldoc::GetHrefPath('PAGE_CSS').'" rel="stylesheet">
+					<link href="'.utl_htmldoc::GetHrefPath('PAGE_CSS').'" rel="stylesheet" type="text/css">
 					<link href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 					<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
 					
