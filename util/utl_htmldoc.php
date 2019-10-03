@@ -12,7 +12,7 @@
                 case 'PAGE_INDEX': return config::URLREWRITE_ENABLE ? $rootPath.'/' : $rootFile;
                 case 'PAGE_SETUP': return config::URLREWRITE_ENABLE ? $rootPath.'/setup' : $rootFile.'?path=setup';
                 case 'PAGE_API': return config::URLREWRITE_ENABLE ? $rootPath.'/api' : $rootFile.'?path=api';
-                case 'PAGE_JS': return config::URLREWRITE_ENABLE ? $rootPath.'/api' : $rootFile.'?path=js';
+                case 'PAGE_JS': return config::URLREWRITE_ENABLE ? $rootPath.'/js' : $rootFile.'?path=js';
                 case 'PAGE_CSS': return config::URLREWRITE_ENABLE ? $rootPath.'/css' : $rootFile.'?path=css';
             }
         }
