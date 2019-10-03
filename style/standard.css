@@ -179,3 +179,8 @@ body {
 .padding-div p{
 	text-align: center;
 }
+
+.half-size-input {
+	width: calc(50% - 2.5px) !important;
+	display: inline-block !important;
+}
