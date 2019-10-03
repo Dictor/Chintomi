@@ -55,7 +55,7 @@
 	    		foreach (mdl_user::GetAllUser() as $usrid => $usrper) {
 	    			echo '<tr><th scope="row">'.$usrid.'</th>';
 	    			echo '<td>'.$usrper.'</td>';
-	    			echo '<td><button type="button" class="btn btn-danger" onclick="javascript:delusr(\''.$usrid.'\')">계정 삭제</button>';
+	    			echo '<td><button type="button" class="btn btn-danger" onclick="javascript:spSetting.apiDeleteUser(\''.$usrid.'\')">계정 삭제</button>';
 	    			echo ' <button type="button" class="btn btn-warning" onclick="">권한 수정</button></td></tr>';
 	    		}
 	    	}
