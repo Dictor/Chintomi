@@ -64,7 +64,7 @@
 		URLREWRITE_ENABLE	: TRUE = (Only for URL Rewrite enabled WAS) URL is formatted shortly and beautiful (It require URL rewrite through rule defined in .htaccess)
 							  FALSE	= (for URL Rewrite disabled or not supported WAS) URL isn't formatted shortly
 		*/
-		const URLREWRITE_ENABLE = FALSE;
+		const URLREWRITE_ENABLE = TRUE;
 		
 		const MEMORY_UNLIMIT_UPDATE_THUMBNAIL = TRUE;
 

@@ -63,7 +63,6 @@
     <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">비밀번호</th>
           <th scope="col">권한</th>
           <th scope="col">관리</th>
         </tr>
