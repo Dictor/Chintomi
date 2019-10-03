@@ -5,9 +5,10 @@
 	<body>
 		<?php 
 			echo '<script>';
-			echo 'function go_viewer(id){window.open("'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/" + id);}';
-			echo 'function go_list(page){location.href = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'/" + page;}';
-			echo 'function logout(){var req = new XMLHttpRequest(); req.open("GET", "'.utl_htmldoc::GetHrefPath('PAGE_API').'" + "/logout", true); req.onload = function() {location.href = "'.utl_htmldoc::GetHrefPath('PAGE_INDEX').'";}; req.send();}; ';
+			echo 'function go_viewer(id) {window.open("'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/" + id);}';
+			echo 'function go_list(page) {location.href = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'/" + page;}';
+			echo 'function logout() {var req = new XMLHttpRequest(); req.open("GET", "'.utl_htmldoc::GetHrefPath('PAGE_API').'" + "/logout", true); req.onload = function() {location.href = "'.utl_htmldoc::GetHrefPath('PAGE_INDEX').'";}; req.send();}; ';
+			echo 'function go_setting() {window.open("'.utl_htmldoc::GetHrefPath('PAGE_SETTING').'");}';
 			echo '</script>';
 		?>
 		<div class="list-group">
