@@ -9,7 +9,12 @@
 		public static $thumbdir = config::PATH_COMICBOOK.'/.thumbnail';
 		
 		public static function UpdateLibrary() {
-			$validpaths = self::ExploreDirectory();
+			$validinfo = self::ExploreDirectory();
+			$validpaths = array();
+			foreach($validinfo as $nowinfo) {
+				$validpaths[] = $nowinfo['path'];
+			}
+			
 			$dbbooks = mdl_book::GetAllBooks();
 			$dbpaths = array();
 			$res = array('added' => 0, 'deleted' => 0);
@@ -19,7 +24,14 @@
 			}
 			foreach(array_diff($validpaths, $dbpaths) as $nowadd) {
 				$name = explode('/',$nowadd);
-				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end($name), ""));
+				$info;
+				foreach ($validinfo as $nowinfo) {
+					if ($nowinfo['path'] === $nowadd) {
+						$info = $nowinfo;
+						break;
+					}
+				}
+				mdl_book::AddBook(new Comicbook(NULL, $nowadd, end($name), "", $info['imgcnt'], $info['imgsize'], NULL));
 				$res['added']++;
 			}
 			foreach(array_diff($dbpaths, $validpaths) as $nowdel) {
@@ -75,17 +87,18 @@
 			
 			$q->push(config::PATH_COMICBOOK);
 			while (!$q->isEmpty()) {
-				$dircnt = $imgcnt = 0;
+				$dircnt = $imgcnt = $imgsize = 0;
 				foreach(self::GetEntry($nowpath = $q->pop()) as $nowentry) {
 					if(is_dir($nowentry)) {
 						$q->push($nowentry);
 						$dircnt++;
 					} elseif (is_file($nowentry) and self::isAllowedExt($nowentry)) {
 						$imgcnt++;
+						$imgsize += filesize($nowentry);
 					}
 				}
 				if ($dircnt == 0 and $imgcnt > 0) {
-					$res[] = $nowpath;
+					$res[] = array('path' => $nowpath, 'imgcnt' => $imgcnt, 'imgsize' => $imgsize);
 				}
 			}
 			return $res;

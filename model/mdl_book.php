@@ -3,12 +3,15 @@
 	require_once 'autoload.php';
 
 	class Comicbook {
-		public $name, $path, $id, $author;
-		public function __construct($id, $path, $name, $author) {
+		public $name, $path, $id, $author, $imgcnt, $imgsize, $added_date;
+		public function __construct($id, $path, $name, $author, $imgcnt, $imgsize, $added_date) {
 			$this->name = $name;
 			$this->path = $path;
 			$this->id = $id;
 			$this->author = $author;
+			$this->imgcnt = $imgcnt;
+			$this->imgsize = $imgsize;
+			$this->added_date = $added_date;
 		}
 	}
 
@@ -22,7 +25,8 @@
 		}
 		
 		public static function AddBook(Comicbook $book) {
-			return hnd_SQLite::Execute('INSERT INTO comicbook (book_path, book_name, book_author) VALUES (:bpath, :bname, :bauthor)', array('bpath' => $book->path, 'bname' => $book->name, 'bauthor' => $book->author));
+			return hnd_SQLite::Execute('INSERT INTO comicbook (book_path, book_name, book_author, image_count, image_size, added_date) VALUES (:bpath, :bname, :bauthor, :bimgcnt, :bimgsize, :bdate)', 
+				array('bpath' => $book->path, 'bname' => $book->name, 'bauthor' => $book->author, 'bimgcnt' => $book->imgcnt, 'bimgsize' => $book->imgsize, 'bdate' => (new \DateTime('now')) -> format(\DateTime::ATOM)));
 		}
 		
 		public static function DeleteBook(Comicbook $book) {

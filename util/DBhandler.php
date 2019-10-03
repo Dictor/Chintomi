@@ -19,7 +19,7 @@
 				if(!is_dir(dirname($path))) mkdir(dirname($path), 0777, TRUE);
 				if(!is_file($path)){
 					$db = new \SQLite3($path);
-					$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT);');
+					$db->exec('CREATE TABLE comicbook(book_id INTEGER PRIMARY KEY AUTOINCREMENT, book_path TEXT NOT NULL, book_name TEXT, book_author TEXT, image_count INTEGER, image_size INTEGER, added_date TEXT);');
 					$db->exec('CREATE TABLE user(user_name TEXT PRIMARY KEY NOT NULL, user_pass TEXT NOT NULL, user_permission INTEGER NOT NULL);');
 					$db->close();
 				}
@@ -65,7 +65,7 @@
 		public static function ResultToComicbook($res) {
 			$arr = array();
 			while ($nowrow = $res->fetchArray()) {
-				$arr[]=new Comicbook($nowrow['book_id'], $nowrow['book_path'], $nowrow['book_name'], $nowrow['book_author']);
+				$arr[]=new Comicbook($nowrow['book_id'], $nowrow['book_path'], $nowrow['book_name'], $nowrow['book_author'], $nowrow['image_count'], $nowrow['image_size'], $nowrow['added_date']);
 			}
 			return $arr;
 		}
