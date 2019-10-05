@@ -151,6 +151,20 @@
                         echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
                     }
                     break;
+                case 'reset_lib':
+                    if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
+                        try {
+                            $startt = microtime(TRUE);
+                            mdl_library::ResetLibrary();
+                            $endt = microtime(TRUE);
+                            echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!'));
+                        } catch (\Throwable $t) {
+                            echo json_encode(array('res' => 'error', 'msg' => 'error occured during process : '.$t->getMessage()));
+                        }
+                    } else {
+                        echo json_encode(array('res' => 'error', 'msg' => 'no authority'));
+                    }
+                    break;
                 default:
                     echo json_encode(array('res' => 'error', 'msg' => 'undefined api verb'));
             }
