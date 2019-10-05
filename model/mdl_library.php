@@ -41,6 +41,10 @@
 			return $res;
 		}
 		
+		public static function ResetLibrary() {
+			mdl_book::DeleteAllBooks();
+		}
+		
 		public static function UpdateThumbnail() {
 			if (config::MEMORY_UNLIMIT_UPDATE_THUMBNAIL) ini_set('memory_limit', '-1');
 			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
