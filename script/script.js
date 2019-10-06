@@ -80,6 +80,14 @@ var spSetting = {
                 this.splibPrintRes("썸네일 순차 라이브러리 업데이트 작업을 시작합니다.");
                 this.apiUpdateThumbnailNext();
                 return;
+            case 4:
+                if(confirm("정말로 라이브러리 초기화 합니까?")) {
+                    this.splibPrintRes("라이브러리 초기화 작업을 시작합니다.");
+                    api_path = "reset_lib";
+                    break;
+                } else {
+                    return;
+                }
         }
         GETApiReq(api_path, function(resp) { /*global GETApiReq*/
                 var res = JSON.parse(resp);
@@ -96,7 +104,7 @@ var spSetting = {
                 spSetting.splibPrintRes("작업 완료! 결과 : " + (res['res'] == 'success' ? "성공" : "실패"));
                 spSetting.splibPrintRes("메세지 : " + res['msg'] + " 썸네일 추가 : " + res['th_added']);
                 if (res['th_added'] != "id → -1") {
-                    thnext_task();
+                    spSetting.apiUpdateThumbnailNext();
                 } else {
                     spSetting.splibPrintRes("순차 작업을 종료합니다!");
                 }
