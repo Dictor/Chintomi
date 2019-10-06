@@ -10,5 +10,6 @@
     <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="javascript:spSetting.apiUpdateLibrary(2)">썸네일 일괄 업데이트</button>
     <p>'썸네일 순차 업데이트'는 많은 만화책의 썸네일을 한번에 생성할 때 권장됩니다.</p>
     <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="javascript:spSetting.apiUpdateLibrary(3)">썸네일 순차 업데이트</button>
+    <button type="button" class="btn btn-danger btn-lg btn-block" onclick="javascript:spSetting.apiUpdateLibrary(4)">라이브러리 초기화</button>
     <div id='result'></div>
 </div>
