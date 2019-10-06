@@ -53,7 +53,7 @@
 		}
 
 		public static function ShowPage($pfirst, $plast, $pnow){
-			echo '<nav aria-label="Page navigation" class="list-pagination"><ul class="pagination justify-content-center"><li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$pfirst.')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+			echo '<nav aria-label="Page navigation" class="list-pagination nav-center"><ul class="pagination ul-center"><li class="page-item"><a class="page-link" href="javascript:go_list('.(string)$pfirst.')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 			for($i = $pfirst; $i <= $plast; $i++){
 				if($i == $pnow){
 					echo '<li class="page-item active" aria-current="page"><a class="page-link" href="javascript:go_list('.(string)$i.')">'.(string)$i.' <span class="sr-only">(current)</span></a></li>';

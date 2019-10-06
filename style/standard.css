@@ -188,3 +188,13 @@ body {
 	width: calc(50% - 2.5px) !important;
 	display: inline-block !important;
 }
+
+.ul-center {
+	display: inline-flex !important;
+	display: -ms-inline-flexbox !important;
+}
+
+.nav-center {
+	text-align: center;
+	overflow-x: auto;
+}
