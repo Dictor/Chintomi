@@ -156,6 +156,7 @@ var spSetting = {
                                 case "already exist user": alert("이미 존재하는 유저입니다!"); break;
                                 case "invalid params": alert("매개변수 오류"); break;
                                 case "no authority": alert("권한 없음"); break;
+                                case "cant make admin account": alert("관리자 계정을 생성할 수 없습니다!"); break;
                                 default: alert("알 수 없는 오류"); break;
                             }
                         }
