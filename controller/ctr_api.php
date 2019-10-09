@@ -115,8 +115,12 @@
                                 echo json_encode(array('res' => 'error', 'msg' => 'input invalid'));  
                             } else {
                                 if(mdl_user::GetPermission($_POST['uname']) == FALSE) {
-                                    mdl_user::MakeUser($_POST['uname'], $_POST['upass'], $_POST['uper']);
-                                    echo json_encode(array('res' => 'success'));
+                                    if ($_POST['uper'] >= config::PERMISSION_LEVEL_ADMIN) { 
+                                        echo json_encode(array('res' => 'error', 'msg' => 'cant make admin account'));
+                                    } else {
+                                        mdl_user::MakeUser($_POST['uname'], $_POST['upass'], $_POST['uper']);
+                                        echo json_encode(array('res' => 'success'));
+                                    }
                                 } else {
                                     echo json_encode(array('res' => 'error', 'msg' => 'already exist user'));
                                 }
