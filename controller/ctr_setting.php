@@ -43,7 +43,7 @@
 	    
 	    public static function spDisplayLibrary() {
 	    	foreach(mdl_book::GetAllBooks() as $nowbook) {
-	    		echo '<tr><th scope="row">'.$nowbook->id.'</th><td>'.$nowbook->name.'</td><td>'.$nowbook->path.'</td><td>'.$nowbook->author.'</td></tr>';
+	    		echo '<tr><th scope="row">'.$nowbook->id.'</th><td>'.$nowbook->name.'</td><td>'.$nowbook->path.'</td><td>'.$nowbook->imgcnt.'</td><td>'.mdl_book::GetHumanFileSize($nowbook->imgsize).'</td><td>'.(new \DateTime($books[$i]->added_date))->format('y/m/d H:i').'</td></tr>';
 			}
 	    }
 	    

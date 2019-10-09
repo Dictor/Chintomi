@@ -44,5 +44,11 @@
 		public static function SearchBook(string $id) {
 			return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook WHERE book_id=:bid', array('bid' => $id)));
 		}
+		
+		public static function GetHumanFileSize($bytes, $decimals = 2) {
+		  $sz = 'BKMGTP';
+		  $factor = floor((strlen($bytes) - 1) / 3);
+		  return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+		}
 	}
 ?>
