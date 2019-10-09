@@ -26,22 +26,16 @@
 				for($i = $startnum; $i <= $endnum; $i++){
 					echo '<a href="javascript:go_viewer('.$books[$i]->id.')" class="list-group-item list-group-item-action">';
 					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($books[$i]->id);
-					echo '<div class="list-title"><p>'.$books[$i]->name.'</p><p><span class="badge badge-info">'.$books[$i]->imgcnt.'장 / '.self::human_filesize($books[$i]->imgsize).'</span><span class="badge badge-light">'.(new \DateTime($books[$i]->added_date))->format('y/m/d H:i').'</span></p></div></a>';
+					echo '<div class="list-title"><p>'.$books[$i]->name.'</p><p><span class="badge badge-info">'.$books[$i]->imgcnt.'장 / '.mdl_book::GetHumanFileSize($books[$i]->imgsize).'</span><span class="badge badge-light">'.(new \DateTime($books[$i]->added_date))->format('y/m/d H:i').'</span></p></div></a>';
 				}
 				self::ShowPage(1, floor(count($books) / config::LIST_PAGIGATION_THRESHOLD) + 1, $pagenum);
 			} else {
 				foreach($books as $nowbook) {
 					echo '<a href="javascript:go_viewer('.$nowbook->id.')" class="list-group-item list-group-item-action">';
 					if (config::THUMBNAIL_DISPLAY_ENABLE) echo self::ShowThumbnail($nowbook->id);
-					echo '<div class="list-title">'.$nowbook->id.'</div></a>';
+					echo '<div class="list-title"><p>'.$nowbook->name.'</p><p><span class="badge badge-info">'.$nowbook->imgcnt.'장 / '.mdl_book::GetHumanFileSize($nowbook->imgsize).'</span><span class="badge badge-light">'.(new \DateTime($nowbook->added_date))->format('y/m/d H:i').'</span></p></div></a>';
 				}	
 			}
-		}
-		
-		private static function human_filesize($bytes, $decimals = 2) {
-		  $sz = 'BKMGTP';
-		  $factor = floor((strlen($bytes) - 1) / 3);
-		  return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
 		}
 		
 		public static function ShowToolbar(int $bookcnt, string $username) {
