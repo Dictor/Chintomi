@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Validate code
 
 on: [push]
 
@@ -15,6 +15,9 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Print display for debug
+      run: ls .
 
     - name: PHP Syntax Checker (Lint)
       uses: StephaneBour/actions-php-lint@7.3
