@@ -16,9 +16,6 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Print display for debug
-      run: ls .
-
     - name: PHP Syntax Checker (Lint)
       uses: StephaneBour/actions-php-lint@7.3
       with:
