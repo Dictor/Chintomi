@@ -3,7 +3,7 @@
 	require_once 'autoload.php';
 
     session_start();
-	$urlarg = filter_var($_GET['path'], FILTER_SANITIZE_STRING);
+	$urlarg = filter_var((array_key_exists('path', $_GET) ? $_GET['path'] : NULL), FILTER_SANITIZE_STRING);
 	$urlarg = trim($urlarg, '/');
 	$urlargs = explode('/', $urlarg);
 	if ($urlargs[0] === 'api') {
