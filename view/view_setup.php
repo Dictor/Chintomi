@@ -5,7 +5,7 @@
 	<body>
 	    <?php
             if (mdl_user::UseDB() != 0) {
-                utl_htmldoc::ShowError(500, "DB Error");
+                utl_htmldoc::ShowError(500, "DB Error (Open failure)");
                 utl_htmldoc::CloseDocument();
             } else {
                 if(is_null($has_admin = mdl_user::CheckAdminExist())) {
