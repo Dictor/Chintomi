@@ -113,7 +113,7 @@
 			$rtnval = array();
 
 			while ($entryname = readdir($handle)) {
-				if(mb_substr($entryname, 0, 1) == '.') continue;
+				if(\mb_substr($entryname, 0, 1) == '.') continue;
 				$entryname = $path.'/'.$entryname;
 				if(is_dir($entryname) or self::isAllowedExt($entryname)) $rtnval[] = $entryname;
 			}
