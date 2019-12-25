@@ -10,3 +10,8 @@ The below attributed softwares may be contained or used in this software.
 * https://github.com/php-ds/ext-ds
 * Copyright (c) 2016 Rudi Theunissen
 * MIT License
+
+## donjajo/php-jsondb
+* https://github.com/donjajo/php-jsondb
+* Copyright (c) 2017 Jajo
+* MIT License
