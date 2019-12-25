@@ -61,7 +61,7 @@
 			}
 		}
 		
-		public static function GetHumanFileSize($bytes, $decimals = 2): string {
+		public static function GetHumanFileSize(int $bytes, int $decimals = 2): string {
 		  $sz = 'BKMGTP';
 		  $factor = floor((strlen($bytes) - 1) / 3);
 		  return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];

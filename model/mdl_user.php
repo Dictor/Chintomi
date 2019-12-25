@@ -9,13 +9,13 @@
             }
 		}
         
-        public static function CheckPassword($userName, $userPass): bool {
+        public static function CheckPassword(string $user_name, string $user_pass): bool {
             $res = [];
             switch (config::DB_HANDLER) {
-                case 'SQLITE': $res = hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $userName))); break;
+                case 'SQLITE': $res = hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $user_name))); break;
             }
             if (!is_null($res) and count($res) != 0) {
-                if(password_verify($userPass, $res[0]['user_pass'])) {
+                if(password_verify($user_pass, $res[0]['user_pass'])) {
                     return TRUE;
                 } else {
                     return FALSE;
@@ -25,27 +25,27 @@
             }
         }
         
-        public static function ChangePassword($userName, $newPass): void {
+        public static function ChangePassword(string $old_pass, string $new_pass): void {
             switch (config::DB_HANDLER) {
-                case 'SQLITE': hnd_SQLite::Execute('UPDATE user SET user_pass = :newpass WHERE user_name = :uname', array('uname' => $userName, 'newpass' => password_hash($newPass, PASSWORD_DEFAULT))); break;   
+                case 'SQLITE': hnd_SQLite::Execute('UPDATE user SET user_pass = :newpass WHERE user_name = :uname', array('uname' => $old_pass, 'newpass' => password_hash($new_pass, PASSWORD_DEFAULT))); break;   
             }
         }
         
-        public static function ChangePermission($uname, $newper): void {
+        public static function ChangePermission(string $user_name, int $new_permission): void {
             switch (config::DB_HANDLER) {
-                case 'SQLITE': hnd_SQLite::Execute('UPDATE user SET user_permission = :uper WHERE user_name = :uname', array('uname' => $uname, 'uper' => $newper)); break;
+                case 'SQLITE': hnd_SQLite::Execute('UPDATE user SET user_permission = :uper WHERE user_name = :uname', array('uname' => $user_name, 'uper' => $new_permission)); break;
             }
         }
         
-        public static function DeleteUser($userName): void {
+        public static function DeleteUser(string $user_name): void {
             switch (config::DB_HANDLER) {
-                case 'SQLITE': hnd_SQLite::Execute('DELETE FROM user WHERE user_name = :uname', array('uname' => $userName)); break;
+                case 'SQLITE': hnd_SQLite::Execute('DELETE FROM user WHERE user_name = :uname', array('uname' => $user_name)); break;
             }
         }
         
-        public static function MakeUser($uname, $upass, $uper): void {
+        public static function MakeUser(string $user_name, string $user_pass, int $user_permission): void {
             switch (config::DB_HANDLER) {
-                case 'SQLITE': hnd_SQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $uname, 'upass' => password_hash($upass, PASSWORD_DEFAULT), 'uper' => $uper)); break;
+                case 'SQLITE': hnd_SQLite::Execute('INSERT INTO user VALUES (:uname, :upass, :uper);', array('uname' => $user_name, 'upass' => password_hash($user_pass, PASSWORD_DEFAULT), 'uper' => $user_permission)); break;
             }
         }
         
@@ -75,21 +75,21 @@
             }
         }
         
-        public static function MakeAdmin($uname, $upass): bool {
+        public static function MakeAdmin($user_name, $user_pass): bool {
             if (!self::CheckAdminExist()) {
                 switch (config::DB_HANDLER) {
                     case 'SQLITE': 
-                        self::MakeUser($uname, $upass, Config::PERMISSION_LEVEL_ADMIN); 
+                        self::MakeUser($user_name, $user_pass, Config::PERMISSION_LEVEL_ADMIN); 
                         return TRUE;
                 }
             }
             return FALSE;
         }
         
-        public static function GetPermission($uname): ?int {
+        public static function GetPermission($user_name): ?int {
             $res = [];
             switch (config::DB_HANDLER) {
-                case 'SQLITE': $res =  hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $uname))); break;
+                case 'SQLITE': $res =  hnd_SQLite::ResultToArray(hnd_SQLite::Query('SELECT * FROM user WHERE user_name=:uname', array('uname' => $user_name))); break;
             }
             if(is_null($res) or count($res) == 0){
                 return NULL;
@@ -98,13 +98,13 @@
             }
         }
         
-        public static function CheckPermission($minlv): ?bool {
+        public static function CheckPermission($minimum_level): ?bool {
 			if (mdl_user::UseDB() != 0) {
 				utl_htmldoc::ShowError(500, "DB Error");
 				return NULL;
 			} else {
 				if (array_key_exists('uname', $_SESSION)) {
-					if (mdl_user::GetPermission($_SESSION['uname']) >= $minlv){
+					if (mdl_user::GetPermission($_SESSION['uname']) >= $minimum_level){
 						return TRUE;
 					} else {
 						return FALSE;

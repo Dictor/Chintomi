@@ -8,7 +8,7 @@
 	class mdl_library {
 		public static $thumbdir = config::PATH_COMICBOOK.'/.thumbnail';
 		
-		public static function UpdateLibrary() {
+		public static function UpdateLibrary(): array {
 			$validinfo = self::ExploreDirectory();
 			$validpaths = array();
 			foreach($validinfo as $nowinfo) {
@@ -41,11 +41,11 @@
 			return $res;
 		}
 		
-		public static function ResetLibrary() {
+		public static function ResetLibrary(): void {
 			mdl_book::DeleteAllBooks();
 		}
 		
-		public static function UpdateThumbnail() {
+		public static function UpdateThumbnail(): int {
 			if (config::MEMORY_UNLIMIT_UPDATE_THUMBNAIL) ini_set('memory_limit', '-1');
 			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
 			$dbbooks = mdl_book::GetAllBooks();
@@ -64,7 +64,7 @@
 			return $res;
 		}
 		
-		public static function UpdateThumbnailNext() {
+		public static function UpdateThumbnailNext(): int {
 			if (config::MEMORY_UNLIMIT_UPDATE_THUMBNAIL) ini_set('memory_limit', '-1');
 			if (!is_dir(self::$thumbdir)) mkdir(self::$thumbdir);
 			$dbbooks = mdl_book::GetAllBooks();
@@ -85,7 +85,7 @@
 			return $res;
 		}
 		
-		private static function ExploreDirectory() {
+		private static function ExploreDirectory(): array {
 			$res = array();
 			$q = new Queue();
 			
@@ -108,7 +108,7 @@
 			return $res;
 		}
 		
-		public static function GetEntry(string $path) {
+		public static function GetEntry(string $path): array {
 			$handle = opendir($path);
 			$rtnval = array();
 
@@ -121,7 +121,7 @@
 			return $rtnval;
 		}
 		
-		private static function isAllowedExt(string $path) {
+		private static function isAllowedExt(string $path): bool {
 			$ext = pathinfo($path)['extension'];
 			$res = FALSE;
 			foreach(config::ALLOWED_EXTENSION as $nowext) {
