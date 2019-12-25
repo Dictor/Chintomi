@@ -5,11 +5,11 @@
 	<body>
 	    <?php
             if (mdl_user::UseDB() != 0) {
-                utl_htmldoc::ShowError(500, "DB Error");
+                utl_htmldoc::ShowError(500, "DB Error (Open failure)");
                 utl_htmldoc::CloseDocument();
             } else {
                 if(is_null($has_admin = mdl_user::CheckAdminExist())) {
-                    utl_htmldoc::ShowError(500, "DB Error");
+                    utl_htmldoc::ShowError(500, "DB Error (Cannot load admin info)");
                     utl_htmldoc::CloseDocument();
                 } else if(!$has_admin) {
                     if (!is_null($uname = (array_key_exists('uname', $_POST) ? $_POST['uname'] : NULL)) and !is_null($upass = (array_key_exists('upass', $_POST) ? $_POST['upass'] : NULL))) {
@@ -21,7 +21,7 @@
                                 if(mdl_user::MakeAdmin($uname, $upass) != FALSE) {
                                     echo '<script>alert("설정 완료! 이제 setup.php를 삭제해주세요."); location.href="'.utl_htmldoc::GetHrefPath('PAGE_INDEX').'";</script>';
                                 } else {
-                                    utl_htmldoc::ShowError(500, "DB Error");
+                                    utl_htmldoc::ShowError(500, "DB Error (Cannot made admin account)");
                                     utl_htmldoc::CloseDocument();
                                 }
                             } else {
