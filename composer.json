@@ -8,7 +8,8 @@
         "gumlet/php-image-resize": "1.9.*",
         "ext-gd": "*",
         "ext-sqlite3": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "jajo/jsondb": "dev-master"
     },
     "license": "Apache-2.0",
     "authors": [
