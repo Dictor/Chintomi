@@ -5,12 +5,20 @@
 		/*
 		[FILE SETTING]
 		PATH_COMICBOOK		: Path of Comicbook directory
-		PATH_SQLITE 		: Path of sqlite DB file
 		ALLOWED_EXTENSION	: Extension of allowed image file
 		*/
 		const PATH_COMICBOOK = "/home/ubuntu/environment/Chintomi/data";
-		const PATH_SQLITE = "/home/ubuntu/environment/Chintomi/data/chintomi.db";
 		const ALLOWED_EXTENSION = array("jpg", "jpeg", "png", "bmp", "gif");
+
+		/*
+		[DATABASE_SETTING]
+		DB_HANDLER			: Database handler name using in chintomi
+								* SQLITE : sqlite3
+								* JSON : json based database (DEFAULT)
+		PATH_SQLITE			: Path of sqlite DB file
+		*/
+		const DB_HANDLER = "SQLITE";
+		const PATH_SQLITE = "/home/ubuntu/environment/Chintomi/data/chintomi.db";
 
 		/*
 		[IMAGE RESIZE SETTING]
