@@ -17,9 +17,10 @@
 								* JSON : json based database (DEFAULT)
 		PATH_SQLITE			: Path of sqlite DB file
 		*/
-		const DB_HANDLER = "SQLITE";
+		const DB_HANDLER = "JSON";
 		const PATH_SQLITE = "/home/ubuntu/environment/Chintomi/data/chintomi.db";
-
+		const PATH_JSON = "/home/ubuntu/environment/Chintomi/data/db";
+		
 		/*
 		[IMAGE RESIZE SETTING]
 		RESIZEIMG_ENABLE	: TRUE = Enable resizing when image's longer length is over resizeImageSize
