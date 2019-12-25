@@ -3,7 +3,7 @@ namespace Dictor\Chintomi;
 
 class hnd_SQLite implements handler{
     private static $currentDB;
-	    private static $isOpen = FALSE;
+	private static $isOpen = FALSE;
     
     public static function Open($path): int {
     	try{
