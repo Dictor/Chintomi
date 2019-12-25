@@ -14,7 +14,10 @@ function chintomi_autoloader($className){
             $path = 'util/'.$rawclassname.'.php';
             break;
         case 'hnd':
-            $path = 'util/DBhandler.php';
+            $path = 'hanlder/'.$rawclassname.'.php';
+            break;
+        case 'han':
+            $path = 'handler/handler.php';
             break;
         case 'con':
             $path = 'config/config.php';
