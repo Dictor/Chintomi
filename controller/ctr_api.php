@@ -4,6 +4,10 @@
     
     class ctr_api {
         public static function Process($urlparam) {
+            if(mdl_user::UseDB() != 0){
+				echo json_encode(array('res' => 'error', 'msg' => 'db error'));
+				return;
+			}
             switch ($urlparam[1]) {
                 case 'logout':
                     if (mdl_user::CheckPermission(0)) {
