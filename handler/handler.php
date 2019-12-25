@@ -2,7 +2,7 @@
 namespace Dictor\Chintomi;
 	
 interface handler {
-	public static function Open($path): int;
+	public static function Open(string $path): int;
 	public static function Close(): void;
 	
 	/*
