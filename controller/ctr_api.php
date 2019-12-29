@@ -163,6 +163,7 @@
                     if (mdl_user::CheckPermission(config::PERMISSION_LEVEL_ADMIN)) {
                         try {
                             $startt = microtime(TRUE);
+                            mdl_user::UseDB();
                             mdl_library::ResetLibrary();
                             $endt = microtime(TRUE);
                             echo json_encode(array('res' => 'success', 'msg' => (string)(round($endt - $startt, 4)).'sec elapsed!'));
