@@ -21,3 +21,9 @@ jobs:
       with:
         # Folder to check syntax
         dir: .
+    
+    - name: Print current directory
+      run: echo "$(ls)"     
+        
+    - name: PHPUnit Test
+      run: ./vendor/bin/phpunit --bootstrap vendor/autoload.php ./tests/test-mdl-book
