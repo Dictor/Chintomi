@@ -21,5 +21,8 @@
     ],
     "support": {
         "wiki": "https://wiki.chinchister.com/chintomi:chintomi"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
     }
 }
