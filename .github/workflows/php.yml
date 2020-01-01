@@ -25,4 +25,4 @@ jobs:
     - name: PHPUnit Test
       uses: pxgamer/phpunit-action@v1.0.0
       with:
-        command: tests/
+        command: tests/test-mdl-book
