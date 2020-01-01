@@ -16,22 +16,28 @@
 	}
 
 	class mdl_book {
+		private static $currentHandler = config::DB_HANDLER;
+		
+		public static function SetDB(string $handler): void {
+			self::$currentHandler = $handler;
+		}
+		
 		public static function UseDB(): int {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': return hnd_SQLite::Open(config::PATH_SQLITE);
                 case 'JSON': return hnd_json::Open(config::PATH_JSON);
 			}
 		}
 		
 		public static function GetAllBooks(): array {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook', array()));
                 case 'JSON': return hnd_json::ResultToComicbook(hnd_json::GetDB()->select('*')->from(hnd_json::TABLE_BOOK)->get());
 			}
 		}
 		
 		public static function AddBook(Comicbook $book): void {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE':
 					hnd_SQLite::Execute('INSERT INTO comicbook (book_path, book_name, book_author, image_count, image_size, added_date) VALUES (:bpath, :bname, :bauthor, :bimgcnt, :bimgsize, :bdate)', 
 						array('bpath' => $book->path, 'bname' => $book->name, 'bauthor' => $book->author, 'bimgcnt' => $book->imgcnt, 'bimgsize' => $book->imgsize, 'bdate' => (new \DateTime('now'))->format(\DateTime::ATOM)));
@@ -53,28 +59,28 @@
 		}
 		
 		public static function DeleteBook(Comicbook $book): void {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': hnd_SQLite::Execute('DELETE FROM comicbook WHERE book_id=:bid', array('bid' => $book->$id)); break;
 				case 'JSON': hnd_json::GetDB()->delete()->from(hnd_json::TABLE_BOOK)->where(['book_id' => $book->$id])->trigger(); break;
 			}
 		}
 		
 		public static function DeleteAllBooks(): void {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': hnd_SQLite::Execute('DELETE FROM comicbook', array()); break;
                 case 'JSON': hnd_json::GetDB()->delete()->from(hnd_json::TABLE_BOOK)->trigger(); break;
 			}
 		}
 		
 		public static function DeleteBookByPath(string $path): void {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': hnd_SQLite::Execute('DELETE FROM comicbook WHERE book_path=:bpath', array('bpath' => $path)); break;
                 case 'JSON': hnd_json::GetDB()->delete()->from(hnd_json::TABLE_BOOK)->where(['book_path' => $path])->trigger(); break;
 			}
 		}
 		
 		public static function SearchBook(string $id): array {
-			switch (config::DB_HANDLER) {
+			switch (self::$currentHandler) {
                 case 'SQLITE': return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook WHERE book_id=:bid', array('bid' => $id)));
                 case 'JSON': return hnd_json::ResultToComicbook(hnd_json::GetDB()->select('*')->from(hnd_json::TABLE_BOOK)->where(['book_id' => $id])->get());
 			}
