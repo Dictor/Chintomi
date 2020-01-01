@@ -14,7 +14,13 @@
                 case 'SQLITE': return hnd_SQLite::Open(config::PATH_SQLITE);
                 case 'JSON': return hnd_json::Open(config::PATH_JSON);
             }
-            
+		}
+		
+		public static function UseDBByPath(string $path): int {
+			switch (self::$currentHandler) {
+                case 'SQLITE': return hnd_SQLite::Open($path);
+                case 'JSON': return hnd_json::Open($path);
+			}
 		}
         
         public static function CheckPassword(string $user_name, string $user_pass): bool {

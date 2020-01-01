@@ -29,6 +29,13 @@
 			}
 		}
 		
+		public static function UseDBByPath(string $path): int {
+			switch (self::$currentHandler) {
+                case 'SQLITE': return hnd_SQLite::Open($path);
+                case 'JSON': return hnd_json::Open($path);
+			}
+		}
+		
 		public static function GetAllBooks(): array {
 			switch (self::$currentHandler) {
                 case 'SQLITE': return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook', array()));
