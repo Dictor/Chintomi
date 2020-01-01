@@ -52,7 +52,7 @@
 				case 'JSON':
 					hnd_json::GetDB()->insert(hnd_json::TABLE_BOOK, 
 						[
-							'book_id' => 1 + count(hnd_json::ResultToArray(hnd_json::GetDB()->select('*')->from(hnd_json::TABLE_BOOK)->get())),
+							'book_id' => \time() + count(hnd_json::ResultToArray(hnd_json::GetDB()->select('*')->from(hnd_json::TABLE_BOOK)->get())),
 							'book_path' => $book->path, 
 							'book_name' => $book->name, 
 							'book_author' => $book->author, 
@@ -62,13 +62,6 @@
 						]
 					);
 					break;
-			}
-		}
-		
-		public static function DeleteBook(Comicbook $book): void {
-			switch (self::$currentHandler) {
-                case 'SQLITE': hnd_SQLite::Execute('DELETE FROM comicbook WHERE book_id=:bid', array('bid' => $book->$id)); break;
-				case 'JSON': hnd_json::GetDB()->delete()->from(hnd_json::TABLE_BOOK)->where(['book_id' => $book->$id])->trigger(); break;
 			}
 		}
 		
