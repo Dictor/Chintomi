@@ -4,8 +4,8 @@
     "type": "project",
     "require": {
         "php": ">=7.1",
-        "php-ds/php-ds": "1.2.*",
-        "gumlet/php-image-resize": "1.9.*",
+        "php-ds/php-ds": "^1.2",
+        "gumlet/php-image-resize": "^1.9",
         "ext-gd": "*",
         "ext-sqlite3": "*",
         "ext-mbstring": "*",
