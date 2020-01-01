@@ -21,3 +21,8 @@ jobs:
       with:
         # Folder to check syntax
         dir: .
+        
+    - name: PHPUnit Test
+      uses: pxgamer/phpunit-action@v1.0.0
+      with:
+        command: tests/
