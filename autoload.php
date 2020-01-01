@@ -22,7 +22,7 @@ function chintomi_autoloader($className){
         case 'con':
             $path = 'config/config.php';
             break;
-        default: throw new \Exception('autoload module catch undefined reference and it cant be handled : '.$className);
+        default: printf("[Chintomi autoloader] Cannet find matched class from '%s'\n", $className); return;
   }
   require $path;
 }
