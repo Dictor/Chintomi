@@ -198,3 +198,8 @@ body {
 	text-align: center;
 	overflow-x: auto;
 }
+
+.search-form {
+	float: right;
+    width: 200px !important;
+}
