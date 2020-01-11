@@ -16,6 +16,7 @@
 	} else if ($urlargs[0] === 'css') {
 		header('Content-type: text/css');
 		require 'style/standard.css';
+		require 'style/xsmall.css';
 		exit();
 	} else {
 	    echo ' <html>

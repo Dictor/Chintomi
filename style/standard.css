@@ -142,6 +142,11 @@ body {
 	height: 100%
 }
 
+.btn-logout {
+	top: 0.35rem;
+    height: 31px;
+}
+
 .list-summary {
 	text-align: center;
 }
@@ -202,4 +207,25 @@ body {
 .search-form {
 	float: right;
     width: 200px !important;
+}
+
+.search-form-xsmall {
+	float: right;
+	display: none !important;
+}
+
+.search-form-xsmall .dropdown-menu {
+	width: 225px;
+	padding: 5px;
+}
+
+.search-form-xsmall .form-control {
+	width: 150px;
+	display: inline-block;
+}
+
+.search-form-xsmall .btn {
+	display: inline-block;
+	margin-left: 5px;
+	vertical-align: top;
 }

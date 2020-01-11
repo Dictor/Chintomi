@@ -1,0 +1,13 @@
+@media screen and (max-width: 600px) {
+    #toolbar-username {
+        display: none;
+    }
+    
+    .search-form {
+        display: none !important;
+    }
+    
+    .search-form-xsmall {
+        display: inline-flex !important;
+    }
+}
