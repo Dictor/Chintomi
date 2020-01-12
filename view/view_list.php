@@ -4,6 +4,7 @@
 ?>
 	<body>
 		<?php 
+			echo '<script src="'.utl_htmldoc::GetHrefPath('PAGE_JS').'"></script>';
 			echo '<script>';
 			echo 'function go_viewer(id) {window.open("'.utl_htmldoc::GetHrefPath('PAGE_VIEWER').'/" + id);}';
 			echo 'function go_list(page) {location.href = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'/" + page;}';

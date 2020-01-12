@@ -2,10 +2,11 @@
 	namespace Dictor\Chintomi; 
 	require_once 'autoload.php';
 	if (!mdl_user::CheckPermission(0)) {
-	    echo '/*NO AUTHORITY*/';
+	    echo '/* NO AUTHORITY */';
 	    exit();
 	}
 	echo 'var api_host = "'.utl_htmldoc::GetHrefPath('PAGE_API').'";';
+	echo 'var page_list = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'";';
 ?>
 
 function GETApiReq(verb, okcb, errorcb) {
@@ -34,6 +35,13 @@ function POSTApiReq(verb, param, okcb, errorcb) {
     };
     req.send(param);
 }
+
+var pList = {
+    gotoSearch: function(buttonkind) {
+        var id_by_kind = ["search-key", "search-key-xsmall"];
+        location.href = page_list + (page_list.includes("?") ? "&" : "?") + "search=" + document.getElementById(id_by_kind[buttonkind]).value;
+    }
+};
 
 var spSetting = {
     apiChangePassword: function () {
