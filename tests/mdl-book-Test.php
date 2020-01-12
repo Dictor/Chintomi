@@ -34,6 +34,15 @@ final class test_mdl_book extends TestCase {
         }
     }
     
+    public function testGetBooks(): void {
+        foreach (self::$testHandlerSet as $nowhandler) {
+            mdl_book::SetDB($nowhandler);
+            $res = mdl_book::GetBooks("name3");
+            $this->assertCount(1, $res);
+            $this->assertEquals($res[0]->name, "name3");
+        }
+    }
+    
     public function testSearchBook(): void {
         foreach (self::$testHandlerSet as $nowhandler) {
             mdl_book::SetDB($nowhandler);
