@@ -39,7 +39,7 @@
 							}
 						}
 						$plist_allowshow = true;
-						$plist_res = ctr_list::GetBooks();
+						$plist_res = array_key_exists('search', $_GET) ? ctr_list::GetBooks($_GET['search']) : ctr_list::GetBooks();
 					}
 				}
 			?>
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 			<?php
-			if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
+			if (!is_null($plist_res)) ctr_list::DisplayBooks($plist_res, $pagenum, $_SESSION['uname']);
 			?>
 		</div>
 	</body>

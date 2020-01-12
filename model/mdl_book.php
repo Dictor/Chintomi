@@ -37,10 +37,15 @@
 		}
 		
 		public static function GetBooks(string $query): array {
-			switch (self::$currentHandler) {
-                case 'SQLITE': return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook WHERE book_name=:name', array('name' => $query)));
-                case 'JSON': return hnd_json::ResultToComicbook(hnd_json::GetDB()->select('*')->from(hnd_json::TABLE_BOOK)->where(['book_name' => $query])->get());
+			//jsondb doesn't support like operator in where statement!!
+			$src = self::GetAllBooks();
+			$res = array();
+			foreach($src as $now_src) {
+				if (strpos($now_src->name, $query) !== false) {
+					$res[] = $now_src;	
+				}
 			}
+			return $res;
 		}
 		
 		public static function GetAllBooks(): array {
