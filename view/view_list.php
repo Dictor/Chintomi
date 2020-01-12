@@ -13,6 +13,8 @@
 		?>
 		<div class="list-group">
 			<?php
+				$plist_allowshow = false;
+				$plist_res = array();
 				if (mdl_user::UseDB() != 0) {
 					utl_htmldoc::ShowError(500, "DB Error");
 					utl_htmldoc::CloseDocument();
@@ -35,11 +37,41 @@
 								}
 							}
 						}
-						if (!is_null($res = ctr_list::GetBooks())) {
-							ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
-						}
+						$plist_allowshow = true;
+						$plist_res = ctr_list::GetBooks();
 					}
 				}
+			?>
+			<div class="toolbar">
+				<div class="btn-group btn-logout">
+					<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+						<span class="service-icon"><i class="icon-user"></i></span>
+						<span id="toolbar-username"><?php echo $_SESSION['uname']; ?></span>
+					</button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="javascript:go_setting()">관리</a>
+						<a class="dropdown-item" href="javascript:logout()">로그아웃</a>
+					</div>
+				</div>
+				<span class="list-summary"><?php if (!is_null($plist_res)) echo (string)count($plist_res); ?>개의 결과</span>
+				<div class="search-form-xsmall btn-group btn-logout">
+					<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+						<span class="service-icon"><i class="icon-magnifier"></i></span>
+					</button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<input id="search-key-xsmall" type="text" class="form-control">
+						<button class="btn btn-outline-secondary" type="button" onclick="pList.gotoSearch(1)">검색</button>
+					</div>
+				</div>
+				<div class="search-form input-group">
+					<input id="search-key" type="text" class="form-control">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button" onclick="pList.gotoSearch(0)">검색</button>
+					</div>
+				</div>
+			</div>
+			<?php
+			if (!is_null($res = ctr_list::GetBooks())) ctr_list::DisplayBooks($res, $pagenum, $_SESSION['uname']);
 			?>
 		</div>
 	</body>

@@ -13,7 +13,6 @@
 		}
 		
 		public static function DisplayBooks(array $books, int $pagenum, string $username) {
-			self::ShowToolbar(count($books), $username);
 			if (config::LIST_PAGIGATION_ENABLE){
 				$startnum = ($pagenum - 1) * config::LIST_PAGIGATION_THRESHOLD;
 				$endnum = $pagenum * config::LIST_PAGIGATION_THRESHOLD - 1;
@@ -36,17 +35,6 @@
 					echo '<div class="list-title"><p>'.$nowbook->name.'</p><p><span class="badge badge-info">'.$nowbook->imgcnt.'장 / '.mdl_book::GetHumanFileSize($nowbook->imgsize).'</span><span class="badge badge-light">'.(new \DateTime($nowbook->added_date))->format('y/m/d H:i').'</span></p></div></a>';
 				}	
 			}
-		}
-		
-		public static function ShowToolbar(int $bookcnt, string $username) {
-			echo '<div class="toolbar">';
-			echo '<div class="btn-group btn-logout"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-user"></i></span><span id="toolbar-username"> '.$username.'</span></button>';
-			echo '<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="javascript:go_setting()">관리</a><a class="dropdown-item" href="javascript:logout()">로그아웃</a></div></div>';
-			echo '<span class="list-summary">'.(string)$bookcnt.'개의 결과</span>';
-			echo '<div class="search-form-xsmall btn-group btn-logout"><button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="service-icon"><i class="icon-magnifier"></i></span></button>';
-			echo '<div class="dropdown-menu dropdown-menu-right"><input type="text" class="form-control"><button class="btn btn-outline-secondary" type="button">검색</button></div></div>';
-			echo '<div class="search-form input-group"><input type="text" class="form-control"><div class="input-group-append"><button class="btn btn-outline-secondary" type="button">검색</button></div></div>';
-			echo '</div>';
 		}
 
 		public static function ShowPage($pfirst, $plast, $pnow){
