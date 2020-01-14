@@ -11,7 +11,7 @@
 	    exit();
 	} else if ($urlargs[0] === 'js') {
 		header('Content-type: application/javascript');
-	    require 'script/script.js';
+	    require 'script/script_provider.php';
 	    exit();
 	} else if ($urlargs[0] === 'css') {
 		header('Content-type: text/css');
