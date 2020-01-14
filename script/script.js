@@ -1,17 +1,8 @@
-<?php 
-	namespace Dictor\Chintomi; 
-	require_once 'autoload.php';
-	if (!mdl_user::CheckPermission(0)) {
-	    echo '/* NO AUTHORITY */';
-	    exit();
-	}
-	echo 'var api_host = "'.utl_htmldoc::GetHrefPath('PAGE_API').'";';
-	echo 'var page_list = "'.utl_htmldoc::GetHrefPath('PAGE_LIST').'";';
-?>
+/* global API_PATH */
 
 function GETApiReq(verb, okcb, errorcb) {
     var req = new XMLHttpRequest();
-    req.open("GET", api_host + "/" + verb, true);
+    req.open("GET", API_PATH["API"] + "/" + verb, true);
     req.onload = function() {
         if (req.status == 200) {
             okcb(req.response);
@@ -24,8 +15,7 @@ function GETApiReq(verb, okcb, errorcb) {
 
 function POSTApiReq(verb, param, okcb, errorcb) {
     var req = new XMLHttpRequest();
-    req.open("POST", api_host + "/" + verb, true);
-    //req.setRequestHeader('Content-Type', 'application/json');
+    req.open("POST", API_PATH["API"] + "/" + verb, true);
     req.onload = function() {
         if (req.status == 200) {
             okcb(req.response);
@@ -39,8 +29,24 @@ function POSTApiReq(verb, param, okcb, errorcb) {
 var pList = {
     gotoSearch: function(buttonkind) {
         var id_by_kind = ["search-key", "search-key-xsmall"];
-        location.href = page_list + (page_list.includes("?") ? "&" : "?") + "search=" + document.getElementById(id_by_kind[buttonkind]).value;
-    }
+        location.href = API_PATH["LIST"] + (API_PATH["LIST"].includes("?") ? "&" : "?") + "search=" + document.getElementById(id_by_kind[buttonkind]).value;
+    },
+    go_viewer: function(id) {
+        window.open(API_PATH["VIEWER"] + "/" + id);
+    },
+	go_list: function(page) {
+	    location.href = API_PATH["LIST"] + "/" + page;
+	},
+	logout: function() {
+	    GETApiReq("logout", function() {
+	        location.href = API_PATH["INDEX"];
+	    }, function() {
+	        alert("작업도중 오류가 발생했습니다!");
+	    })
+	},
+	go_setting: function() {
+	    window.open(API_PATH["SETTING"]);
+	}
 };
 
 var spSetting = {
