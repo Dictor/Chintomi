@@ -3,7 +3,6 @@
 	require_once 'autoload.php';
 ?>
 	<body>
-		<!-- php 태그 최소한으로 줄이고 모두 인라인으로 바꾸기 -->
 		<?php echo '<script src="'.utl_htmldoc::GetHrefPath('PAGE_JS').'"></script>'; ?>
 		<div class="list-group">
 			<?php
