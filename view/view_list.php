@@ -8,25 +8,27 @@
 			<?php
 				$plist_allowshow = false;
 				$plist_res = array();
-				if (mdl_user::UseDB() != 0) {
+				$perm_res = mdl_user::CheckPermission(config::PERMISSION_LEVEL_LIST);
+				if (is_null($perm_res)){
 					utl_htmldoc::ShowError(500, "DB Error");
 					utl_htmldoc::CloseDocument();
 				} else {
-					if(!mdl_user::CheckPermission(config::PERMISSION_LEVEL_LIST)){
+					if(!$perm_res){
 						utl_htmldoc::ShowError(403, "No access authority");
+						utl_htmldoc::CloseDocument();
 					} else {
 						if (!array_key_exists(1, $urlargs)) {
 							$pagenum = 1;
 						} else {
 							if(!ctype_digit($urlargs[1])) {
 								utl_htmldoc::ShowError(400, "Invalid Parameter");
-								return;
+								utl_htmldoc::CloseDocument();
 							} else {
 								if ((int)$urlargs[1] >= 1) {
 									$pagenum = (int)$urlargs[1];
 								} else {
 									utl_htmldoc::ShowError(400, "Invalid Parameter");
-									return;
+									utl_htmldoc::CloseDocument();
 								}
 							}
 						}
