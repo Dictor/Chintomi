@@ -24,13 +24,16 @@
             		utl_htmldoc::ShowError(403, "No access authority");
             	} else {
             	    $hasdir = FALSE;
-                    foreach (ctr_setting::$SettingMenu as $nowsetting) {
-            			if ($urlargs[1] == $nowsetting->handler) {
-            			    require 'view/view_setting_sub/'.$urlargs[1].'.php'; 
-            			    $hasdir = TRUE;
-            			}
-            		}
-            		if (!$hasdir) require 'view/view_setting_sub/sub_setting_info.php'; 
+            	    if (count($urlargs) < 2) {
+            	        if (!$hasdir) require 'view/view_setting_sub/sub_setting_info.php'; 
+            	    } else {
+            	        foreach (ctr_setting::$SettingMenu as $nowsetting) {
+                			if ($urlargs[1] == $nowsetting->handler) {
+                			    require 'view/view_setting_sub/'.$urlargs[1].'.php'; 
+                			    $hasdir = TRUE;
+                			}
+                		}
+            	    }
             	}
         ?>
 	</body>
