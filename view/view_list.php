@@ -54,12 +54,12 @@
 						<span class="service-icon"><i class="icon-magnifier"></i></span>
 					</button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<input id="search-key-xsmall" type="text" class="form-control">
+						<input id="search-key-xsmall" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
 						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.gotoSearch(1)">검색</button>
 					</div>
 				</div>
 				<div class="search-form input-group">
-					<input id="search-key" type="text" class="form-control">
+					<input id="search-key" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.gotoSearch(0)">검색</button>
 					</div>
