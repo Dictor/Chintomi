@@ -65,8 +65,6 @@
 					</div>
 				</div>
 			</div>
-			<?php
-			if (!is_null($plist_res)) ctr_list::DisplayBooks($plist_res, $pagenum, $_SESSION['uname']);
-			?>
+			<?php if (!is_null($plist_res)) ctr_list::DisplayBooks($plist_res, $pagenum, $_SESSION['uname']); ?>
 		</div>
 	</body>
