@@ -1,7 +1,6 @@
 <?php 
 	namespace Dictor\Chintomi; 
 	require_once 'autoload.php';
-	echo '<script>var api_host = "'.utl_htmldoc::GetHrefPath('PAGE_API').'";</script>';
 ?>
 <div class='padding-div'>
     <h1>Chintomi</h1>
