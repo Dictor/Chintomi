@@ -9,7 +9,7 @@
         "ext-gd": "*",
         "ext-sqlite3": "*",
         "ext-mbstring": "*",
-        "jajo/jsondb": "dev-master"
+        "jajo/jsondb": "^1"
     },
     "license": "Apache-2.0",
     "authors": [
