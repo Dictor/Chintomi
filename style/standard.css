@@ -206,7 +206,11 @@ body {
 
 .search-form {
 	float: right;
-    width: 200px !important;
+    width: 250px !important;
+}
+
+.search-form .btn-sort {
+	margin-right: 10px;
 }
 
 .search-form-xsmall {
