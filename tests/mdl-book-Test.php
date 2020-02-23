@@ -37,7 +37,7 @@ final class test_mdl_book extends TestCase {
     public function testGetBooks(): void {
         foreach (self::$testHandlerSet as $nowhandler) {
             mdl_book::SetDB($nowhandler);
-            $res = mdl_book::GetBooks("name3");
+            $res = mdl_book::GetBooks("name3", new com_sort_dropdown('nameu'));
             $this->assertCount(1, $res);
             $this->assertEquals($res[0]->name, "name3");
         }

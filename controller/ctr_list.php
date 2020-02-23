@@ -3,13 +3,12 @@
 	require_once 'autoload.php';
 	
 	class ctr_list {
-		public static function GetBooks(string $query = null) {
-			if(mdl_book::UseDB() == 0){
-				if (is_null($query) || $query == '') {
-					return mdl_book::GetAllBooks();
-				} else {
-					return mdl_book::GetBooks($query);
+		public static function GetBooks(string $search = '', com_sort_dropdown $sort = null) {
+			if(mdl_book::UseDB() == 0){;
+				if (is_null($sort)) {
+					$sort = new com_sort_dropdown('nameu');
 				}
+				return mdl_book::GetBooks($search, $sort);
 			} else {
 				utl_htmldoc::ShowError(500, "DB Error");
 				return NULL;

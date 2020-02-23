@@ -6,7 +6,6 @@
 		<?php echo '<script src="'.utl_htmldoc::GetHrefPath('PAGE_JS').'"></script>'; ?>
 		<div class="list-group">
 			<?php
-				$plist_allowshow = false;
 				$plist_res = array();
 				$perm_res = mdl_user::CheckPermission(config::PERMISSION_LEVEL_LIST);
 				if (is_null($perm_res)){
@@ -32,8 +31,8 @@
 								}
 							}
 						}
-						$plist_allowshow = true;
-						$plist_res = array_key_exists('search', $_GET) ? ctr_list::GetBooks($_GET['search']) : ctr_list::GetBooks();
+						$plist_sort_dropdown = new com_sort_dropdown(array_key_exists('sort', $_GET) ? $_GET['sort'] : 'nameu');
+						$plist_res = array_key_exists('search', $_GET) ? ctr_list::GetBooks($_GET['search'], $plist_sort_dropdown) : ctr_list::GetBooks('', $plist_sort_dropdown);
 					}
 				}
 			?>
@@ -59,7 +58,7 @@
 					</div>
 				</div>
 				<div class="search-form input-group">
-					<?php echo (new com_sort_dropdown(array_key_exists('sort', $_GET) ? $_GET['sort'] : 'nameu'))->Html(); ?>
+					<?php echo $plist_sort_dropdown->Html(); ?>
 					<input id="search-key" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.go_query(0)">검색</button>

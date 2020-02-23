@@ -17,6 +17,10 @@
 	        if ($this->Direction !== 'u' and $this->Direction !== 'd') $this->Direction = 'u';
 	    }
 	    
+	    public function GetParam(): string {
+	    	return $this->Kind.$this->Direction;
+	    }
+	    
 	    public function Html(): string {
 	        $res = '';
 	        for ($i = 0; $i < count(self::SORT_KIND); $i++) {

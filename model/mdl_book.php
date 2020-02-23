@@ -17,6 +17,7 @@
 
 	class mdl_book {
 		private static $currentHandler = config::DB_HANDLER;
+		const kindToColumn = ['name' => 'book_name', 'page' => 'image_count', 'size' => 'image_size'];
 		
 		public static function SetDB(string $handler): void {
 			self::$currentHandler = $handler;
@@ -36,16 +37,27 @@
 			}
 		}
 		
-		public static function GetBooks(string $query): array {
-			//jsondb doesn't support like operator in where statement!!
-			$src = self::GetAllBooks();
-			$res = array();
-			foreach($src as $now_src) {
-				if (strpos($now_src->name, $query) !== false) {
-					$res[] = $now_src;	
-				}
+		public static function GetBooks(string $query, com_sort_dropdown $sort_param): array {
+			switch (self::$currentHandler) {
+                case 'SQLITE': 
+                	$query = '%'.$query.'%';
+                	$order = self::kindToColumn[$sort_param->Kind].' '.($sort_param->Direction == 'u' ? 'ASC' : 'DESC');
+                	return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook WHERE book_name LIKE :name ORDER BY '.$order, array("name" => $query)));
+                case 'JSON':
+                	//jsondb doesn't support like operator in where statement!!
+					$src = self::GetAllBooks();
+					if (!empty($query)) {
+						$res = array();
+						foreach($src as $now_src) {
+							if (strpos($now_src->name, $query) !== false) {
+								$res[] = $now_src;	
+							}
+						}
+					} else {
+						$res = $src;
+					}
+					return $res;
 			}
-			return $res;
 		}
 		
 		public static function GetAllBooks(): array {
