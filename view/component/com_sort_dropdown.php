@@ -14,16 +14,16 @@
 	        $this->Direction = substr($param, strlen($param) - 1, 1);
 	        
 	        if (!in_array($this->Kind, self::SORT_KIND)) $this->Kind = 'name';
-	        if ($this->Direction !== 'u' or $this->Direction !== 'd') $this->Direction = 'u';
+	        if ($this->Direction !== 'u' and $this->Direction !== 'd') $this->Direction = 'u';
 	    }
 	    
 	    public function Html(): string {
 	        $res = '';
 	        for ($i = 0; $i < count(self::SORT_KIND); $i++) {
-	        	$now_dir = (self::SORT_KIND[$i] == $this->Kind ? ($this->Direction == 'u' ? 'd' : 'u') : $this->Direction);
+	        	$now_dir = (self::SORT_KIND[$i] == $this->Kind ? ($this->Direction === 'u' ? 'd' : 'u') : $this->Direction);
 	            $res .= '<a class="dropdown-item" onclick="pList.go_query(null, \''.self::SORT_KIND[$i].$now_dir.'\')">'.self::SORT_KIND_STRING[self::SORT_KIND[$i]].($now_dir == 'u' ? '▲' : '▼').'</a>';
 	        }
-	        $now_sort = self::SORT_KIND_STRING[$this->Kind].($this->Direction == 'u' ? '▲' : '▼');
+	        $now_sort = self::SORT_KIND_STRING[$this->Kind].($this->Direction === 'u' ? '▲' : '▼');
 	        return <<<HTML
 	        <div class="btn-group btn-sort">
 				<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
