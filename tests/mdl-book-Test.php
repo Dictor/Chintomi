@@ -19,27 +19,49 @@ final class test_mdl_book extends TestCase {
     
     public function testAddBook(): void {
         $test_set = [
-                new Comicbook(null, 'path1', 'name1', 'author1', 1, 1, 'date1'),
-                new Comicbook(null, 'path2', 'name2', 'author2', 1, 1, 'date2'),
-                new Comicbook(null, 'path3', 'name3', 'author3', 1, 1, 'date3'),
-                new Comicbook(null, 'path4', 'name4', 'author4', 1, 1, 'date4')
+                new Comicbook(null, 'path1', 'name1', 'author1', 2, 3, 'date1'),
+                new Comicbook(null, 'path2', 'name2', 'author2', 1, 4, 'date2'),
+                new Comicbook(null, 'path3', 'name3', 'author3', 4, 1, 'date3'),
+                new Comicbook(null, 'path4', 'name4', 'author4', 3, 2, 'date4')
             ];
         
         foreach (self::$testHandlerSet as $nowhandler) {
             mdl_book::SetDB($nowhandler);
             foreach($test_set as $now_set) {
                 mdl_book::AddBook($now_set);
+                usleep(250000);
             }
             $this->assertCount(count($test_set), mdl_book::GetAllBooks());
+            $this->assertCount(count($test_set), mdl_book::GetBooks('', new com_sort_dropdown('nameu')));
         }
     }
     
     public function testGetBooks(): void {
         foreach (self::$testHandlerSet as $nowhandler) {
             mdl_book::SetDB($nowhandler);
-            $res = mdl_book::GetBooks("name3", new com_sort_dropdown('nameu'));
+            $res = mdl_book::GetBooks('name3', new com_sort_dropdown('nameu'));
             $this->assertCount(1, $res);
             $this->assertEquals($res[0]->name, "name3");
+        }
+    }
+    
+    public function testGetBooksSort(): void {
+        foreach (self::$testHandlerSet as $nowhandler) {
+            mdl_book::SetDB($nowhandler);
+            $res = mdl_book::GetBooks('', new com_sort_dropdown('named'));
+            $this->assertEquals($res[0]->name, "name4");
+            $this->assertEquals($res[3]->name, "name1");
+            
+            $res = mdl_book::GetBooks('', new com_sort_dropdown('sizeu'));
+            $this->assertEquals($res[0]->name, "name3");
+            $this->assertEquals($res[3]->name, "name2");
+            
+            $res = mdl_book::GetBooks('', new com_sort_dropdown('paged'));
+            $this->assertEquals($res[0]->name, "name3");
+            $this->assertEquals($res[3]->name, "name2");
+            
+            $res = mdl_book::GetBooks('', new com_sort_dropdown('dateu'));
+            $this->assertTrue((new \DateTime($res[0]->added_date)) <= (new \DateTime($res[3]->added_date)));
         }
     }
     
@@ -61,18 +83,6 @@ final class test_mdl_book extends TestCase {
             $this->assertCount(3, mdl_book::GetAllBooks());
         }
     }
-    
-    /* DeleteByBook function isn't used (maybe?)
-    
-    public function testDeleteByBook(): void {
-        foreach (self::$testHandlerSet as $nowhandler) {
-            mdl_book::SetDB($nowhandler);
-            mdl_book::DeleteBook(new Comicbook(1, null, null, null, null, null, null));
-            mdl_book::DeleteBook(new Comicbook(10, null, null, null, null, null, null));
-            $this->assertCount(2, mdl_book::GetAllBooks());
-        }
-    }
-    */
     
     public function testDeleteAllBook(): void {
         foreach (self::$testHandlerSet as $nowhandler) {
