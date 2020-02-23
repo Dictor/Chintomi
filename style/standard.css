@@ -218,22 +218,26 @@ body {
 	margin-right: 10px;
 }
 
+.search-form .btn-sort .service-icon {
+	display: none;
+}
+
 .search-form-xsmall {
 	float: right;
 	display: none !important;
 }
 
-.search-form-xsmall .dropdown-menu {
+.search-form-xsmall > .dropdown-menu {
 	width: 225px;
 	padding: 5px;
 }
 
-.search-form-xsmall .form-control {
+.search-form-xsmall > .dropdown-menu > .form-control {
 	width: 150px;
 	display: inline-block;
 }
 
-.search-form-xsmall .btn {
+.search-form-xsmall > .dropdown-menu > .btn {
 	display: inline-block;
 	vertical-align: top;
 }

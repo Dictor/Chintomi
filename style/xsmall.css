@@ -10,4 +10,16 @@
     .search-form-xsmall {
         display: inline-flex !important;
     }
+    
+    .search-form-xsmall .btn-sort > button {
+    	padding: 3px;
+    }
+    
+    .search-form-xsmall .btn-sort .service-icon {
+	    display: inline-block;
+    }
+    
+    .search-form-xsmall .btn-sort button > span:first-child {
+	    display: none;
+    }
 }

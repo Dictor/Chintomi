@@ -52,6 +52,7 @@
 					<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
 						<span class="service-icon"><i class="icon-magnifier"></i></span>
 					</button>
+					<?php echo $plist_sort_dropdown->Html(); ?>
 					<div class="dropdown-menu dropdown-menu-right">
 						<input id="search-key-xsmall" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
 						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.go_query(1)">검색</button>

@@ -31,7 +31,8 @@
 	        return <<<HTML
 	        <div class="btn-group btn-sort">
 				<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-					<span id="toolbar-username">$now_sort</span>
+					<span>$now_sort</span>
+					<span class="service-icon"><i class="icon-list"></i></span>
 				</button>
 				<div class="dropdown-menu dropdown-menu-right">
 					$res
