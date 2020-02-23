@@ -55,23 +55,14 @@
 					</button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<input id="search-key-xsmall" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
-						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.gotoSearch(1)">검색</button>
+						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.go_query(1)">검색</button>
 					</div>
 				</div>
 				<div class="search-form input-group">
-					<div class="btn-group btn-sort">
-						<button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-							<span id="toolbar-username">정렬</span>
-						</button>
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item">이름</a>
-							<a class="dropdown-item">크기</a>
-							<a class="dropdown-item">페이지 수</a>
-						</div>
-					</div>
+					<?php echo (new com_sort_dropdown(array_key_exists('sort', $_GET) ? $_GET['sort'] : 'nameu'))->Html(); ?>
 					<input id="search-key" type="text" class="form-control" <?php echo array_key_exists('search', $_GET) ? 'value="'.$_GET['search'].'"' : '' ?>>
 					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.gotoSearch(0)">검색</button>
+						<button class="btn btn-outline-secondary" type="button" onclick="javascript:pList.go_query(0)">검색</button>
 					</div>
 				</div>
 			</div>

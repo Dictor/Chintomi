@@ -23,7 +23,7 @@ function chintomi_autoloader($className){
             $path = 'config/config.php';
             break;
         case 'com':
-            $path = 'view/component/'.$rawclassname.'php';
+            $path = 'view/component/'.$rawclassname.'.php';
             break;
         default: printf("[Chintomi autoloader] Cannot find matched class from '%s'\n", $className); return;
   }

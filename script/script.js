@@ -27,15 +27,22 @@ function POSTApiReq(verb, param, okcb, errorcb) {
 }
 
 var pList = {
-    gotoSearch: function(buttonkind) {
-        var id_by_kind = ["search-key", "search-key-xsmall"];
-        location.href = API_PATH["LIST"] + (API_PATH["LIST"].includes("?") ? "&" : "?") + "search=" + document.getElementById(id_by_kind[buttonkind]).value;
-    },
     go_viewer: function(id) {
         window.open(API_PATH["VIEWER"] + "/" + id);
     },
 	go_list: function(page) {
 	    location.href = API_PATH["LIST"] + "/" + page;
+	},
+	go_query: function(search_btn, sort_kind) {
+	    let href = API_PATH["LIST"] + (API_PATH["LIST"].includes("?") ? "&" : "?");
+	    if (search_btn) {
+	        const search_btn_id = ["search-key", "search-key-xsmall"];
+            href += "search=" + document.getElementById(search_btn_id[search_btn]).value;
+	    }
+	    if (sort_kind) {
+	        href += "&sort=" + sort_kind;
+	    }
+	    location.href = href;
 	},
 	logout: function() {
 	    GETApiReq("logout", function() {
