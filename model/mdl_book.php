@@ -17,7 +17,7 @@
 
 	class mdl_book {
 		private static $currentHandler = config::DB_HANDLER;
-		const kindToColumn = ['name' => 'book_name', 'page' => 'image_count', 'size' => 'image_size'];
+		const kindToColumn = ['name' => 'book_name', 'page' => 'image_count', 'size' => 'image_size', 'date' => 'added_date'];
 		
 		public static function SetDB(string $handler): void {
 			self::$currentHandler = $handler;

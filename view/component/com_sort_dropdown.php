@@ -3,8 +3,8 @@
 	require_once 'autoload.php';
 	
 	class com_sort_dropdown {
-	    const SORT_KIND = ['name', 'page', 'size'];
-	    const SORT_KIND_STRING = ['name' => '이름', 'page' => '페이지 수', 'size' => '크기']; // This array will be removed when i18n is implemented.
+	    const SORT_KIND = ['name', 'page', 'size', 'date'];
+	    const SORT_KIND_STRING = ['name' => '이름', 'page' => '페이지 수', 'size' => '크기', 'date' => '추가된 날짜']; // This array will be removed when i18n is implemented.
 	    
 	    public $Kind, $Direction;
 	    
