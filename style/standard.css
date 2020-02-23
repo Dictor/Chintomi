@@ -206,7 +206,12 @@ body {
 
 .search-form {
 	float: right;
-    width: 250px !important;
+    max-width: 350px;
+    justify-content: flex-end;
+}
+
+.search-form input {
+	max-width: 120px;
 }
 
 .search-form .btn-sort {
