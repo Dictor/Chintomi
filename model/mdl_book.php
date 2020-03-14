@@ -45,21 +45,14 @@
                 	return hnd_SQLite::ResultToComicbook(hnd_SQLite::Query('SELECT * FROM comicbook WHERE book_name LIKE :name ORDER BY '.$order, array("name" => $query)));
                 case 'JSON':
                 	//jsondb doesn't support like operator in where statement!!
-					$src = hnd_json::ResultToComicbook(hnd_json::GetDB()
+					$res = hnd_json::ResultToComicbook(hnd_json::GetDB()
 										->select('*')
 										->from(hnd_json::TABLE_BOOK)
+										->where(array(
+											'book_name' => hnd_json::GetDB()->regex('/'.$query.'/')
+										))
 										->order_by(self::kindToColumn[$sort_param->Kind], $sort_param->Direction == 'u' ? hnd_json::GetDB()::ASC : hnd_json::GetDB()::DESC)
 										->get());
-					if (!empty($query)) {
-						$res = array();
-						foreach($src as $now_src) {
-							if (strpos($now_src->name, $query) !== false) {
-								$res[] = $now_src;	
-							}
-						}
-					} else {
-						$res = $src;
-					}
 					return $res;
 			}
 		}
