@@ -18,6 +18,6 @@ Chintomi(친토미)는 PHP로 제작된 웹 만화책 뷰어입니다. 만화책
 **사용 : [사용 가이드 (한국어)]()**
 
 ## Screenshot
-![Listing]()
-![Viewer]()
-![Admin page]()
+![Listing](https://github.com/Dictor/Chintomi/blob/enhance-doc/DOC/listing.png?raw=true)
+![Viewer](https://github.com/Dictor/Chintomi/blob/enhance-doc/DOC/viewer.png?raw=true)
+![Admin page](https://github.com/Dictor/Chintomi/blob/enhance-doc/DOC/admin.png?raw=true)
