@@ -1,4 +1,4 @@
-**Translation of README** : [ko](https://github.com/Dictor/Chintomi/blob/master/README_ko.md)
+**Translation of README** : [ko](README_ko.md)
 
 # Chintomi
 **Chintomi : The Web Comicbook Viewer**
@@ -15,4 +15,4 @@ This also have below features.
 For more information and installation instructions, refer to the **[wiki](https://wiki.chinchister.com/en:chintomi)**.
 
 ## Screenshot
-![Demo Screenshot](https://github.com/Dictor/Chintomi/blob/master/demo_screenshot.png?raw=true)
+![Demo Screenshot](demo_screenshot.png?raw=true)
