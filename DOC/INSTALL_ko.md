@@ -29,19 +29,23 @@ sudo apt install php7.3-mbstring
 
 서드-파티 의존성을 자동으로 설치하기 위해 [컴포저](https://getcomposer.org/)가 필요합니다. 
 다음 명령어를 통해 필요한 의존성을 설치해야 합니다.
- ```bash
- composer install --no-dev
- ```
+```bash
+sudo apt install composer
+composer install --no-dev
+```
  
 ## 환경 설정
 `config` 폴더의 `config.php` 파일을 적절하게 수정해야 합니다. 
 필수적으로 변경해야하는 옵션에는 `PATH_COMICBOOK`, `PATH_JSON`이 있습니다.
+환경 설정 파일의 매개변수들에 대해서는 [환경 설정 가이드](CONFIG_ko.md)를 참고하세요.
 ```
 nano ./config/config.php
 ```
 ## 관리자 계정 설정
 환경 설정을 마친 후, 인터넷 브라우저를 통해 관리자 계정 설정 페이지에 접속합니다. 
-예제대로 진행했다면 설정 페이지는 `<YOUR_SERVER_HOST>/chintomi/index.php?path=setup`가 됩니다.
+예제대로 진행했다면 설정 페이지의 주소는 `<YOUR_SERVER_HOST>/chintomi/index.php?path=setup` 입니다.
 
 ## 라이브러리 생성
 ## 추가 기능 설정
+### sqlite3 PDO 사용하기
+### URL 재작성 사용하기
