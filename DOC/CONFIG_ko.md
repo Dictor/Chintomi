@@ -21,6 +21,7 @@
 ### PATH_SQLITE
 데이터베이스 핸들러가 `SQLITE`으로 지정된 경우, 데이터베이스 파일이 생성될 경로입니다.
 친토미는 이 경로에 데이터베이스 파일을 읽고 씁니다. 핸들러가 `JSON`으로 설정된 경우 이 옵션은 무시됩니다.
+이때 경로에 설정된 파일을 제외한 디렉터리가 이미 존재해야합니다. (기본값에서는 `home/ubuntu/environment/Chintomi/data/`까지)
 | 유형 | 가능한 값 | 기본값 |
 |:---:|:---:|:------:|
 | 문자열 | 임의의 절대경로 | `"/home/ubuntu/environment/Chintomi/data/chintomi.db"` |
@@ -28,6 +29,7 @@
 ### PATH_JSON
 데이터베이스 핸들러가 `JSON`으로 지정된 경우, 데이터베이스가 생성될 디렉터리입니다.
 친토미는 이 디렉터리 하위에 데이터베이스 파일들을 읽고 씁니다. 핸들러가 `SQLITE`으로 설정된 경우 이 옵션은 무시됩니다.
+이때 경로에 설정된 파일을 제외한 디렉터리가 이미 존재해야합니다. (기본값에서는 `home/ubuntu/environment/Chintomi/data/`까지)
 | 유형 | 가능한 값 | 기본값 |
 |:---:|:---:|:------:|
 | 문자열 | 임의의 절대경로 | `"/home/ubuntu/environment/Chintomi/data/db"` |
