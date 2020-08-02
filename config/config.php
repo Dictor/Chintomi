@@ -7,7 +7,7 @@
 		PATH_COMICBOOK		: Path of Comicbook directory
 		ALLOWED_EXTENSION	: Extension of allowed image file
 		*/
-		const PATH_COMICBOOK = "/home/ubuntu/environment/Chintomi/data";
+		const PATH_COMICBOOK = "/chintomi/books";
 		const ALLOWED_EXTENSION = array("jpg", "jpeg", "png", "bmp", "gif");
 
 		/*
@@ -18,8 +18,8 @@
 		PATH_SQLITE			: Path of sqlite DB file
 		*/
 		const DB_HANDLER = "JSON";
-		const PATH_SQLITE = "/home/ubuntu/environment/Chintomi/data/chintomi.db";
-		const PATH_JSON = "/home/ubuntu/environment/Chintomi/data/db";
+		const PATH_SQLITE = "/chintomi/library";
+		const PATH_JSON = "/chintomi/library";
 		
 		/*
 		[IMAGE RESIZE SETTING]
