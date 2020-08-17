@@ -69,13 +69,21 @@
 		const THUMBNAIL_QUALITY = 85;
 
 		/*
-		[URL REWRITE SETTING]
+		[URL SETTING]
+		URL_SUBPATH_ENABLE	: Serve resources with specific sub path, using for situation like behind reverse proxy.
+		URL_SUBPATH 		: Subpath string, didn't need trailing slash.
 		URLREWRITE_ENABLE	: TRUE = (Only for URL Rewrite enabled WAS) URL is formatted shortly and beautiful (It require URL rewrite through rule defined in .htaccess)
-							  FALSE	= (for URL Rewrite disabled or not supported WAS) URL isn't formatted shortly
+					  FALSE	= (for URL Rewrite disabled or not supported WAS) URL isn't formatted shortly
 		*/
+		const URL_SUBPATH_ENABLE = FALSE;
+		const URL_SUBPATH = "/chintomi";
 		const URLREWRITE_ENABLE = FALSE;
 		
-		const MEMORY_UNLIMIT_UPDATE_THUMBNAIL = TRUE;
+		/*
+		[ADVANCE SETTING]
+		MEMORY_UNLIMIT_UPDATE_THUMBNAIL	: If chintomi died with out of memory error, you can try turn on this option.
+		*/
+		const MEMORY_UNLIMIT_UPDATE_THUMBNAIL = FALSE;
 
 		public static function GetMember() {
 			$refl = new \ReflectionClass(get_called_class());

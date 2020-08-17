@@ -3,8 +3,8 @@
 
     class utl_htmldoc {
         public function GetHrefPath(string $key) {
-            $rootFile = $_SERVER['PHP_SELF'];
-            $rootPath = dirname($_SERVER['PHP_SELF']);
+            $rootFile = config::URL_SUBPATH_ENABLE ? config::URL_SUBPATH.$_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'];
+            $rootPath = config::URL_SUBPATH_ENABLE ? config::URL_SUBPATH : dirname($_SERVER['PHP_SELF']);
             switch ($key) {
                 case 'PAGE_LIST': return config::URLREWRITE_ENABLE ? $rootPath.'/list' : $rootFile.'?path=list';
                 case 'PAGE_SETTING': return config::URLREWRITE_ENABLE ? $rootPath.'/setting' : $rootFile.'?path=setting';
