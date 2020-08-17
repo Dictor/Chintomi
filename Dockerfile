@@ -1,8 +1,8 @@
 FROM trafex/alpine-nginx-php7
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY . /var/www/html/chintomi
+COPY . /var/www/html
 
-WORKDIR /var/www/html/chintomi
+WORKDIR /var/www/html
 USER root
 RUN apk update && apk add php7-fileinfo
 RUN composer remove --dev phpunit/phpunit && composer install --no-dev
