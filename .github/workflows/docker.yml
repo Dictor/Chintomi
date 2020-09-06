@@ -7,6 +7,9 @@ jobs:
    build:
      runs-on: ubuntu-latest
      steps:
+      - name: Set build flag
+        run: echo "::set-env name=GIT_TAG::$( git describe --tags --abbrev=0 )"
+        
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
         with:
