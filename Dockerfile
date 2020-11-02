@@ -4,8 +4,8 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 USER root
-RUN apk update && apk add php7-fileinfo
-RUN composer remove --dev phpunit/phpunit && composer install --no-dev
+RUN apk update && apk add php7-fileinfo php7-dom
+RUN composer install --no-dev
 RUN chown -R nobody vendor 
 
 WORKDIR / 
