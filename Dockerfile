@@ -4,7 +4,7 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 USER root
-RUN apk update && apk add php7-fileinfo php7-dom
+RUN apk update && apk add php7-fileinfo php7-dom php7-xmlwriter
 RUN composer install --no-dev
 RUN chown -R nobody vendor 
 
