@@ -30,19 +30,12 @@ var pList = {
     go_viewer: function(id) {
         window.open(API_PATH["VIEWER"] + "/" + id);
     },
-	go_list: function(page) {
-	    location.href = API_PATH["LIST"] + "/" + page;
-	},
-	go_query: function(search_btn, sort_kind) {
-	    let href = API_PATH["LIST"] + (API_PATH["LIST"].includes("?") ? "&" : "?");
-	    if (search_btn) {
-	        const search_btn_id = ["search-key", "search-key-xsmall"];
-            href += "search=" + document.getElementById(search_btn_id[search_btn]).value;
-	    }
-	    if (sort_kind) {
-	        href += "&sort=" + sort_kind;
-	    }
-	    location.href = href;
+	go_list: function(page, sort, search) {
+        console.log(page);
+        if(!sort && this.getQueryParam("sort")) sort = this.getQueryParam("sort");
+        if(!search && this.getQueryParam("search")) search = this.getQueryParam("search");
+        location.href = API_PATH["LIST"] + (page ? "/" + page : "") + (API_PATH["LIST"].includes("?") ? "&" : "?") +
+            (sort ? "sort=" + sort + "&" : "") + (search ? "search=" + search + "&" : "");
 	},
 	logout: function() {
 	    GETApiReq("logout", function() {
@@ -53,7 +46,15 @@ var pList = {
 	},
 	go_setting: function() {
 	    window.open(API_PATH["SETTING"]);
-	}
+    },
+    getQueryParam: function(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
 };
 
 var spSetting = {
