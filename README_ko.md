@@ -14,7 +14,7 @@ Chintomi(친토미)는 PHP로 제작된 웹 만화책 뷰어입니다. 만화책
 * 썸네일, 이미지 리사이징 같은 편의 기능 지원
 * 번응형 UI를 통한 모바일 장치 지원
 
-**[설치 가이드 (한국어)](DOC/INSTALL_ko.md) [사용 가이드 (한국어)](DOC/USAGE_ko.md)**
+**[설치 가이드 (한국어)](DOC/INSTALL_ko.md)**
 
 ## Screenshot
 ![Listing](DOC/listing.png?raw=true)
