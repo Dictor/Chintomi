@@ -69,7 +69,7 @@ nano ./config/config.php
 환경 설정을 마친 후, 인터넷 브라우저를 통해 관리자 계정 설정 페이지에 접속합니다. 
 예제대로 진행했다면 설정 페이지의 주소는 `<PATH_TO_CHINTOMI>/index.php?path=setup`이며 이 페이지에서 관리자 계정을 설정해야합니다. 
 
-### 관리자 계정 설정
+### 라이브러리 생성
 초기설정이 끝났다면 `<PATH_TO_CHINTOMI>/index.php?path=setting`에 접속하여 라이브러리를 생성하면 됩니다.
 
 #### 문제 해결
