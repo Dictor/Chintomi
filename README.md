@@ -14,7 +14,7 @@ Chintomi is a simple and light  web comic book viewer written in PHP. It is focu
 * Support convenient functions such as thumbnails and image resizing
 * Mobile device support through adaptive UI
 
-**[Install guide (en)](DOC/INSTALL_en.md)**
+**[Install guide (en)](DOC/INSTALL.md)**
 
 ## Screenshot
 ![Listing](DOC/listing.png?raw=true)
