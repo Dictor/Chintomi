@@ -3,16 +3,20 @@
 # Chintomi
 **Chintomi : The Web Comicbook Viewer**
 
-Chintomi is PHP base comicbook viewer. This will give your web server the ability to view local comicbook resource through your web browser.
-This also have below features.
+Chintomi is a simple and light  web comic book viewer written in PHP. It is focusing only on essential functions necessary for viewing comic books. It can be easily installed and used on almost all home servers, self hosted, NAS, and web server. The functions and features provided are summarized below.
 
-* Can be installed very easy on any PHP support WAS!
-* Provide simple UI & easy usage.
-* Access can be restricted by ID-PW based credential.
-* Can handle comicbooks with PDO based database.
-* Support convenience features like thumbnail & etc..
+* Can be installed on any server system that supports PHP
+* Intuitive interface and easy to use
+* Provides access control function through ID/PW-based credentials
+* Support for comic book management through PDO-based DB (currently sqlite, json supported)
+* Search directories recursively to index comic books by folder and manage them as a library
+* Support search and sort function
+* Support convenient functions such as thumbnails and image resizing
+* Mobile device support through adaptive UI
 
-For more information and installation instructions, refer to the **[wiki](https://wiki.chinchister.com/en:chintomi)**.
+**[Install guide (en)](DOC/INSTALL_en.md)**
 
 ## Screenshot
-![Demo Screenshot](demo_screenshot.png?raw=true)
+![Listing](DOC/listing.png?raw=true)
+![Viewer](DOC/viewer.png?raw=true)
+![Admin page](DOC/admin.png?raw=true)
