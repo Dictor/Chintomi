@@ -10,4 +10,5 @@ RUN chown -R nobody vendor
 
 WORKDIR / 
 RUN mkdir -p chintomi/library && mkdir -p chintomi/books && chown -R nobody chintomi
+RUN chmod 777 tmp
 USER nobody
