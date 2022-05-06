@@ -4,12 +4,13 @@
 	require_once 'vendor/autoload.php';
 	use \Ds\Queue;
 	use \Gumlet\ImageResize;
+	use \Symfony\Component\Finder\Finder;
 
 	class mdl_library {
 		public static $thumbdir = config::PATH_COMICBOOK.'/.thumbnail';
 		
 		public static function UpdateLibrary(): array {
-			$validinfo = self::ExploreDirectory();
+			$validinfo = self::NewExploreDirectory();
 			$validpaths = array();
 			foreach($validinfo as $nowinfo) {
 				$validpaths[] = $nowinfo['path'];
@@ -83,6 +84,26 @@
 				}
 			}
 			return $res;
+		}
+
+		public static function NewExploreDirectory(): array {
+			$finder = new Finder();
+			$finder->files()->in(config::PATH_COMICBOOK);
+			$dirres = array();
+
+			foreach ($finder as $file) {
+				$path = $file->getRealPath();
+				if(!self::isAllowedExt($path)) continue;
+
+				$dir = dirname($path);
+				if(!array_key_exists($dir, $dirres)){
+					$dirres[$dir] = array('path' => $dir, 'imgcnt' => 0, 'imgsize' => 0);
+				}
+				$dirres[$dir]['imgcnt']++;
+				$dirres[$dir]['imgsize'] += filesize($path);
+			}
+
+			return array_values($dirres);
 		}
 		
 		private static function ExploreDirectory(): array {

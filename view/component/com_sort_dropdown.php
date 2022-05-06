@@ -25,7 +25,7 @@
 	        $res = '';
 	        for ($i = 0; $i < count(self::SORT_KIND); $i++) {
 	        	$now_dir = (self::SORT_KIND[$i] == $this->Kind ? ($this->Direction === 'u' ? 'd' : 'u') : $this->Direction);
-	            $res .= '<a class="dropdown-item" onclick="pList.go_query(null, \''.self::SORT_KIND[$i].$now_dir.'\')">'.self::SORT_KIND_STRING[self::SORT_KIND[$i]].($now_dir == 'u' ? '▲' : '▼').'</a>';
+	            $res .= '<a class="dropdown-item" onclick="pList.go_list(null, \''.self::SORT_KIND[$i].$now_dir.'\', null)">'.self::SORT_KIND_STRING[self::SORT_KIND[$i]].($now_dir == 'u' ? '▲' : '▼').'</a>';
 	        }
 	        $now_sort = self::SORT_KIND_STRING[$this->Kind].($this->Direction === 'u' ? '▲' : '▼');
 	        return <<<HTML

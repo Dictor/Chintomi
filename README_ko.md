@@ -1,19 +1,22 @@
-**Translation of README** : [en](https://github.com/Dictor/Chintomi/blob/master/README.md)
+**Translation of README** : [en](README.md)
 
 # Chintomi
 **Chintomi : The Web Comicbook Viewer**
 
-Chintomi (친토미)는 PHP 기반의 웹 만화책 뷰어입니다. 
+Chintomi(친토미)는 PHP로 제작된 웹 만화책 뷰어입니다. 만화책 감상에 필요한 필수적인 기능에만 집중하여 심플하고 가볍게 제작되었습니다. 거의 모든 홈서버, NAS, 웹서버등에 쉽게 설치해 사용할 수 있습니다. 제공하는 기능과 특징을 요약하자면 아래와 같습니다.
 
-PHP를 지원하는 웹 서버라면 어디든지 설치해서 서버에 저장된 만화책 리소스를 감상할 수 있으며 필수적인 부가 기능과 심플한 UI를 가지고 있어 간편하게 설치하여 사용할 수 있습니다.
-
-* PHP를 지원하는 모든 웹서버에서 쉬운 설치
+* PHP를 지원하는 모든 서버 시스템에 설치 가능
 * 직관적 인터페이스와 쉬운 사용 방법
-* ID/PW 기반의 자격증명을 통한 접근 통제 기능
-* PDO 기반의 DB를 통한 만화책 관리 지원
-* 썸네일, 이미지 리사이징 같은 다양한 부가기능 지원
+* ID/PW 기반의 자격증명을 통한 접근 통제 기능 제공
+* PDO 기반의 DB를 통한 만화책 관리 지원 (현재 sqlite, json 지원)
+* 재귀적으로 디렉터리를 검색하여 폴더 별로 만화책을 색인해 라이브러리로 관리
+* 검색 및 정렬 기능 지원
+* 썸네일, 이미지 리사이징 같은 편의 기능 지원
+* 번응형 UI를 통한 모바일 장치 지원
 
-더 많은 정보와 설치 방법은 [위키](https://wiki.chinchister.com/en:chintomi)를 참고하세요.
+**[설치 가이드 (한국어)](DOC/INSTALL_ko.md)**
 
 ## Screenshot
-![Demo Screenshot](https://github.com/Dictor/Chintomi/blob/master/demo_screenshot.png?raw=true)
+![Listing](DOC/listing.png?raw=true)
+![Viewer](DOC/viewer.png?raw=true)
+![Admin page](DOC/admin.png?raw=true)

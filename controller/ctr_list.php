@@ -42,7 +42,9 @@
 
 		public static function ShowPage($pfirst, $plast, $pnow){
 			echo '<nav aria-label="Page navigation" class="list-pagination nav-center"><ul class="pagination ul-center"><li class="page-item"><a class="page-link" href="javascript:pList.go_list('.(string)$pfirst.')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
-			for($i = $pfirst; $i <= $plast; $i++){
+			$dispStart = ($pnow - $pfirst > 5 ? $pnow - 5: $pfirst);
+			$dispEnd = ($plast - $pnow > 5 ? $pnow + 5: $plast);
+			for($i = $dispStart; $i <= $dispEnd; $i++){
 				if($i == $pnow){
 					echo '<li class="page-item active" aria-current="page"><a class="page-link" href="javascript:pList.go_list('.(string)$i.')">'.(string)$i.' <span class="sr-only">(current)</span></a></li>';
 				} else {
