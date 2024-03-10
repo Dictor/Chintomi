@@ -1,4 +1,4 @@
-FROM trafex/alpine-nginx-php7
+FROM trafex/alpine-nginx-php7:1.10.0
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY . /var/www/html
 
