@@ -14,6 +14,9 @@ type (
 		ImageCount int
 		ImageSize  int
 		AddedDate  time.Time
+
+		// for Internal processing
+		ImageFiles []string
 	}
 
 	//User is definition of each login user.
