@@ -1,7 +1,11 @@
 package main
 
 import (
+	"encoding/base64"
+	"errors"
+	"mime"
 	"net/http"
+	"path/filepath"
 
 	elogrus "github.com/dictor/echologrus"
 	"github.com/labstack/echo/v4"
@@ -66,5 +70,40 @@ func main() {
 		}
 		return nil
 	})
+
+	e.GET("/image/:path", func(c echo.Context) error {
+		path := c.Param("path")
+		decodedPath, err := base64.StdEncoding.DecodeString(path)
+		if err != nil {
+			GlobalLogger.WithField("path", path).Errorf("requested with invalid base64 path")
+			return c.NoContent(http.StatusBadRequest)
+		}
+
+		baseFs := afero.NewBasePathFs(fs, viper.GetString("ComicbookPath"))
+		stringPath := string(decodedPath)
+		image, err := ImageFile(baseFs, stringPath)
+		var fsErrDef *FileSystemError
+		if err == nil {
+			mimeType := mime.TypeByExtension(filepath.Ext(filepath.Base(stringPath)))
+			GlobalLogger.WithError(err).WithFields(logrus.Fields{
+				"path": stringPath,
+				"mime": mimeType,
+			}).Error("response image file")
+			return c.Blob(http.StatusOK, mimeType, image)
+		} else if errors.As(err, &fsErrDef) {
+			GlobalLogger.WithError(err).WithField("path", stringPath).Error("failed to read requested image path, file system error")
+			return c.NoContent(http.StatusInternalServerError)
+		} else if errors.Is(err, ErrFileIsNotImage) {
+			GlobalLogger.WithError(err).WithField("path", stringPath).Error("requested image path doesn't direct image file, ignore")
+			return c.NoContent(http.StatusNotFound)
+		} else if errors.Is(err, ErrFileNotFound) {
+			GlobalLogger.WithError(err).WithField("path", stringPath).Error("requested image path not found")
+			return c.NoContent(http.StatusNotFound)
+		} else {
+			GlobalLogger.WithError(err).Error("failed to read requested image path, unknown image reading error")
+			return c.NoContent(http.StatusInternalServerError)
+		}
+	})
+
 	e.Logger.Fatal(e.Start(viper.GetString("ServeAddress")))
 }

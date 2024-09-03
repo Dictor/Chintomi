@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/base64"
+
 	g "github.com/maragudk/gomponents"
 	c "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
@@ -29,9 +31,14 @@ func BaseTemplate(content ...g.Node) g.Node {
 
 func BookCardTemplate(books []Book) []g.Node {
 	return g.Map(books, func(b Book) g.Node {
+		thumbnailSrc := "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+		if b.HasThumbnail {
+			thumbnailSrc = "/image/" + base64.URLEncoding.EncodeToString([]byte(b.ThumbnailFile))
+		}
+
 		return Div(Class("card bg-base-100 w-72 shadow-xl"),
 			Figure(Img(
-				Src("https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"),
+				Src(thumbnailSrc),
 				Alt("Thumbnail"),
 			),
 			),

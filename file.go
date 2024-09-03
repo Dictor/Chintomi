@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"path/filepath"
 	"strings"
 
@@ -8,7 +9,48 @@ import (
 	"github.com/spf13/afero"
 )
 
-var allowedExtensionList []string = []string{".jpg", ".jpeg", ".webp", ".png", ".gif"}
+type (
+	FileSystemError struct {
+		AferoError error
+	}
+)
+
+var (
+	ErrFileNotFound   = errors.New("file not found")
+	ErrFileIsNotImage = errors.New("file didn't have image extension")
+
+	allowedExtensionList []string = []string{".jpg", ".jpeg", ".webp", ".png", ".gif"}
+)
+
+// ImageFile reads the file at the given path from the provided file system and returns its binary data.
+// It also performs checks to ensure the file exists and has an allowed image extension.
+//
+// Possible errors returned:
+//   - FileSystemError: An error occurred while interacting with the file system (e.g., checking file existence, reading file, getting file info).
+//   - ErrFileNotFound: The file specified by the path does not exist.
+//   - ErrFileIsNotImage: The file does not have an allowed image extension.
+func ImageFile(fs afero.Fs, path string) ([]byte, error) {
+	if exist, err := afero.Exists(fs, path); err != nil {
+		return nil, &FileSystemError{err}
+	} else if !exist {
+		return nil, ErrFileNotFound
+	}
+
+	info, err := fs.Stat(path)
+	if err != nil {
+		return nil, &FileSystemError{err}
+	}
+	if !AllowedExtension(info.Name()) {
+		return nil, ErrFileIsNotImage
+	}
+
+	bin, err := afero.ReadFile(fs, path)
+	if err != nil {
+		return nil, &FileSystemError{err}
+	} else {
+		return bin, nil
+	}
+}
 
 // ExploreBooks explores the given directory path within the provided afero.Fs filesystem and parses its immediate subdirectories as books.
 // It does not recursively explore deeper levels of the directory structure.
@@ -81,4 +123,8 @@ func ExploreBooks(fs afero.Fs, path string, pc ProviderCollection) ([]Book, erro
 func AllowedExtension(name string) bool {
 	ext := strings.ToLower(filepath.Ext(name))
 	return lo.Contains(allowedExtensionList, ext)
+}
+
+func (err *FileSystemError) Error() string {
+	return err.AferoError.Error()
 }
