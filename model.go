@@ -5,21 +5,28 @@ import (
 )
 
 type (
-	//Book is definition of each comic book.
+	//Book is definition of each comic book
 	Book struct {
-		ID         string
-		Name       string
-		Path       string
-		Author     string
-		ImageCount int
-		ImageSize  int
-		AddedDate  time.Time
+		// Filled by ExploreBook
+		Path          string
+		ImageCount    int
+		ImageSize     int
+		AddedDate     time.Time
+		NonImageFiles []string
+		ImageFiles    []string
 
-		// for Internal processing
-		ImageFiles []string
+		// Filled by Provider
+		ID            string
+		Name          string
+		Author        string
+		Tag           []string
+		HasProvider   bool
+		Provider      Provider
+		HasThumbnail  bool
+		ThumbnailFile string
 	}
 
-	//User is definition of each login user.
+	//User is definition of each login user
 	User struct {
 		Name       string
 		Password   string

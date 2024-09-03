@@ -43,7 +43,7 @@ func TestExploreBooks(t *testing.T) {
 	fmt.Println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 	// test
-	books, err := ExploreBooks(fs, "/")
+	books, err := ExploreBooks(fs, "/", ProviderCollection{})
 	assert.NoError(t, err)
 	assert.Len(t, books, 2)
 	assert.Equal(t, books[0].ImageCount, 10)

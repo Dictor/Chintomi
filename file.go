@@ -24,7 +24,7 @@ var allowedExtensionList []string = []string{".jpg", ".jpeg", ".webp", ".png", "
 //
 // Returns:
 //   - a slice of Book structures representing the parsed books.
-func ExploreBooks(fs afero.Fs, path string) ([]Book, error) {
+func ExploreBooks(fs afero.Fs, path string, pc ProviderCollection) ([]Book, error) {
 	ret := []Book{}
 	bpfs := afero.NewBasePathFs(fs, path)
 
@@ -42,26 +42,35 @@ func ExploreBooks(fs afero.Fs, path string) ([]Book, error) {
 			}
 
 			imagePathList := []string{}
+			nonImagePathList := []string{}
 			imageSize := int64(0)
 			for _, c := range childList {
+				childPath := parentPath + "/" + c.Name()
 				if AllowedExtension(c.Name()) && !c.IsDir() {
-					childPath := parentPath + "/" + c.Name()
 					imagePathList = append(imagePathList, childPath)
 					imageSize += c.Size()
+				} else {
+					nonImagePathList = append(nonImagePathList, childPath)
 				}
 			}
 
 			if len(imagePathList) > 0 {
-				ret = append(ret, Book{
-					ID:         parentPath,
-					Name:       p.Name(),
-					Path:       parentPath,
-					Author:     "",
-					ImageCount: len(imagePathList),
-					ImageSize:  int(imageSize),
-					AddedDate:  p.ModTime(),
-					ImageFiles: imagePathList,
-				})
+				b := Book{
+					Path:          parentPath,
+					ImageCount:    len(imagePathList),
+					ImageSize:     int(imageSize),
+					AddedDate:     p.ModTime(),
+					ImageFiles:    imagePathList,
+					NonImageFiles: nonImagePathList,
+				}
+
+				if p, pSuccess := pc.MatchProvider(&b); pSuccess {
+					p.FillBook(&b)
+				} else {
+					b.HasProvider = false
+				}
+
+				ret = append(ret, b)
 			}
 		}
 	}
