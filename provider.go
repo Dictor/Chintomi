@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 	"reflect"
 
+	"github.com/jxskiss/base62"
 	"github.com/samber/lo"
 	"github.com/spf13/afero"
 )
@@ -89,8 +90,11 @@ func (RawProvider) TestBookMatch(*Book) ProviderMatchResult {
 */
 
 func (p RawProvider) FillBook(book *Book) error {
-	book.ID = filepath.Base(book.Path)
-	book.Name = book.ID
+	basePath := filepath.Base(book.Path)
+	encodedBasePath := base62.EncodeToString([]byte(basePath))
+
+	book.ID = BookId(encodedBasePath)
+	book.Name = basePath
 	book.Author = ""
 	book.Tag = []string{}
 	book.HasProvider = true

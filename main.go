@@ -6,6 +6,7 @@ import (
 	"mime"
 	"net/http"
 	"path/filepath"
+	"strconv"
 
 	elogrus "github.com/dictor/echologrus"
 	"github.com/labstack/echo/v4"
@@ -64,7 +65,55 @@ func main() {
 
 	// set route
 	e.GET("/", func(c echo.Context) error {
-		if err := BaseTemplate(BookCardTemplate(books)...).Render(c.Response().Writer); err != nil {
+		if err := BaseTemplate(BookCardTemplate(books)).Render(c.Response().Writer); err != nil {
+			e.Logger.Error(err)
+			return c.NoContent(http.StatusInternalServerError)
+		}
+		return nil
+	})
+
+	e.GET("/viewer/:bookId/:page", func(c echo.Context) error {
+		bookId := c.Param("bookId")
+		page := c.Param("page")
+
+		if len(bookId) == 0 || len(page) == 0 {
+			GlobalLogger.WithFields(logrus.Fields{
+				"bookId": bookId,
+				"page":   page,
+			}).Errorf("requested with empty parameter")
+			return c.NoContent(http.StatusBadRequest)
+		}
+
+		intPage, err := strconv.ParseInt(page, 10, 0)
+		if err != nil {
+			GlobalLogger.WithFields(logrus.Fields{
+				"bookId": bookId,
+				"page":   page,
+			}).WithError(err).Errorf("requested with invalid page number")
+			return c.NoContent(http.StatusBadRequest)
+		}
+
+		targetBook, bookExist := lo.Find(books, func(item Book) bool {
+			return item.ID == BookId(bookId)
+		})
+
+		if !bookExist {
+			GlobalLogger.WithFields(logrus.Fields{
+				"bookId": bookId,
+				"page":   page,
+			}).WithError(err).Errorf("requested book id not found")
+			return c.NoContent(http.StatusNotFound)
+		}
+
+		if intPage < 1 || int(intPage) > targetBook.ImageCount {
+			GlobalLogger.WithFields(logrus.Fields{
+				"bookId": bookId,
+				"page":   page,
+			}).WithError(err).Errorf("requested book page number is invalid")
+			return c.NoContent(http.StatusBadRequest)
+		}
+
+		if err := ImageViewerTemplate(targetBook, int(intPage)).Render(c.Response().Writer); err != nil {
 			e.Logger.Error(err)
 			return c.NoContent(http.StatusInternalServerError)
 		}

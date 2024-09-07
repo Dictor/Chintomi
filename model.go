@@ -5,6 +5,8 @@ import (
 )
 
 type (
+	BookId string
+
 	//Book is definition of each comic book
 	Book struct {
 		// Filled by ExploreBook
@@ -16,7 +18,7 @@ type (
 		ImageFiles    []string
 
 		// Filled by Provider
-		ID            string
+		ID            BookId
 		Name          string
 		Author        string
 		Tag           []string
