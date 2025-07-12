@@ -78,7 +78,7 @@ func PageSelector(page int, totalPage int, limit int) g.Node {
 				return Button(Class("join-item btn btn-disabled"), g.Text("..."))
 			}
 			return Button(Class("join-item btn"), g.Textf("%d", p),
-				hx.Get(fmt.Sprintf("/?page=%d&limit=%d", p, limit)),
+				hx.Get(fmt.Sprintf("%s/?page=%d&limit=%d", viper.GetString("UrlPrefix"), p, limit)),
 				hx.Trigger("click"),
 				hx.PushURL("true"),
 				hx.Target("#content-area"),

@@ -28,7 +28,6 @@ func main() {
 	GlobalLogger = elogrus.Attach(e).Logger
 
 	// set config
-	viper.AutomaticEnv()
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
@@ -42,6 +41,8 @@ func main() {
 	if err != nil {
 		GlobalLogger.WithError(err).Warn("failed to read configuration")
 	}
+
+	viper.AutomaticEnv()
 
 	// register provider
 	pc := ProviderCollection{}
