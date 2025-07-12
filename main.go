@@ -66,11 +66,22 @@ func main() {
 
 	// set route
 	e.GET("/", func(c echo.Context) error {
+		page, err := strconv.Atoi(c.QueryParam("page"))
+		if err != nil {
+			page = 1
+		}
+		limit, err := strconv.Atoi(c.QueryParam("limit"))
+		if err != nil {
+			limit = 10
+		}
+
+		paginatedBooks, totalPage := Paginate(books, page, limit)
+
 		var component []gomponents.Node
 		if c.Request().Header.Get("HX-request") == "true" {
-			component = BookCardTemplate(books)
+			component = BookCardTemplate(paginatedBooks, page, totalPage, limit)
 		} else {
-			component = []gomponents.Node{BaseTemplate(BookCardTemplate(books)...)}
+			component = []gomponents.Node{BaseTemplate(BookCardTemplate(paginatedBooks, page, totalPage, limit)...)}
 		}
 
 		for _, com := range component {
@@ -175,4 +186,29 @@ func main() {
 	})
 
 	e.Logger.Fatal(e.Start(viper.GetString("ServeAddress")))
+}
+
+// Paginate given slice
+func Paginate[T any](slice []T, page int, limit int) ([]T, int) {
+	totalPage := len(slice) / limit
+	if len(slice)%limit != 0 {
+		totalPage++
+	}
+
+	if page < 1 {
+		page = 1
+	} else if page > totalPage {
+		page = totalPage
+	}
+
+	start := (page - 1) * limit
+	end := start + limit
+	if start > len(slice) {
+		start = len(slice)
+	}
+	if end > len(slice) {
+		end = len(slice)
+	}
+
+	return slice[start:end], totalPage
 }

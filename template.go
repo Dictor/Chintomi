@@ -8,6 +8,7 @@ import (
 	hx "github.com/maragudk/gomponents-htmx"
 	c "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
+	"github.com/samber/lo"
 )
 
 func BaseTemplate(content ...g.Node) g.Node {
@@ -36,7 +37,51 @@ func BaseTemplate(content ...g.Node) g.Node {
 	})
 }
 
-func BookCardTemplate(books []Book) []g.Node {
+func PageSelector(page int, totalPage int, limit int) g.Node {
+	const maxPageButtons = 10
+	var pages []int
+
+	if totalPage <= maxPageButtons {
+		pages = lo.RangeFrom(1, totalPage)
+	} else {
+		start := page - maxPageButtons/2
+		if start < 1 {
+			start = 1
+		}
+		end := start + maxPageButtons - 1
+		if end > totalPage {
+			end = totalPage
+			start = end - maxPageButtons + 1
+		}
+		pages = lo.Range(end - start + 1)
+		for i := range pages {
+			pages[i] += start
+		}
+
+		if start > 1 {
+			pages = append([]int{1, -1}, pages...)
+		}
+		if end < totalPage {
+			pages = append(pages, -1, totalPage)
+		}
+	}
+
+	return Div(Class("join"),
+		g.Group(g.Map(pages, func(p int) g.Node {
+			if p == -1 {
+				return Button(Class("join-item btn btn-disabled"), g.Text("..."))
+			}
+			return Button(Class("join-item btn"), g.Textf("%d", p),
+				hx.Get(fmt.Sprintf("/?page=%d&limit=%d", p, limit)),
+				hx.Trigger("click"),
+				hx.PushURL("true"),
+				hx.Target("#content-area"),
+			)
+		})),
+	)
+}
+
+func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node {
 	list := g.Map(books, func(b Book) g.Node {
 		thumbnailSrc := "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
 		if b.HasThumbnail {
@@ -49,23 +94,43 @@ func BookCardTemplate(books []Book) []g.Node {
 				Alt("Thumbnail"),
 			),
 			),
-			Div(Class("card-body"),
+			Div(Class("card-body p-5"),
 				H2(Class("card-title"), g.Text(b.Name)),
 				Ul(Class("list-none"),
-					Li(g.Textf("%d Page", b.ImageCount)),
-					Li(g.Textf("Size: %d", b.ImageSize)),
-				),
-				Div(Class("card-actions justify-end"),
-					Button(Class("btn btn-primary"),
-						hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
-						g.Text("열기"),
+					Li(g.Textf("%d 페이지", b.ImageCount)),
+					Li(g.Textf("크기 %2.fMB", float32(b.ImageSize)/1000000)),
+					Div(Class("card-actions justify-end"),
+						Button(Class("btn btn-primary"),
+							hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+							g.Text("열기"),
+						),
+						Button(Class("btn btn-primary"), g.Text("관리")),
 					),
-					Button(Class("btn btn-primary"), g.Text("관리")),
 				),
 			),
 		)
 	})
-	return []g.Node{Div(append([]g.Node{Class("grow p-2 flex flex-row flex-wrap justify-around")}, list...)...)}
+
+	pagination := Div(
+		Class("flex justify-center items-center p-4"),
+		PageSelector(page, totalPage, limit),
+		Div(Class("dropdown dropdown-top"),
+			Select(Name("limit"), Class("select select-bordered ml-2"),
+				hx.Get("/"), hx.Trigger("change"), hx.Target("#content-area"), hx.PushURL("true"),
+				g.Group(g.Map([]int{10, 20, 50, 100}, func(l int) g.Node {
+					return Option(g.If(l == limit, Selected()), Value(fmt.Sprintf("%d", l)), g.Textf("%d개씩 보기", l))
+				})),
+			),
+		),
+	)
+
+	return []g.Node{
+		pagination,
+		Div(Class("grow p-2 flex flex-row flex-wrap justify-around"),
+			g.Group(list),
+		),
+		pagination,
+	}
 }
 
 func ImageViewerTemplate(book Book, page int) []g.Node {
