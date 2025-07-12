@@ -1,13 +1,10 @@
-FROM trafex/alpine-nginx-php7
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY . /var/www/html
-
-WORKDIR /var/www/html
-USER root
-RUN apk update && apk add php7-fileinfo
-RUN composer remove --dev phpunit/phpunit && composer install --no-dev
-RUN chown -R nobody vendor 
+FROM golang:1.24-alpine
+COPY . /chintomi
 
 WORKDIR / 
-RUN mkdir -p chintomi/library && mkdir -p chintomi/books && chown -R nobody chintomi
-USER nobody
+RUN mkdir -p chintomi/content
+
+WORKDIR /chintomi
+RUN ["go", "build"]
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["./chintomi"]
