@@ -10,6 +10,7 @@ import (
 
 	elogrus "github.com/dictor/echologrus"
 	"github.com/labstack/echo/v4"
+	"github.com/maragudk/gomponents"
 	"github.com/samber/lo"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
@@ -65,9 +66,18 @@ func main() {
 
 	// set route
 	e.GET("/", func(c echo.Context) error {
-		if err := BaseTemplate(BookCardTemplate(books)).Render(c.Response().Writer); err != nil {
-			e.Logger.Error(err)
-			return c.NoContent(http.StatusInternalServerError)
+		var component []gomponents.Node
+		if c.Request().Header.Get("HX-request") == "true" {
+			component = BookCardTemplate(books)
+		} else {
+			component = []gomponents.Node{BaseTemplate(BookCardTemplate(books)...)}
+		}
+
+		for _, com := range component {
+			if err := com.Render(c.Response().Writer); err != nil {
+				e.Logger.Error(err)
+				return c.NoContent(http.StatusInternalServerError)
+			}
 		}
 		return nil
 	})
@@ -113,10 +123,20 @@ func main() {
 			return c.NoContent(http.StatusBadRequest)
 		}
 
-		if err := ImageViewerTemplate(targetBook, int(intPage)).Render(c.Response().Writer); err != nil {
-			e.Logger.Error(err)
-			return c.NoContent(http.StatusInternalServerError)
+		var component []gomponents.Node
+		if c.Request().Header.Get("HX-request") == "true" {
+			component = ImageViewerTemplate(targetBook, int(intPage))
+		} else {
+			component = []gomponents.Node{BaseTemplate(ImageViewerTemplate(targetBook, int(intPage))...)}
 		}
+
+		for _, com := range component {
+			if err := com.Render(c.Response().Writer); err != nil {
+				e.Logger.Error(err)
+				return c.NoContent(http.StatusInternalServerError)
+			}
+		}
+
 		return nil
 	})
 

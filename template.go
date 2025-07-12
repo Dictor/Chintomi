@@ -22,17 +22,21 @@ func BaseTemplate(content ...g.Node) g.Node {
 			Script(Src("https://unpkg.com/htmx.org@2.0.2")),
 		},
 		Body: []g.Node{
-			Class("flex flex-col"),
-			Div(Class("grow p-2"),
+			Class("h-screen flex flex-col"),
+			Div(Class("p-2 grow-0 shrink-0"),
 				Div(Class("navbar bg-base-100 shadow-xl rounded-box"),
-					A(Class("btn btn-ghost text-xl"), g.Text("Chintomi")),
+					A(
+						Class("btn btn-ghost text-xl"),
+						g.Text("Chintomi"),
+						hx.Get("/"), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+					),
 				)),
-			Div(append([]g.Node{ID("content-area")}, content...)...),
+			Div(append([]g.Node{ID("content-area"), Class("grow shrink basis-full min-h-0 relative")}, content...)...),
 		},
 	})
 }
 
-func BookCardTemplate(books []Book) g.Node {
+func BookCardTemplate(books []Book) []g.Node {
 	list := g.Map(books, func(b Book) g.Node {
 		thumbnailSrc := "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
 		if b.HasThumbnail {
@@ -52,25 +56,37 @@ func BookCardTemplate(books []Book) g.Node {
 					Li(g.Textf("Size: %d", b.ImageSize)),
 				),
 				Div(Class("card-actions justify-end"),
-					Button(Class("btn btn-primary"), hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"), g.Text("열기")),
+					Button(Class("btn btn-primary"),
+						hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+						g.Text("열기"),
+					),
 					Button(Class("btn btn-primary"), g.Text("관리")),
 				),
 			),
 		)
 	})
-	return Div(append([]g.Node{Class("grow p-2 flex flex-row flex-wrap justify-around")}, list...)...)
+	return []g.Node{Div(append([]g.Node{Class("grow p-2 flex flex-row flex-wrap justify-around")}, list...)...)}
 }
 
-func ImageViewerTemplate(book Book, page int) g.Node {
+func ImageViewerTemplate(book Book, page int) []g.Node {
 	imgPath := "/image/" + base64.StdEncoding.EncodeToString([]byte(book.ImageFiles[page-1]))
-	return Div(
-		Img(
-			Src(imgPath),
-			Alt("page"),
-			Class("max-h-full"),
-		),
-		Div(
-			Class("absolute bottom-0 left-0")
+	imageProperty := []g.Node{
+		Src(imgPath),
+		Alt("page"),
+		Class("object-contain max-w-full max-h-full m-auto"),
+	}
+	if page < book.ImageCount {
+		imageProperty = append(
+			imageProperty,
+			hx.Get(fmt.Sprintf("/viewer/%s/%d", book.ID, page+1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
 		)
-	)
+	}
+
+	return []g.Node{
+		Img(imageProperty...),
+		Div(
+			Class("absolute top-0 left-0 m-5"),
+			g.Textf("%d / %d", page, book.ImageCount),
+		),
+	}
 }
