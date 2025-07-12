@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	elogrus "github.com/dictor/echologrus"
 	"github.com/labstack/echo/v4"
@@ -75,7 +76,21 @@ func main() {
 			limit = 10
 		}
 
-		paginatedBooks, totalPage := Paginate(books, page, limit)
+		searchQuery := c.QueryParam("q")
+		var filteredBooks []Book
+		if searchQuery != "" {
+			filteredBooks = lo.Filter(books, func(b Book, _ int) bool {
+				return strings.Contains(strings.ToLower(b.Name), strings.ToLower(searchQuery)) ||
+					strings.Contains(strings.ToLower(b.Author), strings.ToLower(searchQuery)) ||
+					lo.SomeBy(b.Tag, func(t string) bool {
+						return strings.Contains(strings.ToLower(t), strings.ToLower(searchQuery))
+					})
+			})
+		} else {
+			filteredBooks = books
+		}
+
+		paginatedBooks, totalPage := Paginate(filteredBooks, page, limit)
 
 		var component []gomponents.Node
 		if c.Request().Header.Get("HX-request") == "true" {
