@@ -28,6 +28,7 @@ func main() {
 	GlobalLogger = elogrus.Attach(e).Logger
 
 	// set config
+	viper.AutomaticEnv()
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
