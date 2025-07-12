@@ -47,6 +47,7 @@ func main() {
 	pc.Register(RawProvider{})
 
 	// read books
+	GlobalLogger.Info("book exploring start")
 	fs := afero.NewOsFs()
 	books, err := ExploreBooks(fs, viper.GetString("ComicbookPath"), pc)
 	if err != nil {
