@@ -88,7 +88,8 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 			thumbnailSrc = "/image/" + base64.URLEncoding.EncodeToString([]byte(b.ThumbnailFile))
 		}
 
-		return Div(Class("card bg-base-100 w-72 shadow-xl"),
+		return Div(Class("card bg-base-100 w-72 shadow-xl cursor-pointer"),
+			hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
 			Figure(Img(
 				Src(thumbnailSrc),
 				Alt("Thumbnail"),
@@ -99,13 +100,7 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 				Ul(Class("list-none"),
 					Li(g.Textf("%d 페이지", b.ImageCount)),
 					Li(g.Textf("크기 %2.fMB", float32(b.ImageSize)/1000000)),
-					Div(Class("card-actions justify-end"),
-						Button(Class("btn btn-primary"),
-							hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
-							g.Text("열기"),
-						),
-						Button(Class("btn btn-primary"), g.Text("관리")),
-					),
+					
 				),
 			),
 		)
