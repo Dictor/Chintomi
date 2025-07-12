@@ -34,6 +34,7 @@ func main() {
 
 	viper.SetDefault("ServeAddress", ":80")
 	viper.SetDefault("ComicbookPath", "./content")
+	viper.SetDefault("UrlPrefix", "")
 
 	// read config
 	err := viper.ReadInConfig()

@@ -9,6 +9,7 @@ import (
 	c "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
 	"github.com/samber/lo"
+	"github.com/spf13/viper"
 )
 
 func BaseTemplate(content ...g.Node) g.Node {
@@ -29,11 +30,11 @@ func BaseTemplate(content ...g.Node) g.Node {
 					A(
 						Class("btn btn-ghost text-xl"),
 						g.Text("Chintomi"),
-						hx.Get("/"), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+						hx.Get(viper.GetString("UrlPrefix")+"/"), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
 					),
 					Div(Class("form-control ml-auto"),
 						Input(Class("input input-bordered w-24 md:w-auto"), Type("text"), Name("q"), Placeholder("검색"),
-							hx.Get("/"), hx.Trigger("keyup changed delay:500ms"), hx.Target("#content-area"), hx.PushURL("true"),
+							hx.Get(viper.GetString("UrlPrefix")+"/"), hx.Trigger("keyup changed delay:500ms"), hx.Target("#content-area"), hx.PushURL("true"),
 						),
 					),
 				)),
@@ -90,11 +91,11 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 	list := g.Map(books, func(b Book) g.Node {
 		thumbnailSrc := "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
 		if b.HasThumbnail {
-			thumbnailSrc = "/image/" + base64.URLEncoding.EncodeToString([]byte(b.ThumbnailFile))
+			thumbnailSrc = viper.GetString("UrlPrefix") + "/image/" + base64.URLEncoding.EncodeToString([]byte(b.ThumbnailFile))
 		}
 
 		return Div(Class("card bg-base-100 w-72 shadow-xl cursor-pointer"),
-			hx.Get(fmt.Sprintf("/viewer/%s/%d", b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+			hx.Get(fmt.Sprintf("%s/viewer/%s/%d", viper.GetString("UrlPrefix"), b.ID, 1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
 			Figure(Img(
 				Src(thumbnailSrc),
 				Alt("Thumbnail"),
@@ -115,7 +116,7 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 		PageSelector(page, totalPage, limit),
 		Div(Class("dropdown dropdown-top"),
 			Select(Name("limit"), Class("select select-bordered ml-2"),
-				hx.Get("/"), hx.Trigger("change"), hx.Target("#content-area"), hx.PushURL("true"),
+				hx.Get(viper.GetString("UrlPrefix")+"/"), hx.Trigger("change"), hx.Target("#content-area"), hx.PushURL("true"),
 				g.Group(g.Map([]int{10, 20, 50, 100}, func(l int) g.Node {
 					return Option(g.If(l == limit, Selected()), Value(fmt.Sprintf("%d", l)), g.Textf("%d개씩 보기", l))
 				})),
@@ -142,7 +143,7 @@ func ImageViewerTemplate(book Book, page int) []g.Node {
 	if page < book.ImageCount {
 		imageProperty = append(
 			imageProperty,
-			hx.Get(fmt.Sprintf("/viewer/%s/%d", book.ID, page+1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
+			hx.Get(fmt.Sprintf("%s/viewer/%s/%d", viper.GetString("UrlPrefix"), book.ID, page+1)), hx.Trigger("click"), hx.PushURL("true"), hx.Target("#content-area"),
 		)
 	}
 
