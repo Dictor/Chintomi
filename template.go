@@ -100,7 +100,6 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 				Ul(Class("list-none"),
 					Li(g.Textf("%d 페이지", b.ImageCount)),
 					Li(g.Textf("크기 %2.fMB", float32(b.ImageSize)/1000000)),
-					
 				),
 			),
 		)
@@ -121,7 +120,7 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 
 	return []g.Node{
 		pagination,
-		Div(Class("grow p-2 flex flex-row flex-wrap justify-around"),
+		Div(Class("grow p-2 flex flex-row flex-wrap justify-around gap-y-4"),
 			g.Group(list),
 		),
 		pagination,
