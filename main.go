@@ -154,10 +154,10 @@ func main() {
 		var fsErrDef *FileSystemError
 		if err == nil {
 			mimeType := mime.TypeByExtension(filepath.Ext(filepath.Base(stringPath)))
-			GlobalLogger.WithError(err).WithFields(logrus.Fields{
+			GlobalLogger.WithFields(logrus.Fields{
 				"path": stringPath,
 				"mime": mimeType,
-			}).Error("response image file")
+			}).Info("response image file")
 			return c.Blob(http.StatusOK, mimeType, image)
 		} else if errors.As(err, &fsErrDef) {
 			GlobalLogger.WithError(err).WithField("path", stringPath).Error("failed to read requested image path, file system error")
