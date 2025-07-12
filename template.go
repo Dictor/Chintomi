@@ -134,7 +134,7 @@ func BookCardTemplate(books []Book, page int, totalPage int, limit int) []g.Node
 }
 
 func ImageViewerTemplate(book Book, page int) []g.Node {
-	imgPath := "/image/" + base64.StdEncoding.EncodeToString([]byte(book.ImageFiles[page-1]))
+	imgPath := viper.GetString("UrlPrefix") + "/image/" + base64.StdEncoding.EncodeToString([]byte(book.ImageFiles[page-1]))
 	imageProperty := []g.Node{
 		Src(imgPath),
 		Alt("page"),
